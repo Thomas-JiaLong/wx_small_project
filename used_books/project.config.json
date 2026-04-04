@@ -44,9 +44,9 @@
     "swc": false,
     "disableSWC": true
   },
-  "appid": "wx9657738fa7f2cc8e",
+  "appid": "wx1b1dd4a5aa1089ba",
   "projectname": "%E6%A0%A1%E5%9B%AD%E4%BA%8C%E6%89%8B%E4%B9%A6",
-  "libVersion": "2.8.1",
+  "libVersion": "2.31.0",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",

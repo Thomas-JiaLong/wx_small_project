@@ -1,6 +1,6 @@
 {
-  "libVersion": "2.31.0",
-  "projectname": "%25E6%25A0%25A1%25E5%259B%25AD%25E4%25BA%258C%25E6%2589%258B%25E4%25B9%25A6",
+  "libVersion": "3.15.1",
+  "projectname": "used_books",
   "condition": {},
   "setting": {
     "urlCheck": false,

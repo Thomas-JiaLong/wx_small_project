@@ -1,6 +1,6 @@
 var data = {
       //云开发环境id
-      env: 'peiben895800',
+      env: 'cloudbase-0g489v3baa95fd95',
       //分享配置
       share_title: '培正舟海二手书',
       share_img: '/images/poster.jpg',

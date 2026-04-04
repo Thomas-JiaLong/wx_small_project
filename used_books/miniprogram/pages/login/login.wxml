@@ -1,36 +1,84 @@
-<view class="top-bg"></view>
+<!-- 顶部渐变背景 -->
+<view class="top-bg">
+      <view class="logo-container">
+            <image class="logo" src="/images/小程序头像.jpg" mode="aspectFill"></image>
+      </view>
+      <view class="app-name">培正舟海二手书</view>
+      <view class="app-slogan">校园二手书交易平台</view>
+</view>
+
 <view class="contain">
       <view class="card">
-            <view class="title">登记注册</view>
-            <!-- <button class="phone" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
-                  <block wx:if="{{phone==''}}"> 请点击获取您的手机号</block>
-                  <block wx:if="{{phone!==''}}"> {{phone}}</block>
-                  <image wx:if="{{phone==''}}" class="right" src="/images/right.png" />
-            </button> -->
-            <picker bindchange="choose" value="{{ids}}" range="{{campus}}" range-key="name">
-                  <view class="campus">
-                        <block wx:if="{{ids!==-1}}">当前选择：{{campus[ids].name}}</block>
-                        <block wx:if="{{ids==-1}}">请选择您所在校区</block>
-                        <image class="right" src="/images/right.png" />
-                  </view>
-            </picker>
-             <view class="contact">
-                  <input bindinput="emInput" value="{{email}}" maxlength="30" placeholder-class="pache" placeholder="输入您的邮箱地址" />
+            <view class="title">欢迎注册</view>
+            <view class="subtitle">完善信息，开启二手书之旅</view>
+            
+            <!-- 校区选择 -->
+            <view class="input-group">
+                  <image class="input-icon" src="/images/local.png"></image>
+                  <picker class="picker-box" bindchange="choose" value="{{ids}}" range="{{campus}}" range-key="name">
+                        <view class="picker-content">
+                              <text class="{{ids!==-1 ? 'has-value' : ''}}">
+                                    {{ids!==-1 ? campus[ids].name : '请选择您所在校区'}}
+                              </text>
+                              <image class="arrow" src="/images/right.png" />
+                        </view>
+                  </picker>
             </view>
-            <view class="contact">
-                  <input bindinput="wxInput" value="{{wxnum}}" maxlength="30" placeholder-class="pache" placeholder="输入您的微信号" />
+            
+            <!-- 邮箱输入 -->
+            <view class="input-group">
+                  <image class="input-icon" src="/images/email-icon.png"></image>
+                  <input 
+                        bindinput="emInput" 
+                        value="{{email}}" 
+                        maxlength="30" 
+                        placeholder="请输入邮箱地址"
+                        placeholder-class="placeholder"
+                  />
             </view>
-            <view class="contact">
-                  <input type="number" bindinput="qqInput" value="{{qqnum}}" maxlength="20" placeholder-class="pache" placeholder="输入您的QQ号(选填)" />
+            
+            <!-- 微信号输入 -->
+            <view class="input-group">
+                  <image class="input-icon" src="/images/weixin-icon.png"></image>
+                  <input 
+                        bindinput="wxInput" 
+                        value="{{wxnum}}" 
+                        maxlength="30" 
+                        placeholder="请输入微信号"
+                        placeholder-class="placeholder"
+                  />
+            </view>
+            
+            <!-- QQ号输入 -->
+            <view class="input-group">
+                  <image class="input-icon" src="/images/qq.png"></image>
+                  <input 
+                        type="number" 
+                        bindinput="qqInput" 
+                        value="{{qqnum}}" 
+                        maxlength="20" 
+                        placeholder="请输入QQ号（选填）"
+                        placeholder-class="placeholder"
+                  />
             </view>
       </view>
-      <!--底部确认-->
-      <button class="confirm" open-type='getUserInfo' bindgetuserinfo="getUserInfo">注册并登录</button>
+      
+      <!-- 注册按钮 -->
+      <button class="confirm" open-type='getUserInfo' bindgetuserinfo="getUserInfo">
+            <text>立即注册</text>
+      </button>
+      
+      <!-- 使用说明 -->
       <view class="shen_title">
-            <image class="about" src="/images/about.png" />使用申明
+            <image class="about" src="/images/about.png" />
+            <text>使用申明</text>
       </view>
-      <view class="des">1. 请确保邮箱百分百有效，之后将用于发送实时订单通知。</view>
-      <view class="des">2. 在未经您同意及确认之前，本程序不会将您的注册信息用于任何其它商业目的。</view>
-      <view class="des">3. 本程序将对您所提供的资料进行严格的管理及保护，本程序将使用相应的技术，防止您的个人资料丢失、被盗用或遭篡改。</view>
-      <view class="des">4. 请您放心使用！</view>
+      <view class="des">1. 请确保邮箱有效，将用于接收订单通知</view>
+      <view class="des">2. 您的信息将被严格保密，仅用于交易沟通</view>
+      <view class="des">3. 我们采用安全技术防止信息泄露</view>
 </view>
+
+<!-- 装饰圆点 -->
+<view class="dot dot1"></view>
+<view class="dot dot2"></view>
+<view class="dot dot3"></view>

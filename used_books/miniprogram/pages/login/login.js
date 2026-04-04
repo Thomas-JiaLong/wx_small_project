@@ -1,214 +1,143 @@
 const db = wx.cloud.database();
 const app = getApp();
 const config = require("../../config.js");
-Page({
 
-      /**
-       * 页面的初始数据
-       */
+Page({
       data: {
             ids: -1,
-            // phone: '',
             wxnum: '',
             qqnum: '',
             email: '',
             campus: JSON.parse(config.data).campus,
+            isSubmitting: false,
       },
+
+      onLoad() {
+            // 设置导航栏颜色
+            wx.setNavigationBarColor({
+                  frontColor: '#ffffff',
+                  backgroundColor: '#667eea',
+            });
+      },
+
+      onUnload() {
+            // 恢复导航栏颜色
+            wx.setNavigationBarColor({
+                  frontColor: '#ffffff',
+                  backgroundColor: '#3498db',
+            });
+      },
+
+      // 选择校区
       choose(e) {
-            let that = this;
-            that.setData({
-                  ids: e.detail.value
-            })
-            //下面这种办法无法修改页面数据
-            /* this.data.ids = e.detail.value;*/
+            this.setData({ ids: e.detail.value });
       },
-      // 获取用户手机号
-      // getPhoneNumber: function(e) {
-      //       let that = this;
-      //       //判断用户是否授权确认
-      //       if (!e.detail.errMsg || e.detail.errMsg != "getPhoneNumber:ok") {
-      //             wx.showToast({
-      //                   title: '获取手机号失败',
-      //                   icon: 'none'
-      //             })
-      //             return;
-      //       }
-      //       wx.showLoading({
-      //             title: '获取手机号中...',
-      //       })
-      //       wx.login({
-      //             success(re) {
-      //                   wx.cloud.callFunction({
-      //                         name: 'regist', // 对应云函数名
-      //                         data: {
-      //                               $url: "phone", //云函数路由参数
-      //                               encryptedData: e.detail.encryptedData,
-      //                               iv: e.detail.iv,
-      //                               code: re.code
-      //                         },
-      //                         success: res => {
-      //                               console.log(res);
-      //                               wx.hideLoading();
-      //                               if (res.result == null) {
-      //                                     wx.showToast({
-      //                                           title: '获取失败,请重新获取',
-      //                                           icon: 'none',
-      //                                           duration: 2000
-      //                                     })
-      //                                     return false;
-      //                               }
-      //                               //获取成功，设置手机号码
-      //                               that.setData({
-      //                                     phone: res.result.data.phoneNumber
-      //                               })
-      //                         },
-      //                         fail: err => {
-      //                               console.error(err);
-      //                               wx.hideLoading()
-      //                               wx.showToast({
-      //                                     title: '获取失败,请重新获取',
-      //                                     icon: 'none',
-      //                                     duration: 2000
-      //                               })
-      //                         }
-      //                   })
-      //             },
-      //             fail: err => {
-      //                   console.error(err);
-      //                   wx.hideLoading()
-      //                   wx.showToast({
-      //                         title: '获取失败,请重新获取',
-      //                         icon: 'none',
-      //                         duration: 2000
-      //                   })
-      //             }
-      //       })
-      // },
+
+      // 输入事件
       wxInput(e) {
-            this.data.wxnum = e.detail.value;
+            this.setData({ wxnum: e.detail.value });
       },
+      
       qqInput(e) {
-            this.data.qqnum = e.detail.value;
+            this.setData({ qqnum: e.detail.value });
       },
+      
       emInput(e) {
-            this.data.email = e.detail.value;
+            this.setData({ email: e.detail.value });
       },
-     
-      //校检
-      check() {
-            let that = this;
-            // 校检手机
-            // let phone = that.data.phone;
-            // if (phone == '') {
-            //       wx.showToast({
-            //             title: '请先获取您的电话',
-            //             icon: 'none',
-            //             duration: 2000
-            //       });
-            //       return false
-            // }
-            //校检校区
-            let ids = that.data.ids;
-            let campus = that.data.campus;
+
+      // 校验
+      validate() {
+            const { ids, email, wxnum, qqnum, campus } = this.data;
+
+            // 校验校区
             if (ids == -1) {
-                  wx.showToast({
-                        title: '请先获取您的校区',
-                        icon: 'none',
-                        duration: 2000
-                  });
-            }
-            //校检邮箱
-            let email = that.data.email;
-            if (!(/^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/.test(email))) {
-                  wx.showToast({
-                        title: '请输入常用邮箱',
-                        icon: 'none',
-                        duration: 2000
-                  });
+                  wx.showToast({ title: '请选择校区', icon: 'none' });
                   return false;
             }
-            //校检QQ号
-            let qqnum = that.data.qqnum;
-            if (qqnum !== '') {
-                  if (!(/^\s*[.0-9]{5,11}\s*$/.test(qqnum))) {
-                        wx.showToast({
-                              title: '请输入正确QQ号',
-                              icon: 'none',
-                              duration: 2000
-                        });
-                        return false;
-                  }
+
+            // 校验邮箱
+            const emailReg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+            if (!emailReg.test(email)) {
+                  wx.showToast({ title: '请输入正确的邮箱', icon: 'none' });
+                  return false;
             }
-            //校检微信号
-            let wxnum = that.data.wxnum;
-            if (wxnum == '') {
-                  if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/.test(wxnum))) {
-                        wx.showToast({
-                              title: '微信号不能为空',
-                              icon: 'none',
-                              duration: 2000
-                        });
-                        return false;
-                  }
+
+            // 校验微信号
+            if (!wxnum) {
+                  wx.showToast({ title: '请输入微信号', icon: 'none' });
+                  return false;
             }
-            wx.showLoading({
-                  title: '正在提交',
-            })
+            const wxReg = /^[a-zA-Z][a-zA-Z0-9_-]{5,19}$/;
+            if (!wxReg.test(wxnum)) {
+                  wx.showToast({ title: '微信号格式不正确', icon: 'none' });
+                  return false;
+            }
+
+            // 校验QQ号（选填）
+            if (qqnum && !/^\d{5,11}$/.test(qqnum)) {
+                  wx.showToast({ title: 'QQ号格式不正确', icon: 'none' });
+                  return false;
+            }
+
+            return true;
+      },
+
+      // 获取用户信息并注册
+      getUserInfo(e) {
+            if (this.data.isSubmitting) return;
+
+            // 检查授权
+            if (e.detail.errMsg.indexOf("ok") === -1) {
+                  wx.showToast({ title: '请授权后使用', icon: 'none' });
+                  return;
+            }
+
+            // 校验表单
+            if (!this.validate()) return;
+
+            // 防重复提交
+            this.setData({ isSubmitting: true });
+
+            const { ids, wxnum, qqnum, email, campus, userInfo } = this.data;
+
+            wx.showLoading({ title: '注册中...', mask: true });
+
             db.collection('user').add({
                   data: {
-                        // phone: that.data.phone,
-                        campus: that.data.campus[that.data.ids],
-                        qqnum: that.data.qqnum,
-                        email: that.data.email,
-                        wxnum: that.data.wxnum,
-                        stamp: new Date().getTime(),
-                        info: that.data.userInfo,
+                        campus: campus[ids],
+                        qqnum,
+                        email,
+                        wxnum,
+                        stamp: Date.now(),
+                        info: e.detail.userInfo,
                         useful: true,
-                        parse: 999,
+                        parse: 0, // 初始余额为0
                   },
-                  success: function(res) {
-                        console.log(res)
-                        db.collection('user').doc(res._id).get({
-                              success: function(res) {
-                                    app.userinfo = res.data;
-                                    app.openid = res.data._openid;
-                                    wx.hideLoading();
-                                    wx.showToast({
-                                          title: '注册成功！',
-                                          icon: 'success'
-                                    });
-                                    setTimeout(() => {
-                                          wx.navigateBack({});
-                                    }, 1000);
-                              },
-                        })
-                  },
-                  fail(e) {
-                        console.log("e",e)
-                        wx.hideLoading();
-                        wx.showToast({
-                              title: '注册失败，请重新提交',
-                              icon: 'none',
-                        })
-                  }
             })
-      },
-      getUserInfo(e) {
-            let that = this;
-            
-            let test = e.detail.errMsg.indexOf("ok");
-            console.log(e);
-            if (test == '-1') {
-                  wx.showToast({
-                        title: '请授权后方可使用',
-                        icon: 'none',
-                        duration: 2000
+            .then(res => {
+                  return db.collection('user').doc(res._id).get();
+            })
+            .then(res => {
+                  app.userinfo = res.data;
+                  app.openid = res.data._openid;
+                  
+                  wx.hideLoading();
+                  wx.showToast({ 
+                        title: '注册成功', 
+                        icon: 'success',
+                        duration: 1500 
                   });
-            } else {
-                  that.setData({
-                        userInfo: e.detail.userInfo
-                  })
-                  that.check();
-            }
+                  
+                  setTimeout(() => {
+                        wx.navigateBack();
+                  }, 1500);
+            })
+            .catch(err => {
+                  console.error('注册失败', err);
+                  wx.hideLoading();
+                  wx.showToast({ title: '注册失败，请重试', icon: 'none' });
+                  this.setData({ isSubmitting: false });
+            });
       },
 })
