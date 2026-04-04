@@ -1,84 +1,71 @@
-<!-- 顶部渐变背景 -->
-<view class="top-bg">
-      <view class="logo-container">
-            <image class="logo" src="/images/小程序头像.jpg" mode="aspectFill"></image>
+<!-- 微信快捷登录页面 -->
+<view class="wechat-login-container">
+      <!-- 顶部logo/用户信息 -->
+      <view class="logo-section">
+            <block wx:if="{{userInfo.nickName && userInfo.nickName !== '微信用户'}}">
+                  <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+                  <view class="user-name">{{userInfo.nickName}}</view>
+            </block>
+            <block wx:else>
+                  <image class="logo" src="/images/logo.png" mode="aspectFill"></image>
+                  <view class="app-name">正培舟海旧书</view>
+            </block>
+            <view class="app-slogan">校园旧书交易平台</view>
       </view>
-      <view class="app-name">培正舟海二手书</view>
-      <view class="app-slogan">校园二手书交易平台</view>
-</view>
 
-<view class="contain">
-      <view class="card">
-            <view class="title">欢迎注册</view>
-            <view class="subtitle">完善信息，开启二手书之旅</view>
-            
+      <!-- 登录表单 -->
+      <view class="login-form">
+            <!-- 头像选择 - 仅在需要完善信息时显示 -->
+            <view class="form-item avatar-item" wx:if="{{showUserInfoForm}}">
+                  <text class="form-label">头像</text>
+                  <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                        <image class="avatar-preview" src="{{tempAvatarUrl || '/images/avator.png'}}" mode="aspectFill"></image>
+                        <text class="avatar-hint">点击选择</text>
+                  </button>
+            </view>
+
+            <!-- 昵称输入 - 仅在需要完善信息时显示 -->
+            <view class="form-item" wx:if="{{showUserInfoForm}}">
+                  <text class="form-label">昵称</text>
+                  <input 
+                        class="nickname-input" 
+                        type="nickname" 
+                        placeholder="请输入昵称" 
+                        value="{{tempNickName}}"
+                        bind:input="onNickNameInput"
+                  />
+            </view>
+
             <!-- 校区选择 -->
-            <view class="input-group">
-                  <image class="input-icon" src="/images/local.png"></image>
-                  <picker class="picker-box" bindchange="choose" value="{{ids}}" range="{{campus}}" range-key="name">
+            <view class="form-item">
+                  <image class="form-icon" src="/images/local.png"></image>
+                  <picker class="picker" bindchange="chooseCampus" value="{{campusIndex}}" range="{{campus}}" range-key="name">
                         <view class="picker-content">
-                              <text class="{{ids!==-1 ? 'has-value' : ''}}">
-                                    {{ids!==-1 ? campus[ids].name : '请选择您所在校区'}}
-                              </text>
-                              <image class="arrow" src="/images/right.png" />
+                              <text class="picker-label">校区</text>
+                              <text class="picker-value">{{campus[campusIndex].name}}</text>
+                              <image class="picker-arrow" src="/images/right.png"></image>
                         </view>
                   </picker>
             </view>
-            
-            <!-- 邮箱输入 -->
-            <view class="input-group">
-                  <image class="input-icon" src="/images/email-icon.png"></image>
-                  <input 
-                        bindinput="emInput" 
-                        value="{{email}}" 
-                        maxlength="30" 
-                        placeholder="请输入邮箱地址"
-                        placeholder-class="placeholder"
-                  />
-            </view>
-            
-            <!-- 微信号输入 -->
-            <view class="input-group">
-                  <image class="input-icon" src="/images/weixin-icon.png"></image>
-                  <input 
-                        bindinput="wxInput" 
-                        value="{{wxnum}}" 
-                        maxlength="30" 
-                        placeholder="请输入微信号"
-                        placeholder-class="placeholder"
-                  />
-            </view>
-            
-            <!-- QQ号输入 -->
-            <view class="input-group">
-                  <image class="input-icon" src="/images/qq.png"></image>
-                  <input 
-                        type="number" 
-                        bindinput="qqInput" 
-                        value="{{qqnum}}" 
-                        maxlength="20" 
-                        placeholder="请输入QQ号（选填）"
-                        placeholder-class="placeholder"
-                  />
-            </view>
-      </view>
-      
-      <!-- 注册按钮 -->
-      <button class="confirm" open-type='getUserInfo' bindgetuserinfo="getUserInfo">
-            <text>立即注册</text>
-      </button>
-      
-      <!-- 使用说明 -->
-      <view class="shen_title">
-            <image class="about" src="/images/about.png" />
-            <text>使用申明</text>
-      </view>
-      <view class="des">1. 请确保邮箱有效，将用于接收订单通知</view>
-      <view class="des">2. 您的信息将被严格保密，仅用于交易沟通</view>
-      <view class="des">3. 我们采用安全技术防止信息泄露</view>
-</view>
 
-<!-- 装饰圆点 -->
-<view class="dot dot1"></view>
-<view class="dot dot2"></view>
-<view class="dot dot3"></view>
+            <!-- 协议勾选 -->
+            <view class="agreement">
+                  <view class="checkbox {{agreed ? 'checked' : ''}}" bindtap="toggleAgreement">
+                        <view class="checkbox-inner"></view>
+                  </view>
+                  <view class="agreement-text">
+                        登录即表示您已阅读并同意
+                        <text class="link" bindtap="goToAgreement">《用户协议》</text>
+                        和
+                        <text class="link" bindtap="goToPrivacy">《隐私政策》</text>
+                  </view>
+            </view>
+      </view>
+
+      <!-- 登录按钮 -->
+      <view class="login-section">
+            <button class="wechat-login-btn" bindtap="wechatLogin" disabled="{{isLoggingIn}}">
+                  <text>{{isLoggingIn ? '登录中...' : (showUserInfoForm ? '确认登录' : '微信快捷登录')}}</text>
+            </button>
+      </view>
+</view>

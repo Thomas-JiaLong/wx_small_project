@@ -1,5 +1,6 @@
+/* ==================== 关于我们页 - 科技感主题 ==================== */
 page {
-      background: #eee;
+      background: #0a0f1a;
 }
 
 .top_contain {
@@ -7,34 +8,52 @@ page {
       display: flex;
       box-sizing: border-box;
       padding: 20rpx 36rpx 30rpx 0;
-      background:  #3498db;
+      background: linear-gradient(135deg, #0d1320 0%, #1a1f2e 100%);
       position: relative;
       justify-content: flex-end;
+}
+
+/* 科技感网格背景 */
+.top_contain::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+            linear-gradient(90deg, transparent 49%, rgba(0, 212, 255, 0.02) 50%, transparent 51%),
+            linear-gradient(0deg, transparent 49%, rgba(0, 212, 255, 0.02) 50%, transparent 51%);
+      background-size: 40rpx 40rpx;
+      pointer-events: none;
 }
 
 .des_contain {
       width: 618rpx;
       height: 157rpx;
-      border-radius: 10rpx;
-      background: #fff;
+      border-radius: 16rpx;
+      background: #0d1320;
       display: flex;
       box-sizing: border-box;
       flex-direction: column;
       justify-content: center;
       padding: 0 0 0 90rpx;
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .name {
       font-size: 36rpx;
       line-height: 50rpx;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
 }
 
 .sign {
       margin-top: 10rpx;
       font-size: 28rpx;
-      letter-spacing: 3rpx;
+      letter-spacing: 2rpx;
       line-height: 45rpx;
-      color: #b8b8b8;
+      color: rgba(255, 255, 255, 0.5);
 }
 
 .avator_box {
@@ -46,45 +65,51 @@ page {
 }
 
 .avator {
-      box-shadow: 0 0 10rpx #b8b8b8;
+      box-shadow: 
+            0 0 24rpx rgba(0, 212, 255, 0.25),
+            0 4rpx 16rpx rgba(0, 0, 0, 0.4);
       width: 110rpx;
       height: 110rpx;
       border-radius: 20rpx;
+      border: 2rpx solid rgba(0, 212, 255, 0.3);
 }
 
 .contain {
       width: 100%;
-      background: #eee;
+      background: #0a0f1a;
       display: flex;
       flex-direction: column;
-      padding: 0 20rpx;
+      padding: 0 24rpx;
       box-sizing: border-box;
 }
 
 .title {
-      margin-top: 20rpx;
+      margin-top: 24rpx;
       line-height: 56rpx;
       padding-left: 20rpx;
       font-size: 32rpx;
-      letter-spacing: 3rpx;
-      color: #000;
+      letter-spacing: 2rpx;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 500;
 }
 
 .description {
       width: 100%;
-      padding: 24rpx 30rpx;
-      background: #fff;
-      border-radius: 10rpx;
+      padding: 24rpx 28rpx;
+      background: #0d1320;
+      border-radius: 16rpx;
       display: flex;
       box-sizing: border-box;
       flex-direction: column;
+      border: 1rpx solid rgba(0, 212, 255, 0.08);
 }
 
 .description text {
       width: 100%;
       font-size: 28rpx;
       line-height: 44rpx;
-      letter-spacing: 3rpx;
+      letter-spacing: 2rpx;
+      color: rgba(255, 255, 255, 0.6);
 }
 
 .tip {
@@ -99,11 +124,12 @@ page {
       width: 150rpx;
       display: flex;
       justify-content: space-between;
+      color: rgba(255, 255, 255, 0.95);
 }
 
 .tip text {
-      margin-left:20rpx;
+      margin-left: 20rpx;
       font-size: 28rpx;
-      color: #008ecf;
+      color: #00d4ff;
       text-decoration-line: underline;
 }

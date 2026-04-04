@@ -1,4 +1,5 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "聊天"
+  "navigationBarTitleText": "聊天",
+  "navigationBarBackgroundColor": "#0d1320",
+  "navigationBarTextStyle": "white"
 }

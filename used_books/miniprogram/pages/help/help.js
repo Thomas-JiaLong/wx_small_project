@@ -1,5 +1,5 @@
 var app = getApp();
-var db = wx.cloud.database();
+let db;
 
 Page({
       /**
@@ -57,7 +57,10 @@ Page({
             })
       },
       onLoad() {
-
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+            });
       },
 
 })

@@ -1,115 +1,125 @@
+/* ==================== 消息列表页 - 科技感主题 ==================== */
 .container {
-  min-height: 100vh;
-  background: var(--bg-page);
+      min-height: 100vh;
+      background: #0a0f1a;
 }
 
+/* 标题栏 */
 .header {
-  background: var(--primary-gradient);
-  padding: 40rpx 30rpx;
-  text-align: center;
+      background: linear-gradient(135deg, #0d1320 0%, #1a1f2e 100%);
+      padding: 40rpx 30rpx;
+      text-align: center;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .title {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: #fff;
+      font-size: 36rpx;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: 2rpx;
 }
 
+/* 加载状态 */
 .loading {
-  padding: 100rpx;
-  text-align: center;
-  color: var(--text-placeholder);
+      padding: 100rpx;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
 }
 
+/* 空状态 */
 .empty {
-  padding: 200rpx 100rpx;
-  text-align: center;
-  color: var(--text-placeholder);
-  font-size: 28rpx;
+      padding: 200rpx 100rpx;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 28rpx;
 }
 
 .tip {
-  display: block;
-  margin-top: 20rpx;
-  color: var(--primary-color);
+      display: block;
+      margin-top: 20rpx;
+      color: #00d4ff;
 }
 
+/* 消息列表 */
 .list {
-  background: var(--bg-card);
-  margin-top: -20rpx;
-  border-radius: 32rpx 32rpx 0 0;
-  overflow: hidden;
+      background: #0d1320;
+      margin-top: -20rpx;
+      border-radius: 32rpx 32rpx 0 0;
+      overflow: hidden;
 }
 
+/* 消息项 */
 .item {
-  display: flex;
-  padding: 28rpx 32rpx;
-  border-bottom: 1rpx solid var(--border-color);
-  transition: background 0.2s ease;
+      display: flex;
+      padding: 28rpx 32rpx;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.06);
+      transition: background 0.2s ease;
 }
 
 .item:active {
-  background: var(--bg-input);
+      background: rgba(0, 212, 255, 0.05);
 }
 
 .item:last-child {
-  border-bottom: none;
+      border-bottom: none;
 }
 
 .avatar {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  margin-right: 24rpx;
-  flex-shrink: 0;
-  box-shadow: var(--shadow-sm);
+      width: 100rpx;
+      height: 100rpx;
+      border-radius: 50%;
+      margin-right: 24rpx;
+      flex-shrink: 0;
+      box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+      border: 2rpx solid rgba(0, 212, 255, 0.15);
 }
 
 .content {
-  flex: 1;
-  overflow: hidden;
+      flex: 1;
+      overflow: hidden;
 }
 
 .top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12rpx;
 }
 
 .name {
-  font-size: 32rpx;
-  color: var(--text-primary);
-  font-weight: 500;
+      font-size: 32rpx;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 500;
 }
 
 .time {
-  font-size: 24rpx;
-  color: var(--text-placeholder);
+      font-size: 24rpx;
+      color: rgba(255, 255, 255, 0.35);
 }
 
 .bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 }
 
 .msg {
-  font-size: 28rpx;
-  color: var(--text-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 400rpx;
+      font-size: 28rpx;
+      color: rgba(255, 255, 255, 0.5);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 400rpx;
 }
 
 .badge {
-  background: var(--error-color);
-  color: #fff;
-  font-size: 22rpx;
-  padding: 6rpx 14rpx;
-  border-radius: 20rpx;
-  min-width: 36rpx;
-  text-align: center;
-  font-weight: 500;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: #fff;
+      font-size: 22rpx;
+      padding: 6rpx 14rpx;
+      border-radius: 20rpx;
+      min-width: 36rpx;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 2rpx 8rpx rgba(0, 212, 255, 0.3);
 }

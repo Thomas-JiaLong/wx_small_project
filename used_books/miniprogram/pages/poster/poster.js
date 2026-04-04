@@ -1,7 +1,6 @@
 const app = getApp()
-const db = wx.cloud.database();
 const config = require("../../config.js");
-const _ = db.command;
+let db, _;
 import Dialog from '../../vant/dialog/dialog';
 Page({
 
@@ -12,10 +11,15 @@ Page({
 
       },
       onLoad(e) {
-            this.setData({
-                  bookinfo: JSON.parse(e.bookinfo)
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+                  _ = db.command;
+                  this.setData({
+                        bookinfo: JSON.parse(e.bookinfo)
+                  });
+                  this.getqrcode();
             });
-            this.getqrcode();
       },
       getqrcode() {
             let that = this;

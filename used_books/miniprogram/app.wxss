@@ -1,178 +1,175 @@
-/* ==================== 全局主题变量 ==================== */
-/* 主题色：紫蓝渐变 */
+/* ==================== 科技感主题变量 ==================== */
 page {
-      --primary-color: #667eea;
-      --primary-light: #764ba2;
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --primary-color: #00d4ff;
+      --primary-light: #0099cc;
+      --primary-gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      --primary-bg: rgba(0, 212, 255, 0.1);
       
-      /* 功能色 */
-      --success-color: #52c41a;
-      --warning-color: #faad14;
-      --error-color: #ff4d4f;
-      --info-color: #1890ff;
+      --bg-page: #0a0f1a;
+      --bg-card: #0d1320;
+      --bg-input: rgba(255, 255, 255, 0.05);
       
-      /* 文字色 */
-      --text-primary: #333333;
-      --text-secondary: #666666;
-      --text-placeholder: #bbbbbb;
-      --text-disabled: #c0c0c0;
+      --text-primary: rgba(255, 255, 255, 0.95);
+      --text-secondary: rgba(255, 255, 255, 0.6);
+      --text-placeholder: rgba(255, 255, 255, 0.35);
       
-      /* 背景色 */
-      --bg-page: #f5f7fa;
-      --bg-card: #ffffff;
-      --bg-input: #f7f8fa;
+      --border-color: rgba(0, 212, 255, 0.15);
+      --border-color-light: rgba(0, 212, 255, 0.08);
       
-      /* 边框 */
-      --border-color: #eee;
-      --border-radius: 16rpx;
-      --border-radius-lg: 24rpx;
-      --border-radius-xl: 32rpx;
+      --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.5);
+      --shadow-primary: 0 8rpx 24rpx rgba(0, 212, 255, 0.35);
+      --shadow-glow: 0 0 20rpx rgba(0, 212, 255, 0.2);
       
-      /* 阴影 */
-      --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
-      --shadow-primary: 0 8rpx 24rpx rgba(102, 126, 234, 0.3);
+      --border-radius: 12rpx;
+      --border-radius-lg: 20rpx;
       
-      /* 间距 */
       --spacing-xs: 8rpx;
       --spacing-sm: 16rpx;
       --spacing-md: 24rpx;
       --spacing-lg: 32rpx;
       --spacing-xl: 48rpx;
       
-      /* 字号 */
-      --font-xs: 22rpx;
-      --font-sm: 26rpx;
-      --font-md: 30rpx;
-      --font-lg: 34rpx;
-      --font-xl: 40rpx;
+      --font-size-xs: 22rpx;
+      --font-size-sm: 26rpx;
+      --font-size-md: 30rpx;
+      --font-size-lg: 36rpx;
+      --font-size-xl: 44rpx;
       
-      /* 基础设置 */
       background: var(--bg-page);
-      width: 100%;
-      min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       color: var(--text-primary);
-      font-size: var(--font-md);
+      font-size: var(--font-size-md);
+      line-height: 1.5;
+}
+
+/* ==================== 通用样式 ==================== */
+button {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      line-height: inherit;
+}
+
+button::after {
+      border: none;
+}
+
+input, textarea {
+      color: var(--text-primary);
+}
+
+input::placeholder, textarea::placeholder {
+      color: var(--text-placeholder);
 }
 
 /* ==================== 通用工具类 ==================== */
-.shadow {
-      box-shadow: var(--shadow-primary);
-}
-
-.shadow-sm {
-      box-shadow: var(--shadow-sm);
-}
-
-.shadow-md {
-      box-shadow: var(--shadow-md);
-}
-
-.shadow-lg {
-      box-shadow: var(--shadow-lg);
-}
-
-/* 文字截断 */
 .text-cut {
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
+      white-space: nowrap;
 }
 
 .text-cut-2 {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
       overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
 }
 
-/* 渐变背景 */
-.gradient-bg {
-      background: var(--primary-gradient);
+.flex-row {
+      display: flex;
+      flex-direction: row;
 }
 
-/* 卡片样式 */
+.flex-col {
+      display: flex;
+      flex-direction: column;
+}
+
+.flex-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
+.flex-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+}
+
+/* ==================== 卡片组件 ==================== */
 .card {
       background: var(--bg-card);
       border-radius: var(--border-radius-lg);
-      box-shadow: var(--shadow-sm);
       padding: var(--spacing-lg);
+      border: 1rpx solid var(--border-color-light);
 }
 
-/* 按钮样式 */
+.card-shadow {
+      box-shadow: var(--shadow-lg);
+}
+
+/* ==================== 按钮组件 ==================== */
 .btn-primary {
       background: var(--primary-gradient);
       color: #fff;
-      border-radius: 50rpx;
-      border: none;
-      font-size: var(--font-lg);
+      border-radius: 48rpx;
       font-weight: 500;
-      letter-spacing: 2rpx;
-      transition: all 0.3s ease;
+      box-shadow: var(--shadow-primary);
+      border: none;
 }
 
 .btn-primary::after {
       border: none;
 }
 
-.btn-primary:active {
-      transform: scale(0.98);
-      opacity: 0.9;
-}
-
-/* ==================== 加载更多 ==================== */
-.loadmore {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40rpx 0;
-}
-
-.loadmore image {
-      width: 48rpx;
-      height: 48rpx;
-      animation: spin 1s linear infinite;
-}
-
-.loadmore view {
-      font-size: var(--font-sm);
-      color: var(--text-placeholder);
-      letter-spacing: 2rpx;
-      margin-left: 16rpx;
-}
-
-@keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-}
-
-/* ==================== 回到顶部 ==================== */
-.totop {
-      position: fixed;
-      right: 32rpx;
-      bottom: 120rpx;
-      width: 88rpx;
-      height: 88rpx;
+.btn-secondary {
       background: var(--bg-card);
-      border-radius: 50%;
-      display: flex;
+      color: var(--primary-color);
+      border-radius: 48rpx;
+      border: 2rpx solid var(--primary-color);
+}
+
+.btn-secondary::after {
+      border: none;
+}
+
+/* ==================== 价格样式 ==================== */
+.price {
+      color: var(--primary-color);
+      font-weight: 600;
+}
+
+.price-large {
+      font-size: 44rpx;
+}
+
+.price-medium {
+      font-size: 36rpx;
+}
+
+.price-small {
+      font-size: 28rpx;
+}
+
+/* ==================== 标签样式 ==================== */
+.tag {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-lg);
-      z-index: 100;
-      transition: all 0.3s ease;
+      padding: 8rpx 16rpx;
+      font-size: var(--font-size-xs);
+      border-radius: 20rpx;
+      background: var(--primary-bg);
+      color: var(--primary-color);
 }
 
-.totop:active {
-      transform: scale(0.9);
-}
-
-.totop image {
-      width: 48rpx;
-      height: 48rpx;
+.tag-primary {
+      background: var(--primary-gradient);
+      color: #fff;
 }
 
 /* ==================== 空状态 ==================== */
@@ -181,60 +178,49 @@ page {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 120rpx 0;
+      padding: 80rpx 40rpx;
 }
 
 .empty-state image {
       width: 240rpx;
-      height: 240rpx;
-      margin-bottom: 32rpx;
-      opacity: 0.6;
+      height: 200rpx;
+      opacity: 0.5;
+      filter: grayscale(30%);
 }
 
 .empty-state text {
-      font-size: var(--font-md);
+      margin-top: 24rpx;
+      font-size: var(--font-size-sm);
       color: var(--text-placeholder);
-      letter-spacing: 2rpx;
 }
 
-/* ==================== 价格样式 ==================== */
-.price {
-      color: var(--error-color);
-      font-weight: 600;
+/* ==================== 加载更多 ==================== */
+.loadmore {
+      text-align: center;
+      padding: 32rpx;
+      color: var(--text-placeholder);
+      font-size: var(--font-size-sm);
 }
 
-.price::before {
-      content: '¥';
-      font-size: 0.8em;
-}
-
-/* ==================== 标签样式 ==================== */
-.tag {
-      display: inline-flex;
+/* ==================== 回到顶部 ==================== */
+.back-top {
+      position: fixed;
+      right: 32rpx;
+      bottom: 200rpx;
+      width: 88rpx;
+      height: 88rpx;
+      background: rgba(0, 212, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8rpx 16rpx;
-      font-size: var(--font-xs);
-      border-radius: 8rpx;
-      background: var(--bg-input);
-      color: var(--text-secondary);
+      border: 1rpx solid rgba(0, 212, 255, 0.3);
 }
 
-.tag-primary {
-      background: rgba(102, 126, 234, 0.1);
-      color: var(--primary-color);
-}
-
-/* ==================== 分割线 ==================== */
-.divider {
-      width: 100%;
-      height: 16rpx;
-      background: var(--bg-page);
-}
-
-/* ==================== 安全区域 ==================== */
-.safe-area-bottom {
-      padding-bottom: env(safe-area-inset-bottom);
+.back-top image {
+      width: 44rpx;
+      height: 44rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
 }
 
 /* ==================== 动画 ==================== */
@@ -254,10 +240,76 @@ page {
       }
 }
 
+@keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+}
+
+@keyframes glow {
+      0%, 100% { 
+            box-shadow: 0 0 20rpx rgba(0, 212, 255, 0.3);
+      }
+      50% { 
+            box-shadow: 0 0 40rpx rgba(0, 212, 255, 0.6);
+      }
+}
+
 .fade-in {
       animation: fadeIn 0.3s ease;
 }
 
 .slide-up {
       animation: slideUp 0.4s ease;
+}
+
+.pulse {
+      animation: pulse 2s infinite;
+}
+
+.glow {
+      animation: glow 2s infinite;
+}
+
+/* ==================== 科技感装饰 ==================== */
+/* 网格背景效果 */
+.grid-bg {
+      background-image: 
+            linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+      background-size: 40rpx 40rpx;
+}
+
+/* 扫描线效果 */
+.scan-line {
+      position: relative;
+      overflow: hidden;
+}
+
+.scan-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2rpx;
+      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+      animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+      0% { top: 0; opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+}
+
+/* ==================== 图标颜色统一 ==================== */
+/* 将图标颜色统一为科技感青色 #00d4ff */
+.icon-cyan {
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+}
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      color: transparent;
 }

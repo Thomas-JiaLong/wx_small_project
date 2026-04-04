@@ -1,10 +1,10 @@
 <view class="top_contain">
       <view class="des_contain">
-            <view class="name">GJ.</view>
-            <view class="sign">做好手中的事,珍惜眼前的人</view>
+            <view class="name">正培舟海</view>
+            <view class="sign">让旧书流转，让知识传递</view>
       </view>
       <view class="avator_box">
-            <image class="avator" src="/images/tou.png"></image>
+            <image class="avator" src="/images/logo.png"></image>
       </view>
 </view>
 <view class="contain">
@@ -24,7 +24,7 @@
             </view>
             <view class="tip" bindtap="copy" data-copy="895837900" data-name="QQ">
                   <view>QQ</view>:
-                  <text>3218921864</text>
+                  <text>3218921860</text>
             </view>
       </view>
 </view>

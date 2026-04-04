@@ -1,7 +1,6 @@
 const app = getApp()
-const db = wx.cloud.database();
 const config = require("../../config.js");
-const _ = db.command;
+let db, _;
 Page({
 
       /**
@@ -17,7 +16,12 @@ Page({
        * 生命周期函数--监听页面加载
        */
       onShow: function(options) {
-            this.getnum();
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+                  _ = db.command;
+                  this.getnum();
+            });
       },
       go(e) {
             wx.navigateTo({

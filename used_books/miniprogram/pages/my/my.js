@@ -1,5 +1,7 @@
 const app = getApp();
 const config = require("../../config.js");
+const LoginCheck = require("../../utils/login-check.js");
+
 Page({
 
       /**
@@ -15,28 +17,30 @@ Page({
             })
       },
       go(e) {
-            if (e.currentTarget.dataset.status == '1') {
-                  if (!app.openid) {
-                        wx.showModal({
-                              title: '温馨提示',
-                              content: '该功能需要注册方可使用，是否马上去注册',
-                              success(res) {
-                                    if (res.confirm) {
-                                          wx.navigateTo({
-                                                url: '/pages/login/login',
-                                          })
-                                    }
-                              }
-                        })
-                        return false
+            const { go: url, needLogin } = e.currentTarget.dataset;
+            
+            // 检查是否需要登录
+            if (needLogin === 'true' || needLogin === true) {
+                  const success = LoginCheck.check(() => {
+                        // 已登录，执行原操作
+                        wx.navigateTo({
+                              url: url
+                        });
+                  }, {
+                        toastMessage: '该功能需要登录后使用'
+                  });
+                  if (!success) {
+                        return false;
                   }
+            } else {
+                  // 不需要登录的操作
+                  wx.navigateTo({
+                        url: url
+                  });
             }
-            // console.log("e",e.currentTarget.dataset.go)
-            wx.navigateTo({
-                  url: e.currentTarget.dataset.go
-            })
       },
-      //展示分享弹窗
+      
+      // 展示分享弹窗
       showShare() {
             this.setData({
                   showShare: true

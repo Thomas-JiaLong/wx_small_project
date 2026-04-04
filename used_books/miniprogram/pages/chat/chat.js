@@ -1,5 +1,5 @@
-const db = wx.cloud.database();
 const app = getApp();
+let db;
 
 Page({
   data: {
@@ -17,17 +17,21 @@ Page({
   },
 
   onLoad(options) {
-    const { id, name, avatar } = options;
-    this.setData({
-      conversationId: id,
-      otherName: decodeURIComponent(name || ''),
-      otherAvatar: decodeURIComponent(avatar || ''),
+    // 等待云开发初始化完成后再执行
+    app.ensureCloudReady().then(() => {
+      db = wx.cloud.database();
+      const { id, name, avatar } = options;
+      this.setData({
+        conversationId: id,
+        otherName: decodeURIComponent(name || ''),
+        otherAvatar: decodeURIComponent(avatar || ''),
+      });
+      
+      if (app.openid) {
+        this.getMessages();
+        this.markAsRead();
+      }
     });
-    
-    if (app.openid) {
-      this.getMessages();
-      this.markAsRead();
-    }
   },
 
   onShow() {

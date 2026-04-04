@@ -1,5 +1,6 @@
-const db = wx.cloud.database();
 const app = getApp();
+const LoginCheck = require("../../utils/login-check.js");
+let db;
 
 Page({
   data: {
@@ -8,7 +9,27 @@ Page({
   },
 
   onLoad() {
-    this.getConversations();
+    // 检查登录状态
+    if (!LoginCheck.isLoggedIn()) {
+      LoginCheck.check(() => {
+        // 登录成功后加载数据
+        this.loadData();
+      }, {
+        toastMessage: '查看消息需要登录后使用'
+      });
+      return;
+    }
+    
+    this.loadData();
+  },
+
+  // 加载数据
+  loadData() {
+    // 等待云开发初始化完成后再执行
+    app.ensureCloudReady().then(() => {
+      db = wx.cloud.database();
+      this.getConversations();
+    });
   },
 
   onShow() {

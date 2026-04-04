@@ -1,151 +1,98 @@
 <wxs src="../../common.wxs" module="morejs" />
 
 <!-- 顶部搜索栏 -->
-<view class="header">
-      <view class="search-box" bindtap="search">
-            <image class="search-icon" src="/images/search.png"></image>
-            <text class="search-placeholder">搜索想要的书籍...</text>
-      </view>
-      <view class="view-toggle" bindtap="changeCard">
-            <image src="{{iscard ? '/images/list.png' : '/images/card.png'}}"></image>
-      </view>
+<view class="search-header">
+  <view class="search-box" bindtap="search">
+    <image class="search-icon" src="/images/search.png"></image>
+    <view class="search-text">搜索想要的书籍，例如：数字逻辑</view>
+  </view>
+  <view class="layout-toggle" bindtap="changeCard">
+    <image src="{{iscard ? '/images/list.png' : '/images/card.png'}}"></image>
+  </view>
 </view>
-
-<!-- 轮播图 -->
-<swiper 
-      class="banner" 
-      indicator-dots 
-      autoplay 
-      indicator-active-color="#667eea" 
-      circular
-      duration="500"
->
-      <swiper-item wx:for="{{banner}}" wx:key="id">
-            <image 
-                  mode="aspectFill" 
-                  lazy-load 
-                  src="{{item.img}}" 
-                  class="banner-image"
-            />
-      </swiper-item>
-</swiper>
 
 <!-- 分类导航 -->
-<view class="category-section">
-      <view class="category-header">
-            <view class="category-scroll">
-                  <view 
-                        class="category-item {{collegeCur === -2 ? 'active' : ''}}" 
-                        bindtap="selectAll"
-                  >
-                        <text>全部</text>
-                  </view>
-                  <view 
-                        class="category-item {{index === collegeCur ? 'active' : ''}}" 
-                        wx:for="{{college}}" 
-                        wx:key="id" 
-                        bindtap="collegeSelect" 
-                        data-id="{{index}}"
-                  >
-                        <text>{{item.name}}</text>
-                  </view>
-            </view>
-            <view class="category-more" bindtap="showlist">
-                  <image src="{{showList ? '/images/l_down.png' : '/images/l_right.png'}}" />
-            </view>
+<view class="nav-placeholder"></view>
+<view class="category-nav">
+  <view class="nav-item" bindtap="selectAll">
+    <view class="nav-text {{collegeCur === -2 ? 'active' : ''}}">全部</view>
+  </view>
+  <scroll-view scroll-x class="nav-scroll" scroll-with-animation scroll-left="{{scrollLeft}}rpx">
+    <view class="nav-item" wx:for="{{college}}" wx:key="id" bindtap="collegeSelect" data-id="{{index}}">
+      <view class="nav-text {{index === collegeCur ? 'active' : ''}}">{{item.name}}</view>
+    </view>
+  </scroll-view>
+  <view class="nav-more" bindtap="showlist">
+    <image lazy-load src="{{showList ? '/images/l_down.png' : '/images/l_right.png'}}" />
+  </view>
+  <!-- 展开面板 -->
+  <view class="category-panel {{showList ? 'show' : ''}}">
+    <view class="panel-grid">
+      <view class="panel-item {{index === collegeCur ? 'active' : ''}}" 
+            wx:for="{{college}}" wx:key="id" 
+            bindtap="collegeSelect" data-id="{{index}}">
+        {{item.name}}
       </view>
-      
-      <!-- 展开的分类面板 -->
-      <view class="category-panel {{showList ? 'show' : ''}}">
-            <view class="category-grid">
-                  <view 
-                        class="grid-item {{index === collegeCur ? 'active' : ''}}" 
-                        wx:for="{{college}}" 
-                        wx:key="id" 
-                        bindtap="collegeSelect" 
-                        data-id="{{index}}"
-                  >
-                        <text>{{item.name}}</text>
-                  </view>
-            </view>
+    </view>
+  </view>
+</view>
+<view class="overlay" wx:if="{{showList}}" bindtap="showlist"></view>
+
+<!-- 宫格布局 -->
+<view wx:if="{{iscard && list.length > 0}}" class="card-grid">
+  <view class="card-item" wx:for="{{list}}" wx:key="_id" bindtap="detail" data-id="{{item._id}}">
+    <image lazy-load class="card-cover" src="{{item.bookinfo.pic}}" mode="aspectFill"></image>
+    <view class="card-info">
+      <view class="card-title text-cut">{{item.bookinfo.title}}</view>
+      <view class="card-author text-cut">{{item.bookinfo.author}}</view>
+      <view class="card-bottom">
+        <view class="card-price">￥{{item.price}}</view>
+        <image lazy-load class="card-buy" src="/images/buy.png"></image>
       </view>
+    </view>
+  </view>
 </view>
 
-<!-- 书籍列表 - 卡片模式 -->
-<view class="book-section" wx:if="{{iscard}}">
-      <view class="book-grid" wx:if="{{list.length > 0}}">
-            <view 
-                  class="book-card" 
-                  wx:for="{{list}}" 
-                  wx:key="_id" 
-                  bindtap="detail" 
-                  data-id="{{item._id}}"
-            >
-                  <image 
-                        class="book-cover" 
-                        src="{{item.bookinfo.pic}}" 
-                        mode="aspectFill"
-                        lazy-load
-                  ></image>
-                  <view class="book-info">
-                        <view class="book-title text-cut-2">{{item.bookinfo.title}}</view>
-                        <view class="book-author text-cut">{{item.bookinfo.author}}</view>
-                        <view class="book-bottom">
-                              <text class="book-price">¥{{item.price}}</text>
-                              <image class="buy-icon" src="/images/buy.png"></image>
-                        </view>
-                  </view>
-            </view>
+<!-- 列表布局 -->
+<view wx:if="{{!iscard && list.length > 0}}" class="list-container">
+  <view class="list-item" wx:for="{{list}}" wx:key="_id" bindtap="detail" data-id="{{item._id}}">
+    <image lazy-load class="list-cover" src="{{item.bookinfo.pic}}" mode="aspectFill"></image>
+    <view class="list-info">
+      <view class="list-title text-cut">{{item.bookinfo.title}}</view>
+      <view class="list-author text-cut">{{item.bookinfo.author}}</view>
+      <view class="list-bottom">
+        <view class="list-price">￥{{item.price}}</view>
+        <view class="list-time">{{morejs.timelog(item.creat)}}发布</view>
       </view>
-</view>
-
-<!-- 书籍列表 - 列表模式 -->
-<view class="book-section" wx:else>
-      <view class="book-list" wx:if="{{list.length > 0}}">
-            <view 
-                  class="list-item" 
-                  wx:for="{{list}}" 
-                  wx:key="_id" 
-                  bindtap="detail" 
-                  data-id="{{item._id}}"
-            >
-                  <image 
-                        class="list-cover" 
-                        src="{{item.bookinfo.pic}}" 
-                        mode="aspectFill"
-                        lazy-load
-                  ></image>
-                  <view class="list-info">
-                        <view class="list-title text-cut">{{item.bookinfo.title}}</view>
-                        <view class="list-author text-cut">{{item.bookinfo.author}}</view>
-                        <view class="list-bottom">
-                              <text class="list-price">¥{{item.price}}</text>
-                              <text class="list-time">{{morejs.timelog(item.creat)}}</text>
-                        </view>
-                  </view>
-            </view>
-      </view>
+    </view>
+  </view>
 </view>
 
 <!-- 空状态 -->
-<view class="empty-state" wx:if="{{list.length === 0}}">
-      <image src="/images/blank.png"></image>
-      <text>暂无书籍，换个分类看看~</text>
+<view class="empty-state" wx:if="{{list.length === 0 && !loading}}">
+  <image lazy-load src="/images/blank.png" mode="aspectFit"></image>
+  <view class="empty-text">这里空空如也~</view>
 </view>
 
-<!-- 加载更多 -->
-<view class="loadmore" wx:if="{{list.length > 10 && !nomore}}">
-      <image src="/images/loading.png"></image>
-      <view>加载中...</view>
+<!-- 加载中 -->
+<view class="loading-state" wx:if="{{loading}}">
+  <view class="loading-spinner"></view>
+  <view class="loading-text">加载中...</view>
 </view>
-<view class="loadmore" wx:if="{{nomore && list.length > 0}}">
-      <view>— 已经到底了 —</view>
+
+<!-- 加载更多提示 -->
+<view class="loadmore" wx:if="{{list.length > 10}}">
+  <block wx:if="{{nomore}}">— 没有更多了 —</block>
+  <block wx:else>
+    <view class="loading-spinner small"></view>
+    <view class="loadmore-text">加载更多...</view>
+  </block>
 </view>
 
 <!-- 回到顶部 -->
-<view class="totop" wx:if="{{scrollTop > 500}}" bindtap="gotop">
-      <image src="/images/top.png"></image>
+<view class="back-top {{showBackTop ? 'show' : ''}}" bindtap="gotop">
+  <image src="/images/top.png"></image>
 </view>
 
-<!-- 首次提示 -->
+<!-- 首次收藏提示 -->
 <tips />

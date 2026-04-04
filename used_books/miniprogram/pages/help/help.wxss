@@ -1,87 +1,105 @@
+/* ==================== 帮助中心 - 科技感主题 ==================== */
+page {
+      background: #0a0f1a;
+}
+
 .contain {
-     width: 100%;
-     padding: 30rpx 30rpx;
-     box-sizing: border-box;
+      width: 100%;
+      padding: 30rpx;
+      box-sizing: border-box;
 }
 
 .top {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     height: 50rpx;
-     margin-top: 20rpx;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50rpx;
+      margin-top: 20rpx;
 }
 
 .title {
-     font-size: 32rpx;
-     font-weight: 600;
-     letter-spacing: 2rpx;
-     width: calc( 100% - 60rpx);
-     line-height: 50rpx;
+      font-size: 32rpx;
+      font-weight: 600;
+      letter-spacing: 2rpx;
+      width: calc(100% - 60rpx);
+      line-height: 50rpx;
+      color: rgba(255, 255, 255, 0.95);
 }
 
 .ico {
-     width: 50rpx;
-     height: 50rpx;
+      width: 50rpx;
+      height: 50rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.9;
 }
 
 .descontain {
-     margin-top: 30rpx;
-     background: #f8f8f8;
-     border-radius: 15rpx;
-     width: 100%;
-     padding: 14rpx 24rpx 24rpx 24rpx;
-     box-sizing: border-box;
+      margin-top: 30rpx;
+      background: #0d1320;
+      border-radius: 16rpx;
+      width: 100%;
+      padding: 14rpx 24rpx 24rpx 24rpx;
+      box-sizing: border-box;
+      border: 1rpx solid rgba(0, 212, 255, 0.08);
 }
 
 .destext {
-     padding-top: 10rpx;
-     font-size: 29rpx;
-     line-height: 44rpx;
-     color: #a7adb8;
-     letter-spacing: 1rpx;
+      padding-top: 10rpx;
+      font-size: 28rpx;
+      line-height: 44rpx;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 1rpx;
 }
 
 .contains {
-     width: 100%;
-     padding-bottom: 30rpx;
-     border-bottom: 1rpx solid #f8f8f8;
+      width: 100%;
+      padding-bottom: 30rpx;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.06);
 }
 
+/* 底部操作栏 */
 .bottom {
-     left: 0rpx;
-     bottom: 0rpx;
-     right: 0rpx;
-     position: fixed;
-     align-items: center;
-     display: flex;
-     width: 100%;
-     height: 100rpx;
-     box-shadow: 0 0 24rpx rgba(0, 0, 0, 0.212);
+      left: 0rpx;
+      bottom: 0rpx;
+      right: 0rpx;
+      position: fixed;
+      align-items: center;
+      display: flex;
+      width: 100%;
+      height: 100rpx;
+      background: #0d1320;
+      box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.4);
+      border-top: 1rpx solid rgba(0, 212, 255, 0.1);
+      padding-bottom: env(safe-area-inset-bottom);
 }
 
-button {
-     width: 49%;
-     height: 100%;
-     background: #fff;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     border: none;
+.bottom button {
+      width: 49%;
+      height: 100%;
+      background: #0d1320;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      color: rgba(255, 255, 255, 0.95);
 }
 
-button::after {
-     border: none;
+.bottom button::after {
+      border: none;
+}
+
+.bottom button:active {
+      background: rgba(0, 212, 255, 0.08);
 }
 
 .btxt {
-     padding-left: 20rpx;
-     font-size: 34rpx;
-     letter-spacing: 2rpx;
+      padding-left: 20rpx;
+      font-size: 32rpx;
+      letter-spacing: 2rpx;
+      color: rgba(255, 255, 255, 0.95);
 }
 
 .center {
-     font-weight: 2%;
-     border-right: 2rpx solid #a7adb8;
-     height: 32rpx;
+      border-right: 2rpx solid rgba(0, 212, 255, 0.15);
+      height: 32rpx;
 }

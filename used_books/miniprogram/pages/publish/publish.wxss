@@ -4,8 +4,8 @@
       align-items: center;
       justify-content: center;
       padding: 40rpx 60rpx;
-      background: var(--bg-card);
-      border-bottom: 1rpx solid var(--border-color);
+      background: #0d1320;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .step-item {
@@ -19,8 +19,8 @@
       width: 56rpx;
       height: 56rpx;
       border-radius: 50%;
-      background: var(--bg-input);
-      color: var(--text-placeholder);
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.4);
       font-size: 28rpx;
       font-weight: 600;
       display: flex;
@@ -30,38 +30,39 @@
 }
 
 .step-item.active .step-num {
-      background: var(--primary-gradient);
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       color: #fff;
-      box-shadow: var(--shadow-primary);
+      box-shadow: 0 4rpx 16rpx rgba(0, 212, 255, 0.4);
 }
 
 .step-item text {
       font-size: 26rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
 }
 
 .step-item.active text {
-      color: var(--primary-color);
+      color: #00d4ff;
       font-weight: 500;
 }
 
 .step-line {
       width: 80rpx;
       height: 4rpx;
-      background: var(--border-color);
+      background: rgba(0, 212, 255, 0.15);
       margin: 0 16rpx;
       margin-bottom: 40rpx;
       transition: all 0.3s ease;
 }
 
 .step-line.active {
-      background: var(--primary-gradient);
+      background: linear-gradient(90deg, #00d4ff 0%, #0099cc 100%);
 }
 
 /* ==================== 步骤内容 ==================== */
 .step-content {
       min-height: calc(100vh - 200rpx);
       padding-bottom: 120rpx;
+      background: #0a0f1a;
 }
 
 /* ==================== ISBN输入区 ==================== */
@@ -76,10 +77,10 @@
       width: 100%;
       display: flex;
       align-items: center;
-      background: var(--bg-card);
-      border-radius: var(--border-radius-lg);
-      padding: 8rpx;
-      box-shadow: var(--shadow-md);
+      background: #0d1320;
+      border-radius: 20rpx;
+      padding: 12rpx;
+      border: 1rpx solid rgba(0, 212, 255, 0.15);
       margin-bottom: 40rpx;
 }
 
@@ -87,32 +88,35 @@
       width: 44rpx;
       height: 44rpx;
       margin: 0 20rpx;
-      opacity: 0.5;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.9;
 }
 
 .isbn-input {
       flex: 1;
       height: 80rpx;
       font-size: 32rpx;
+      color: rgba(255, 255, 255, 0.95);
 }
 
 .confirm-btn {
-      padding: 16rpx 32rpx;
-      background: var(--primary-gradient);
+      padding: 18rpx 36rpx;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       color: #fff;
-      border-radius: var(--border-radius);
+      border-radius: 12rpx;
       font-size: 28rpx;
+      font-weight: 500;
 }
 
 .isbn-example {
       width: 80%;
       margin-bottom: 40rpx;
-      border-radius: var(--border-radius);
+      border-radius: 16rpx;
 }
 
 .scan-tip {
       font-size: 28rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
       margin-bottom: 32rpx;
 }
 
@@ -123,20 +127,20 @@
       gap: 16rpx;
       width: 300rpx;
       height: 88rpx;
-      background: var(--bg-card);
+      background: #0d1320;
       border-radius: 44rpx;
-      box-shadow: var(--shadow-md);
-      border: none;
+      border: 1rpx solid rgba(0, 212, 255, 0.2);
 }
 
 .scan-btn image {
       width: 40rpx;
       height: 40rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
 }
 
 .scan-btn text {
       font-size: 32rpx;
-      color: var(--primary-color);
+      color: #00d4ff;
       font-weight: 500;
 }
 
@@ -149,17 +153,17 @@
       display: flex;
       gap: 24rpx;
       padding: 32rpx;
-      background: var(--bg-card);
+      background: #0d1320;
       margin: 24rpx;
-      border-radius: var(--border-radius-lg);
-      box-shadow: var(--shadow-sm);
+      border-radius: 20rpx;
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .preview-cover {
       width: 160rpx;
       height: 200rpx;
-      border-radius: var(--border-radius);
-      background: var(--bg-input);
+      border-radius: 12rpx;
+      background: rgba(255, 255, 255, 0.05);
 }
 
 .preview-info {
@@ -172,30 +176,31 @@
 .preview-title {
       font-size: 32rpx;
       font-weight: 600;
-      color: var(--text-primary);
+      color: rgba(255, 255, 255, 0.95);
 }
 
 .preview-author {
       font-size: 28rpx;
-      color: var(--text-secondary);
+      color: rgba(255, 255, 255, 0.5);
 }
 
 .preview-price {
       font-size: 28rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
 }
 
 /* ==================== 发布表单 ==================== */
 .publish-form {
-      background: var(--bg-card);
+      background: #0d1320;
       margin: 24rpx;
-      border-radius: var(--border-radius-lg);
+      border-radius: 20rpx;
       padding: 8rpx 32rpx;
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .form-item {
       padding: 28rpx 0;
-      border-bottom: 1rpx solid var(--border-color);
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.08);
 }
 
 .form-item:last-child {
@@ -204,14 +209,14 @@
 
 .form-label {
       font-size: 30rpx;
-      color: var(--text-primary);
+      color: rgba(255, 255, 255, 0.95);
       font-weight: 500;
       margin-bottom: 20rpx;
 }
 
 .optional {
       font-size: 24rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
       font-weight: normal;
       margin-left: 8rpx;
 }
@@ -225,19 +230,19 @@
 
 .price-unit {
       font-size: 36rpx;
-      color: var(--error-color);
+      color: #00d4ff;
       font-weight: 600;
 }
 
 .price-input {
       flex: 1;
       height: 72rpx;
-      background: var(--bg-input);
-      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12rpx;
       padding: 0 24rpx;
       font-size: 36rpx;
       font-weight: 600;
-      color: var(--error-color);
+      color: #00d4ff;
 }
 
 .price-btns {
@@ -248,13 +253,13 @@
 .price-btn {
       width: 64rpx;
       height: 64rpx;
-      background: var(--bg-input);
+      background: rgba(0, 212, 255, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 40rpx;
-      color: var(--primary-color);
+      color: #00d4ff;
 }
 
 /* 分类标签 */
@@ -266,15 +271,15 @@
 
 .tag {
       padding: 16rpx 32rpx;
-      background: var(--bg-input);
-      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12rpx;
       font-size: 28rpx;
-      color: var(--text-secondary);
+      color: rgba(255, 255, 255, 0.6);
       transition: all 0.3s ease;
 }
 
 .tag.active {
-      background: var(--primary-gradient);
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       color: #fff;
 }
 
@@ -284,19 +289,20 @@
       align-items: center;
       justify-content: space-between;
       padding: 20rpx 24rpx;
-      background: var(--bg-input);
-      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12rpx;
 }
 
 .picker-box text {
       font-size: 30rpx;
-      color: var(--text-primary);
+      color: rgba(255, 255, 255, 0.9);
 }
 
 .picker-box image {
       width: 28rpx;
       height: 28rpx;
-      opacity: 0.4;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.6;
 }
 
 /* 取货方式 */
@@ -312,19 +318,20 @@
       align-items: center;
       gap: 12rpx;
       padding: 24rpx;
-      background: var(--bg-input);
-      border-radius: var(--border-radius-lg);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16rpx;
       transition: all 0.3s ease;
 }
 
 .option.active {
-      background: rgba(102, 126, 234, 0.1);
-      border: 2rpx solid var(--primary-color);
+      background: rgba(0, 212, 255, 0.1);
+      border: 2rpx solid #00d4ff;
 }
 
 .option image {
       width: 48rpx;
       height: 48rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
       opacity: 0.6;
 }
 
@@ -334,11 +341,11 @@
 
 .option text {
       font-size: 28rpx;
-      color: var(--text-secondary);
+      color: rgba(255, 255, 255, 0.6);
 }
 
 .option.active text {
-      color: var(--primary-color);
+      color: #00d4ff;
       font-weight: 500;
 }
 
@@ -346,27 +353,29 @@
 .address-input {
       width: 100%;
       height: 72rpx;
-      background: var(--bg-input);
-      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12rpx;
       padding: 0 24rpx;
       font-size: 28rpx;
+      color: rgba(255, 255, 255, 0.9);
 }
 
 /* 备注输入 */
 .note-input {
       width: 100%;
       height: 160rpx;
-      background: var(--bg-input);
-      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12rpx;
       padding: 20rpx;
       font-size: 28rpx;
       line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
 }
 
 .char-count {
       text-align: right;
       font-size: 24rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
       margin-top: 8rpx;
 }
 
@@ -380,35 +389,35 @@
 .dura-btn {
       width: 64rpx;
       height: 64rpx;
-      background: var(--bg-input);
+      background: rgba(0, 212, 255, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 36rpx;
-      color: var(--primary-color);
+      color: #00d4ff;
 }
 
 .dura-value {
       font-size: 48rpx;
       font-weight: 600;
-      color: var(--text-primary);
+      color: rgba(255, 255, 255, 0.95);
       min-width: 80rpx;
       text-align: center;
 }
 
 .dura-unit {
       font-size: 28rpx;
-      color: var(--text-secondary);
+      color: rgba(255, 255, 255, 0.5);
 }
 
 .dura-tip {
       font-size: 24rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
       margin-top: 16rpx;
       padding: 16rpx;
-      background: rgba(102, 126, 234, 0.05);
-      border-radius: var(--border-radius);
+      background: rgba(0, 212, 255, 0.05);
+      border-radius: 12rpx;
 }
 
 /* 发布按钮 */
@@ -416,13 +425,13 @@
       width: calc(100% - 48rpx);
       margin: 32rpx 24rpx;
       height: 96rpx;
-      background: var(--primary-gradient);
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       border-radius: 48rpx;
       font-size: 34rpx;
       font-weight: 500;
       color: #fff;
       letter-spacing: 4rpx;
-      box-shadow: var(--shadow-primary);
+      box-shadow: 0 8rpx 24rpx rgba(0, 212, 255, 0.35);
       border: none;
 }
 
@@ -443,18 +452,19 @@
       width: 200rpx;
       height: 200rpx;
       margin-bottom: 40rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
 }
 
 .success-title {
       font-size: 44rpx;
       font-weight: 600;
-      color: var(--text-primary);
+      color: rgba(255, 255, 255, 0.95);
       margin-bottom: 16rpx;
 }
 
 .success-tip {
       font-size: 28rpx;
-      color: var(--text-placeholder);
+      color: rgba(255, 255, 255, 0.4);
       margin-bottom: 60rpx;
 }
 
@@ -468,7 +478,7 @@
 .btn-detail {
       width: 100%;
       height: 96rpx;
-      background: var(--primary-gradient);
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       border-radius: 48rpx;
       font-size: 34rpx;
       color: #fff;
@@ -478,11 +488,11 @@
 .btn-again {
       width: 100%;
       height: 96rpx;
-      background: var(--bg-card);
+      background: #0d1320;
       border-radius: 48rpx;
       font-size: 34rpx;
-      color: var(--primary-color);
-      border: 2rpx solid var(--primary-color);
+      color: #00d4ff;
+      border: 2rpx solid rgba(0, 212, 255, 0.3);
 }
 
 .btn-detail::after,

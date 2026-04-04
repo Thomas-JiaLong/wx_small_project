@@ -1,8 +1,8 @@
 {
-      "navigationBarTitleText": "注册登录",
-      "navigationBarBackgroundColor": "#667eea",
-      "navigationBarTextStyle": "white",
-      "backgroundColorTop": "#667eea",
-      "backgroundColorBottom": "#ffffff",
-      "enablePullDownRefresh": false
+  "navigationBarTitleText": "注册登录",
+  "navigationBarBackgroundColor": "#0d1320",
+  "navigationBarTextStyle": "white",
+  "backgroundColorTop": "#0d1320",
+  "backgroundColorBottom": "#0a0f1a",
+  "enablePullDownRefresh": false
 }

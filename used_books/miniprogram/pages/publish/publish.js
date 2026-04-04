@@ -1,6 +1,6 @@
-const db = wx.cloud.database();
 const app = getApp();
 const config = require("../../config.js");
+const LoginCheck = require("../../utils/login-check.js");
 
 Page({
       data: {
@@ -26,9 +26,16 @@ Page({
                   { name: '帮送', id: 1, check: false }
             ],
       },
+      
+      db: null,
 
       onLoad() {
-            this.initial();
+            app.ensureCloudReady().then(() => {
+                  this.db = wx.cloud.database();
+                  this.initial();
+            }).catch(err => {
+                  console.log('云开发暂不可用');
+            });
       },
 
       // 恢复初始状态
@@ -64,6 +71,22 @@ Page({
 
       // 扫码
       scan() {
+            // 检查登录状态
+            if (!LoginCheck.isLoggedIn()) {
+                  LoginCheck.check(() => {
+                        // 登录成功后执行扫码
+                        this.doScan();
+                  }, {
+                        toastMessage: '扫码功能需要登录后使用'
+                  });
+                  return;
+            }
+            
+            this.doScan();
+      },
+
+      // 执行扫码
+      doScan() {
             wx.scanCode({
                   onlyFromCamera: false,
                   scanType: ['barCode'],
@@ -79,24 +102,25 @@ Page({
 
       // 确认ISBN
       confirm() {
+            if (!this.db) {
+                  wx.showToast({ title: '云开发暂不可用', icon: 'none' });
+                  return;
+            }
+            
             const isbn = this.data.isbn.trim();
             
-            // 校验ISBN
             if (!/^(978|979)\d{10}$/.test(isbn)) {
                   wx.showToast({ title: 'ISBN格式不正确', icon: 'none' });
                   return;
             }
             
             // 检查登录状态
-            if (!app.openid) {
-                  wx.showModal({
-                        title: '提示',
-                        content: '该功能需要登录后使用，是否去登录？',
-                        success: res => {
-                              if (res.confirm) {
-                                    wx.navigateTo({ url: '/pages/login/login' });
-                              }
-                        }
+            if (!LoginCheck.isLoggedIn()) {
+                  LoginCheck.check(() => {
+                        // 登录成功后执行确认
+                        this.getBook(isbn);
+                  }, {
+                        toastMessage: '确认ISBN需要登录后使用'
                   });
                   return;
             }
@@ -108,8 +132,7 @@ Page({
       getBook(isbn) {
             wx.showLoading({ title: '获取中...', mask: true });
             
-            // 先查本地数据库
-            db.collection('books').where({ isbn }).get()
+            this.db.collection('books').where({ isbn }).get()
                   .then(res => {
                         if (res.data.length > 0) {
                               wx.hideLoading();
@@ -118,7 +141,6 @@ Page({
                                     active: 1
                               });
                         } else {
-                              // 调用云函数获取
                               this.fetchBookFromCloud(isbn);
                         }
                   })
@@ -135,9 +157,14 @@ Page({
                   data: { $url: "bookinfo", isbn }
             })
             .then(res => {
-                  if (res.result.body.status == 0) {
+                  // 检查云函数返回状态
+                  if (res.result && res.result.code !== 200) {
+                        throw new Error(res.result.message || '获取图书信息失败');
+                  }
+                  // 检查API返回状态
+                  if (res.result && res.result.body && res.result.body.status == 0) {
                         const bookData = res.result.body.result;
-                        return db.collection('books').add({ data: bookData }).then(() => bookData);
+                        return this.db.collection('books').add({ data: bookData }).then(() => bookData);
                   }
                   throw new Error('未找到该书籍');
             })
@@ -150,7 +177,8 @@ Page({
             })
             .catch(err => {
                   wx.hideLoading();
-                  wx.showToast({ title: '未找到该书籍', icon: 'none' });
+                  console.error('获取书籍信息失败:', err);
+                  wx.showToast({ title: err.message || '未找到该书籍', icon: 'none' });
             });
       },
 
@@ -234,13 +262,11 @@ Page({
 
       // 发布前校验
       check_pub() {
-            // 专业类书籍需要选择学院
             if (this.data.kind[1].check && this.data.cids === -1) {
                   wx.showToast({ title: '请选择学院', icon: 'none' });
                   return;
             }
             
-            // 自提需要填写地址
             if (this.data.delivery[0].check && !this.data.place.trim()) {
                   wx.showToast({ title: '请输入自提地址', icon: 'none' });
                   return;
@@ -264,11 +290,16 @@ Page({
 
       // 执行发布
       doPublish() {
+            if (!this.db) {
+                  wx.showToast({ title: '云开发暂不可用', icon: 'none' });
+                  return;
+            }
+            
             const { bookinfo, price, kindid, cids, chooseDelivery, place, notes, dura } = this.data;
             
             wx.showLoading({ title: '发布中...', mask: true });
             
-            db.collection('publish').add({
+            this.db.collection('publish').add({
                   data: {
                         creat: Date.now(),
                         dura: Date.now() + dura * 24 * 60 * 60 * 1000,
@@ -309,5 +340,7 @@ Page({
             wx.navigateTo({
                   url: '/pages/detail/detail?scene=' + this.data.detail_id
             });
-      }
+      },
+      
+
 });

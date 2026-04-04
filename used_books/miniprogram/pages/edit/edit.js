@@ -1,6 +1,7 @@
-const db = wx.cloud.database();
 const app = getApp();
 const config = require("../../config.js");
+let db;
+
 Page({
 
       /**
@@ -23,7 +24,11 @@ Page({
             /* this.data.ids = e.detail.value;*/
       },
       onLoad() {
-            this.getdetail();
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+                  this.getdetail();
+            });
       },
       getdetail() {
             let that = this;

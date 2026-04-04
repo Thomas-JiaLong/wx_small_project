@@ -1,7 +1,6 @@
 const app = getApp()
-const db = wx.cloud.database();
 const config = require("../../config.js");
-const _ = db.command;
+let db, _;
 Page({
 
       /**
@@ -15,7 +14,11 @@ Page({
        * 生命周期函数--监听页面加载
        */
       onLoad: function(options) {
-
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+                  _ = db.command;
+            });
       },
       //金额输入，因为js对小数乘除很容易出问题，所以干脆就取整
       numInput(e) {

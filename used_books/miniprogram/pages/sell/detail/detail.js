@@ -1,7 +1,6 @@
 const app = getApp()
-const db = wx.cloud.database();
 const config = require("../../../config.js");
-const _ = db.command;
+let db, _;
 Page({
 
       /**
@@ -11,7 +10,12 @@ Page({
 
       },
       onLoad: function(e) {
-            this.getdetail(e.id);
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+                  _ = db.command;
+                  this.getdetail(e.id);
+            });
       },
       //回到首页
       home() {

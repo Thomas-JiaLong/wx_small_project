@@ -1,161 +1,190 @@
+/* ==================== 聊天页 - 科技感主题 ==================== */
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: var(--bg-page);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #0a0f1a;
 }
 
+/* 标题栏 */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20rpx 30rpx;
-  background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20rpx 30rpx;
+      background: linear-gradient(135deg, #0d1320 0%, #1a1f2e 100%);
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .back {
-  width: 60rpx;
-  height: 60rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+      width: 60rpx;
+      height: 60rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(0, 212, 255, 0.1);
+}
+
+.back:active {
+      background: rgba(0, 212, 255, 0.2);
 }
 
 .icon {
-  font-size: 48rpx;
-  color: #fff;
+      font-size: 48rpx;
+      color: #00d4ff;
+      font-weight: 300;
 }
 
 .title {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #fff;
+      font-size: 32rpx;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: 1rpx;
 }
 
 .placeholder {
-  width: 60rpx;
+      width: 60rpx;
 }
 
+/* 消息列表 */
 .message-list {
-  flex: 1;
-  padding: 20rpx 30rpx;
-  box-sizing: border-box;
+      flex: 1;
+      padding: 24rpx;
+      box-sizing: border-box;
 }
 
 .loading-more {
-  text-align: center;
-  padding: 20rpx;
-  color: var(--text-placeholder);
-  font-size: 24rpx;
+      text-align: center;
+      padding: 20rpx;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 24rpx;
 }
 
+/* 消息项 */
 .message-item {
-  display: flex;
-  margin-bottom: 30rpx;
+      display: flex;
+      margin-bottom: 32rpx;
+      align-items: flex-start;
 }
 
 .message-item.self {
-  flex-direction: row-reverse;
+      flex-direction: row-reverse;
 }
 
 .message-item.other {
-  flex-direction: row;
+      flex-direction: row;
 }
 
 .avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 4rpx solid #fff;
-  box-shadow: var(--shadow-sm);
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2rpx solid rgba(0, 212, 255, 0.2);
+      box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.3);
 }
 
 .message-content {
-  max-width: 70%;
-  margin: 0 20rpx;
+      max-width: 70%;
+      margin: 0 20rpx;
 }
 
 .message-item.self .message-content {
-  align-items: flex-end;
+      align-items: flex-end;
 }
 
+/* 文本消息 */
 .text {
-  display: inline-block;
-  padding: 20rpx 26rpx;
-  border-radius: 20rpx;
-  font-size: 28rpx;
-  line-height: 1.5;
-  word-break: break-all;
+      display: inline-block;
+      padding: 20rpx 28rpx;
+      border-radius: 20rpx;
+      font-size: 28rpx;
+      line-height: 1.5;
+      word-break: break-all;
 }
 
 .message-item.self .text {
-  background: var(--primary-gradient);
-  color: #fff;
-  border-bottom-right-radius: 4rpx;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: #fff;
+      border-bottom-right-radius: 4rpx;
+      box-shadow: 0 4rpx 12rpx rgba(0, 212, 255, 0.25);
 }
 
 .message-item.other .text {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border-bottom-left-radius: 4rpx;
-  box-shadow: var(--shadow-sm);
+      background: #0d1320;
+      color: rgba(255, 255, 255, 0.95);
+      border-bottom-left-radius: 4rpx;
+      box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.3);
+      border: 1rpx solid rgba(0, 212, 255, 0.08);
 }
 
+/* 图片消息 */
 .image {
-  max-width: 300rpx;
-  border-radius: 16rpx;
+      max-width: 300rpx;
+      border-radius: 16rpx;
+      box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
 }
 
+/* 时间 */
 .time {
-  display: block;
-  font-size: 22rpx;
-  color: var(--text-placeholder);
-  margin-top: 8rpx;
-  text-align: center;
+      display: block;
+      font-size: 22rpx;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 10rpx;
+      text-align: center;
 }
 
+/* 空状态 */
 .empty {
-  text-align: center;
-  padding: 200rpx 0;
-  color: var(--text-placeholder);
-  font-size: 28rpx;
+      text-align: center;
+      padding: 200rpx 0;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 28rpx;
 }
 
+/* 输入区域 */
 .input-area {
-  display: flex;
-  align-items: center;
-  padding: 20rpx 30rpx;
-  background: var(--bg-card);
-  border-top: 1rpx solid var(--border-color);
-  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+      display: flex;
+      align-items: center;
+      padding: 20rpx 24rpx;
+      background: #0d1320;
+      border-top: 1rpx solid rgba(0, 212, 255, 0.1);
+      padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
 }
 
 .input {
-  flex: 1;
-  height: 76rpx;
-  padding: 0 30rpx;
-  background: var(--bg-input);
-  border-radius: 38rpx;
-  font-size: 28rpx;
+      flex: 1;
+      height: 76rpx;
+      padding: 0 28rpx;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 38rpx;
+      font-size: 28rpx;
+      color: rgba(255, 255, 255, 0.95);
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
+}
+
+.input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
 }
 
 .send-btn {
-  margin-left: 20rpx;
-  padding: 0 40rpx;
-  height: 76rpx;
-  line-height: 76rpx;
-  background: var(--primary-gradient);
-  color: #fff;
-  font-size: 28rpx;
-  border-radius: 38rpx;
-  box-shadow: var(--shadow-primary);
+      margin-left: 20rpx;
+      padding: 0 36rpx;
+      height: 76rpx;
+      line-height: 76rpx;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      color: #fff;
+      font-size: 28rpx;
+      font-weight: 500;
+      border-radius: 38rpx;
+      box-shadow: 0 4rpx 16rpx rgba(0, 212, 255, 0.3);
 }
 
 .send-btn::after {
-  border: none;
+      border: none;
 }
 
 .send-btn:active {
-  transform: scale(0.95);
+      transform: scale(0.95);
 }

@@ -1,7 +1,8 @@
-/* ==================== 用户头部 ==================== */
+/* ==================== 用户头部 - 科技感 ==================== */
 .user-header {
       position: relative;
-      padding-bottom: 40rpx;
+      padding-bottom: 32rpx;
+      min-height: 320rpx;
 }
 
 .header-bg {
@@ -9,9 +10,23 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 260rpx;
-      background: var(--primary-gradient);
+      height: 320rpx;
+      background: linear-gradient(135deg, #0d1320 0%, #1a1f2e 100%);
       border-radius: 0 0 60rpx 60rpx;
+}
+
+/* 科技感网格背景 */
+.header-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+            linear-gradient(90deg, transparent 49%, rgba(0, 212, 255, 0.015) 50%, transparent 51%),
+            linear-gradient(0deg, transparent 49%, rgba(0, 212, 255, 0.015) 50%, transparent 51%);
+      background-size: 40rpx 40rpx;
 }
 
 .user-info {
@@ -20,42 +35,69 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 40rpx 40rpx 0;
+      padding: 48rpx 40rpx 32rpx;
 }
 
 .user-left {
       display: flex;
       flex-direction: column;
-      gap: 12rpx;
+      gap: 16rpx;
+      padding: 16rpx;
+      border-radius: 20rpx;
+      transition: background 0.2s ease;
+      flex: 1;
+      margin-right: 24rpx;
+}
+
+.user-left:active {
+      background: rgba(0, 212, 255, 0.08);
 }
 
 .user-name {
-      font-size: 44rpx;
+      font-size: 36rpx;
       font-weight: 600;
       color: #fff;
       letter-spacing: 2rpx;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      height: 52rpx;
 }
 
 .user-tip {
-      font-size: 28rpx;
-      color: rgba(255, 255, 255, 0.8);
-      padding: 8rpx 20rpx;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 20rpx;
+      font-size: 22rpx;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 10rpx 20rpx;
+      background: rgba(0, 212, 255, 0.12);
+      border-radius: 24rpx;
       display: inline-flex;
-      align-self: flex-start;
+      align-items: center;
+      border: 1rpx solid rgba(0, 212, 255, 0.2);
+      line-height: 1.4;
+      height: 40rpx;
 }
 
 .user-avatar {
-      width: 140rpx;
-      height: 140rpx;
+      width: 120rpx;
+      height: 120rpx;
       border-radius: 50%;
       overflow: hidden;
-      background: #fff;
-      box-shadow: var(--shadow-lg);
+      background: #1a1f2e;
+      box-shadow:
+            0 6rpx 24rpx rgba(0, 0, 0, 0.5),
+            0 0 30rpx rgba(0, 212, 255, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 2rpx solid rgba(0, 212, 255, 0.25);
+      transition: all 0.2s ease;
+}
+
+.user-avatar:active {
+      transform: scale(0.95);
+      box-shadow:
+            0 4rpx 16rpx rgba(0, 0, 0, 0.5),
+            0 0 24rpx rgba(0, 212, 255, 0.2);
 }
 
 .user-avatar image {
@@ -63,65 +105,75 @@
       height: 100%;
 }
 
-/* ==================== 快捷入口 ==================== */
+/* ==================== 快捷入口 - 科技感 ==================== */
 .quick-actions {
       display: flex;
       justify-content: space-around;
-      background: var(--bg-card);
-      margin: -20rpx 24rpx 24rpx;
-      border-radius: var(--border-radius-lg);
-      padding: 32rpx 0;
-      box-shadow: var(--shadow-md);
+      background: #0d1320;
+      margin: -32rpx 24rpx 24rpx;
+      border-radius: 20rpx;
+      padding: 32rpx 16rpx;
+      box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.5);
       position: relative;
       z-index: 20;
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .action-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16rpx;
+      gap: 10rpx;
 }
 
 .action-icon {
-      width: 80rpx;
-      height: 80rpx;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      width: 72rpx;
+      height: 72rpx;
+      background: rgba(0, 212, 255, 0.08);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 1rpx solid rgba(0, 212, 255, 0.15);
+      transition: all 0.3s ease;
+}
+
+.action-item:active .action-icon {
+      background: rgba(0, 212, 255, 0.15);
+      box-shadow: 0 0 24rpx rgba(0, 212, 255, 0.25);
 }
 
 .action-icon image {
-      width: 44rpx;
-      height: 44rpx;
+      width: 36rpx;
+      height: 36rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
 }
 
 .action-item text {
-      font-size: 26rpx;
-      color: var(--text-secondary);
+      font-size: 22rpx;
+      color: rgba(255, 255, 255, 0.6);
       letter-spacing: 1rpx;
 }
 
-/* ==================== 菜单列表 ==================== */
+/* ==================== 菜单列表 - 科技感 ==================== */
 .menu-section {
       padding: 0 24rpx;
 }
 
 .menu-card {
-      background: var(--bg-card);
-      border-radius: var(--border-radius-lg);
+      background: #0d1320;
+      border-radius: 20rpx;
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.4);
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .menu-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 32rpx;
-      border-bottom: 1rpx solid var(--border-color);
+      padding: 28rpx;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.08);
       transition: background 0.2s ease;
 }
 
@@ -130,70 +182,73 @@
 }
 
 .menu-item:active {
-      background: var(--bg-input);
+      background: rgba(0, 212, 255, 0.05);
 }
 
 .menu-left {
       display: flex;
       align-items: center;
-      gap: 24rpx;
+      gap: 16rpx;
 }
 
 .menu-icon {
-      width: 44rpx;
-      height: 44rpx;
+      width: 36rpx;
+      height: 36rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
 }
 
 .menu-left text {
-      font-size: 32rpx;
-      color: var(--text-primary);
+      font-size: 28rpx;
+      color: rgba(255, 255, 255, 0.9);
       letter-spacing: 1rpx;
 }
 
 .menu-arrow {
-      width: 28rpx;
-      height: 28rpx;
-      opacity: 0.3;
+      width: 24rpx;
+      height: 24rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.4;
 }
 
-/* ==================== 分享弹窗 ==================== */
+/* ==================== 分享弹窗 - 科技感 ==================== */
 .share-popup {
-      background: var(--bg-card);
+      background: #0d1320;
       border-radius: 32rpx 32rpx 0 0;
-      padding: 40rpx;
+      padding: 32rpx;
 }
 
 .share-title {
       text-align: center;
-      font-size: 34rpx;
+      font-size: 30rpx;
       font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 40rpx;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 32rpx;
 }
 
 .share-options {
       display: flex;
       justify-content: center;
-      gap: 80rpx;
-      margin-bottom: 40rpx;
+      gap: 64rpx;
+      margin-bottom: 32rpx;
 }
 
 .share-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16rpx;
+      gap: 12rpx;
       position: relative;
 }
 
 .share-item image {
-      width: 96rpx;
-      height: 96rpx;
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
 }
 
 .share-item text {
-      font-size: 28rpx;
-      color: var(--text-secondary);
+      font-size: 24rpx;
+      color: rgba(255, 255, 255, 0.6);
 }
 
 .share-btn {
@@ -211,17 +266,17 @@
 
 .share-cancel {
       text-align: center;
-      padding: 28rpx 0;
-      background: var(--bg-input);
-      border-radius: var(--border-radius);
-      font-size: 32rpx;
-      color: var(--text-secondary);
+      padding: 24rpx 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16rpx;
+      font-size: 28rpx;
+      color: rgba(255, 255, 255, 0.6);
 }
 
 /* ==================== 适配旧代码 ==================== */
 .avator {
-      width: 140rpx;
-      height: 140rpx;
+      width: 120rpx;
+      height: 120rpx;
       border-radius: 50%;
       overflow: hidden;
 }

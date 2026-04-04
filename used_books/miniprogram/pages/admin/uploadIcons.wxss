@@ -1,0 +1,156 @@
+/* pages/admin/uploadIcons.wxss */
+.container {
+  padding: 32rpx;
+  min-height: 100vh;
+  background: #0a0f1a;
+}
+
+.header {
+  margin-bottom: 32rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #00d4ff;
+  margin-bottom: 12rpx;
+}
+
+.desc {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 32rpx;
+  background: #0d1320;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid rgba(0, 212, 255, 0.15);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.stat-item.success .stat-value {
+  color: #00d4ff;
+}
+
+.stat-item.error .stat-value {
+  color: #ff4d4f;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8rpx;
+}
+
+.tips {
+  background: #0d1320;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid rgba(0, 212, 255, 0.15);
+}
+
+.tip-title {
+  font-size: 28rpx;
+  color: #00d4ff;
+  margin-bottom: 16rpx;
+}
+
+.tip-item {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8rpx 0;
+  padding-left: 16rpx;
+  position: relative;
+}
+
+.tip-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 6rpx;
+  background: #00d4ff;
+  border-radius: 50%;
+}
+
+.btn-group {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  color: #fff;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.btn-primary[disabled] {
+  opacity: 0.6;
+}
+
+.btn-danger {
+  flex: 1;
+  background: rgba(255, 77, 79, 0.2);
+  color: #ff4d4f;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  border: 1rpx solid rgba(255, 77, 79, 0.3);
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.logs {
+  background: #0d1320;
+  border-radius: 16rpx;
+  border: 1rpx solid rgba(0, 212, 255, 0.15);
+  overflow: hidden;
+}
+
+.logs-title {
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+  border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
+}
+
+.logs-content {
+  height: 400rpx;
+  padding: 16rpx;
+}
+
+.log-item {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8rpx 0;
+  font-family: monospace;
+}
+
+.log-empty {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 26rpx;
+  text-align: center;
+  padding: 40rpx;
+}

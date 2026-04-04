@@ -20,7 +20,7 @@
 <view class="step-content" wx:if="{{active === 0}}">
       <view class="isbn-section">
             <view class="isbn-input-box">
-                  <image class="scan-icon" src="/images/scan.png"></image>
+                  <image class="scan-icon" src="/images/scan.png" bindtap="scan"></image>
                   <input 
                         class="isbn-input"
                         bindconfirm="confirm" 
@@ -35,12 +35,7 @@
             
             <image class="isbn-example" src="/images/isbn.jpg" mode="widthFix" />
             
-            <view class="scan-tip">或直接扫描书籍背后的条形码</view>
-            
-            <button class="scan-btn" bindtap="scan">
-                  <image src="/images/scan.png"></image>
-                  <text>扫码识别</text>
-            </button>
+            <view class="scan-tip">请输入或直接点击左侧图标扫描书籍背后的条形码</view>
       </view>
 </view>
 

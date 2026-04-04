@@ -1,6 +1,7 @@
 <view class="contain">
-     <view class="go">
-             <button  bindtap="go">跳过{{count}}s</button> 
-     </view>
      <image class="bg" src="{{bgurl}}"></image>
+     <!-- 跳过按钮 - 左上角 -->
+     <view class="skip-btn" bindtap="go">
+          <text>跳过 {{count}}s</text>
+     </view>
 </view>

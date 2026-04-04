@@ -22,21 +22,22 @@
             "pages/recharge/recharge",
             "pages/reflect/reflect",
             "pages/chats/chats",
-            "pages/chat/chat"
+            "pages/chat/chat",
+            "pages/admin/uploadIcons"
       ],
       "window": {
-            "backgroundColor": "#f5f7fa",
-            "backgroundTextStyle": "dark",
-            "navigationBarBackgroundColor": "#667eea",
-            "navigationBarTitleText": "培正舟海二手书",
+            "backgroundColor": "#0a0f1a",
+            "backgroundTextStyle": "light",
+            "navigationBarBackgroundColor": "#1a1f2e",
+            "navigationBarTitleText": "正培舟海旧书",
             "navigationBarTextStyle": "white"
       },
       "sitemapLocation": "sitemap.json",
       "tabBar": {
-            "color": "#707070",
-            "selectedColor": "#667eea",
-            "backgroundColor": "#ffffff",
-            "borderStyle": "white",
+            "color": "#6b7280",
+            "selectedColor": "#00d4ff",
+            "backgroundColor": "#0d1320",
+            "borderStyle": "black",
             "list": [
                   {
                         "pagePath": "pages/index/index",

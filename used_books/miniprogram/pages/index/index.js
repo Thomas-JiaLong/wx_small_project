@@ -1,221 +1,198 @@
-const app = getApp()
-const db = wx.cloud.database();
+const app = getApp();
 const config = require("../../config.js");
-const _ = db.command;
-Page({
-      data: {
-            college: JSON.parse(config.data).college,
-            collegeCur: -2,
-            showList: false,
-            scrollTop: 0,
-            nomore: false,
-            list: [],
-            banner:''
-      },
-      onLoad() {
-            this.listkind();
-            this.getbanner();
-            this.getList();
-      },
-      //监测屏幕滚动
-      onPageScroll: function(e) {
-            this.setData({
-                  scrollTop: parseInt((e.scrollTop) * wx.getSystemInfoSync().pixelRatio)
-            })
-      },
-      //获取上次布局记忆
-      listkind() {
-            let that = this;
-            wx.getStorage({
-                  key: 'iscard',
-                  success: function(res) {
-                        that.setData({
-                              iscard: res.data
-                        })
-                  },
-                  fail() {
-                        that.setData({
-                              iscard: true,
-                        })
-                  }
-            })
-      },
-      //布局方式选择
-      changeCard() {
-            let that = this;
-            if (that.data.iscard) {
-                  that.setData({
-                        iscard: false
-                  })
-                  wx.setStorage({
-                        key: 'iscard',
-                        data: false,
-                  })
-            } else {
-                  that.setData({
-                        iscard: true
-                  })
-                  wx.setStorage({
-                        key: 'iscard',
-                        data: true,
-                  })
-            }
-      },
-      //跳转搜索
-      search() {
-            wx.navigateTo({
-                  url: '/pages/search/search',
-            })
-      },
-      //学院选择
-      collegeSelect(e) {
-            this.setData({
-                  collegeCur: e.currentTarget.dataset.id - 1,
-                  scrollLeft: (e.currentTarget.dataset.id - 3) * 100,
-                  showList: false,
-            })
-            this.getList();
-      },
-      //选择全部
-      selectAll() {
-            this.setData({
-                  collegeCur: -2,
-                  scrollLeft: -200,
-                  showList: false,
-            })
-            this.getList();
-      },
-      //展示列表小面板
-      showlist() {
-            let that = this;
-            if (that.data.showList) {
-                  that.setData({
-                        showList: false,
-                  })
-            } else {
-                  that.setData({
-                        showList: true,
-                  })
-            }
-      },
-      getList() {
-            const { collegeCur } = this.data;
-            const collegeid = collegeCur == -2 ? _.neq(-2) : collegeCur + '';
-            
-            db.collection('publish')
-                  .where({
-                        status: 0,
-                        dura: _.gt(Date.now()),
-                        collegeid: collegeid
-                  })
-                  .orderBy('creat', 'desc')
-                  .limit(20)
-                  .get()
-                  .then(res => {
-                        wx.stopPullDownRefresh();
-                        const { data } = res;
-                        if (data.length === 0) {
-                              this.setData({ nomore: true, list: [] });
-                              return;
-                        }
-                        const nomore = data.length < 20;
-                        this.setData({
-                              nomore,
-                              page: 0,
-                              list: data,
-                        });
-                  })
-                  .catch(() => {
-                        wx.showToast({ title: '获取失败', icon: 'none' });
-                  });
-      },
-      more() {
-            let that = this;
-            if (that.data.nomore || that.data.list.length < 20) {
-                  return false
-            }
-            let page = that.data.page + 1;
-            if (that.data.collegeCur == -2) {
-                  var collegeid = _.neq(-2); //除-2之外所有
-            } else {
-                  var collegeid = that.data.collegeCur + '' //小程序搜索必须对应格式
-            }
-            db.collection('publish').where({
-                  status: 0,
-                  dura: _.gt(new Date().getTime()),
-                  collegeid: collegeid
-            }).orderBy('creat', 'desc').skip(page * 20).limit(20).get({
-                  success: function(res) {
-                        if (res.data.length == 0) {
-                              that.setData({
-                                    nomore: true
-                              })
-                              return false;
-                        }
-                        if (res.data.length < 20) {
-                              that.setData({
-                                    nomore: true
-                              })
-                        }
-                        that.setData({
-                              page: page,
-                              list: that.data.list.concat(res.data)
-                        })
-                  },
-                  fail() {
-                        wx.showToast({
-                              title: '获取失败',
-                              icon: 'none'
-                        })
-                  }
-            })
-      },
-      onReachBottom() {
-            this.more();
-      },
-      //下拉刷新
-      onPullDownRefresh() {
-            this.getList();
-      },
-      gotop() {
-            wx.pageScrollTo({
-                  scrollTop: 0
-            })
-      },
-      //跳转详情
-      detail(e) {
-            let that = this;
-            wx.navigateTo({
-                  url: '/pages/detail/detail?scene=' + e.currentTarget.dataset.id,
-            })
-      },
-      //获取轮播
-      getbanner() {
-            let that = this;
-            db.collection('banner').where({
-                  
-            }).get({
-                  success: function(res) {
-                        that.setData({
-                              banner: res.data[0].list
-                        })
-                  }
-            })
-      },
-      //跳转轮播链接
-      // goweb(e) {
-      //       if (e.currentTarget.dataset.web){
-      //             wx.navigateTo({
-      //                   url: '/pages/web/web?url='+e.currentTarget.dataset.web.url,
-      //             })
-      //       }
-      // },
-      onShareAppMessage() {
-            return {
-                  title: JSON.parse(config.data).share_title,
-                  imageUrl: JSON.parse(config.data).share_img,
-                  path: '/pages/start/start'
-            }
-      },
 
-})
+Page({
+  data: {
+    college: JSON.parse(config.data).college,
+    collegeCur: -2,
+    showList: false,
+    showBackTop: false,
+    nomore: false,
+    list: [],
+    banner: '',
+    page: 0,
+    loading: false,
+  },
+
+  db: null,
+  _: null,
+  _scrollTop: 0,
+  _backTopTimer: null,
+
+  onLoad() {
+    app.ensureCloudReady().then(() => {
+      this.db = wx.cloud.database();
+      this._ = this.db.command;
+      this.listkind();
+      this.getbanner();
+      this.getList();
+    }).catch(() => {
+      this.setData({ nomore: true, list: [] });
+    });
+  },
+
+  // 滚动监听（节流优化，不再频繁setData）
+  onPageScroll(e) {
+    const scrollTop = e.scrollTop;
+    this._scrollTop = scrollTop;
+    
+    // 节流：300ms 检测一次回到顶部按钮
+    if (!this._backTopTimer) {
+      const showBackTop = scrollTop > 500;
+      if (this.data.showBackTop !== showBackTop) {
+        this.setData({ showBackTop });
+      }
+      this._backTopTimer = setTimeout(() => {
+        this._backTopTimer = null;
+      }, 300);
+    }
+  },
+
+  // 获取布局记忆
+  listkind() {
+    wx.getStorage({
+      key: 'iscard',
+      success: res => this.setData({ iscard: res.data }),
+      fail: () => this.setData({ iscard: true })
+    });
+  },
+
+  // 切换布局
+  changeCard() {
+    const iscard = !this.data.iscard;
+    this.setData({ iscard });
+    wx.setStorageSync('iscard', iscard);
+  },
+
+  // 跳转搜索
+  search() {
+    wx.navigateTo({ url: '/pages/search/search' });
+  },
+
+  // 学院选择
+  collegeSelect(e) {
+    const index = e.currentTarget.dataset.id;
+    this.setData({
+      collegeCur: index,
+      scrollLeft: Math.max(0, index * 100 - 150),
+      showList: false,
+    });
+    this.getList();
+  },
+
+  // 选择全部
+  selectAll() {
+    this.setData({ collegeCur: -2, scrollLeft: 0, showList: false });
+    this.getList();
+  },
+
+  // 分类面板
+  showlist() {
+    this.setData({ showList: !this.data.showList });
+  },
+
+  // 获取书籍列表
+  getList() {
+    if (!this.db) return;
+
+    const { collegeCur, college } = this.data;
+    const _ = this._;
+    const collegeid = collegeCur === -2 ? _.neq(-2) : (college[collegeCur].id + '');
+
+    this.setData({ loading: true });
+
+    this.db.collection('publish')
+      .where({ status: 0, dura: _.gt(Date.now()), collegeid })
+      .orderBy('creat', 'desc')
+      .limit(20)
+      .get()
+      .then(res => {
+        wx.stopPullDownRefresh();
+        const { data } = res;
+        this.setData({
+          loading: false,
+          nomore: data.length === 0 || data.length < 20,
+          page: 0,
+          list: data,
+        });
+      })
+      .catch(() => {
+        wx.stopPullDownRefresh();
+        this.setData({ loading: false, nomore: true, list: [] });
+      });
+  },
+
+  // 加载更多（Promise化）
+  more() {
+    if (!this.db || this.data.nomore || this.data.loading || this.data.list.length < 20) return;
+
+    const { collegeCur, college, page } = this.data;
+    const _ = this._;
+    const collegeid = collegeCur === -2 ? _.neq(-2) : (college[collegeCur].id + '');
+    const nextPage = page + 1;
+
+    this.setData({ loading: true });
+
+    this.db.collection('publish')
+      .where({ status: 0, dura: _.gt(Date.now()), collegeid })
+      .orderBy('creat', 'desc')
+      .skip(nextPage * 20)
+      .limit(20)
+      .get()
+      .then(res => {
+        const more = res.data.length < 20;
+        this.setData({
+          loading: false,
+          nomore: more,
+          page: nextPage,
+          list: this.data.list.concat(res.data),
+        });
+      })
+      .catch(() => {
+        this.setData({ loading: false });
+        wx.showToast({ title: '加载失败', icon: 'none' });
+      });
+  },
+
+  onReachBottom() {
+    this.more();
+  },
+
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.getList();
+  },
+
+  // 回到顶部
+  gotop() {
+    wx.pageScrollTo({ scrollTop: 0, duration: 300 });
+  },
+
+  // 跳转详情
+  detail(e) {
+    wx.navigateTo({
+      url: '/pages/detail/detail?scene=' + e.currentTarget.dataset.id,
+    });
+  },
+
+  // 获取轮播图
+  getbanner() {
+    if (!this.db) return;
+    this.db.collection('banner').get()
+      .then(res => {
+        if (res.data.length > 0) {
+          this.setData({ banner: res.data[0].list });
+        }
+      })
+      .catch(() => console.log('轮播图暂不可用'));
+  },
+
+  onShareAppMessage() {
+    const cfg = JSON.parse(config.data);
+    return {
+      title: cfg.share_title,
+      imageUrl: cfg.share_img,
+      path: '/pages/start/start'
+    };
+  },
+});

@@ -2,20 +2,20 @@
 <view class="user-header">
       <view class="header-bg"></view>
       <view class="user-info">
-            <view class="user-left">
+            <view class="user-left" bindtap="go" data-go="{{userinfo ? '/pages/edit/edit' : '/pages/login/login'}}">
                   <view class="user-name">
-                        <block wx:if="{{userinfo}}">
-                              <open-data type="userNickName"></open-data>
+                        <block wx:if="{{userinfo && userinfo.info && userinfo.info.nickName}}">
+                              {{userinfo.info.nickName}}
                         </block>
                         <block wx:else>点击登录</block>
                   </view>
-                  <view class="user-tip" bindtap="go" data-go="{{userinfo ? '/pages/edit/edit' : '/pages/login/login'}}">
-                        {{userinfo ? '点击修改资料' : '登录解锁更多功能'}}
+                  <view class="user-tip">
+                        {{userinfo ? (userinfo.campus ? '校区：' + userinfo.campus.name : '点击修改资料') : '登录解锁更多功能'}}
                   </view>
             </view>
-            <view class="user-avatar">
-                  <block wx:if="{{userinfo}}">
-                        <open-data type="userAvatarUrl"></open-data>
+            <view class="user-avatar" bindtap="go" data-go="{{userinfo ? '/pages/edit/edit' : '/pages/login/login'}}">
+                  <block wx:if="{{userinfo && userinfo.info && userinfo.info.avatarUrl}}">
+                        <image src="{{userinfo.info.avatarUrl}}" mode="aspectFill"></image>
                   </block>
                   <block wx:else>
                         <image src="/images/avator.png"></image>
@@ -26,19 +26,19 @@
 
 <!-- 功能入口 -->
 <view class="quick-actions">
-      <view class="action-item" bindtap="go" data-go="/pages/sell/list/list">
+      <view class="action-item" bindtap="go" data-go="/pages/sell/list/list" data-need-login="true">
             <view class="action-icon">
                   <image src="/images/history.png"></image>
             </view>
             <text>发布列表</text>
       </view>
-      <view class="action-item" bindtap="go" data-go="/pages/order/list/list">
+      <view class="action-item" bindtap="go" data-go="/pages/order/list/list" data-need-login="true">
             <view class="action-icon">
-                  <image src="/images/publish.png"></image>
+                  <image src="/images/order.png"></image>
             </view>
             <text>订单查询</text>
       </view>
-      <view class="action-item" bindtap="go" data-go="/pages/chats/chats">
+      <view class="action-item" bindtap="go" data-go="/pages/chats/chats" data-need-login="true">
             <view class="action-icon">
                   <image src="/images/message.png"></image>
             </view>

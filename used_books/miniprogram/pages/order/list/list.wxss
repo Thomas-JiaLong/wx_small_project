@@ -1,10 +1,18 @@
+/* ==================== 订单列表 - 科技感主题 ==================== */
+
+page {
+      background: #0a0f1a;
+}
+
+/* 标签栏 */
 .tab_contain {
       width: 100%;
-      height: 90rpx;
+      height: 96rpx;
       display: flex;
       align-items: center;
+      background: #0d1320;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
       box-sizing: border-box;
-      border-bottom: 1rpx solid #eee;
 }
 
 .tab_one {
@@ -21,44 +29,53 @@
       display: flex;
       align-items: center;
       font-size: 30rpx;
+      color: rgba(255, 255, 255, 0.5);
       letter-spacing: 2rpx;
+      transition: all 0.3s ease;
 }
 
 .tab_on {
-      font-size: 32rpx;
+      font-size: 32rpx !important;
       font-weight: 600;
-      border-bottom: 4rpx solid  #3498db;
+      color: #00d4ff !important;
+      border-bottom: 4rpx solid #00d4ff;
 }
 
+/* 内容区域 */
 .contain {
       width: 100%;
       padding: 24rpx;
       display: flex;
       box-sizing: border-box;
       flex-direction: column;
+      background: #0a0f1a;
+      min-height: calc(100vh - 96rpx);
 }
 
+/* 卡片 */
 .card {
       width: 100%;
-      padding: 30rpx;
+      padding: 32rpx;
       display: flex;
       box-sizing: border-box;
-      border-radius: 15rpx;
-      margin-bottom: 30rpx;
+      border-radius: 20rpx;
+      margin-bottom: 24rpx;
       flex-direction: column;
+      background: #0d1320;
+      border: 1rpx solid rgba(0, 212, 255, 0.08);
+      box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.4);
 }
 
+/* 卡片头部 */
 .top {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-bottom: 20rpx;
-      border-bottom: 1rpx solid #eee;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.08);
 }
-.text-red{
-      color: #f80202;
-}
+
 .top1 {
       display: flex;
       width: 100%;
@@ -67,9 +84,9 @@
 }
 
 .date {
-      font-size: 28rpx;
-      color: #b2b2b2;
-      letter-spacing: 2rpx;
+      font-size: 26rpx;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 1rpx;
 }
 
 .title {
@@ -80,54 +97,73 @@
 .title image {
       width: 36rpx;
       height: 36rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
 }
 
 .title view {
       padding-left: 10rpx;
-      letter-spacing: 3rpx;
+      letter-spacing: 2rpx;
       font-size: 30rpx;
       font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
 }
 
+.text-red {
+      color: #ff6b6b;
+}
+
+/* 删除按钮 */
 .del {
       display: flex;
       align-items: center;
-      border: 1rpx solid #c2c2c2;
-      border-radius: 20rpx;
-      padding: 0 10rpx;
+      border: 1rpx solid rgba(255, 255, 255, 0.2);
+      border-radius: 24rpx;
+      padding: 0 16rpx;
       box-sizing: border-box;
-      height: 40rpx;
+      height: 44rpx;
+      transition: all 0.2s ease;
+}
+
+.del:active {
+      border-color: rgba(255, 107, 107, 0.5);
+      background: rgba(255, 107, 107, 0.1);
 }
 
 .del image {
       width: 28rpx;
       height: 28rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.6;
 }
 
 .del view {
-      font-size: 26rpx;
-      color: #c2c2c2;
-      letter-spacing: 3rpx;
+      font-size: 24rpx;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2rpx;
+      margin-left: 6rpx;
 }
 
+/* 中间内容 */
 .center {
       width: 100%;
       display: flex;
       align-items: center;
       box-sizing: border-box;
-      padding: 20rpx 0;
-      border-bottom: 1rpx solid #eee;
+      padding: 24rpx 0;
+      border-bottom: 1rpx solid rgba(0, 212, 255, 0.08);
 }
 
 .center image {
-      width: 130rpx;
-      height: 130rpx;
+      width: 140rpx;
+      height: 140rpx;
+      border-radius: 12rpx;
+      box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.4);
 }
 
 .content {
-      width: calc(100% - 130rpx);
+      width: calc(100% - 160rpx);
       padding: 0 20rpx;
-      height: 130rpx;
+      height: 140rpx;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
@@ -142,23 +178,29 @@
 
 .book_name {
       font-size: 30rpx;
-      letter-spacing: 2rpx;
+      letter-spacing: 1rpx;
+      color: rgba(255, 255, 255, 0.95);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 }
 
 .book_author {
       padding-top: 10rpx;
       font-size: 26rpx;
-      letter-spacing: 3rpx;
-      color: #c2c2c2;
+      letter-spacing: 1rpx;
+      color: rgba(255, 255, 255, 0.5);
 }
 
 .price {
       display: flex;
       justify-content: flex-end;
-      font-size: 32rpx;
-      color: #f80202;
+      font-size: 34rpx;
+      color: #00d4ff;
+      font-weight: 600;
 }
 
+/* 底部操作 */
 .bottom {
       width: 100%;
       display: flex;
@@ -167,52 +209,69 @@
 }
 
 .cancel {
-      width: 110rpx;
+      min-width: 120rpx;
       font-size: 26rpx;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 20rpx;
-      height: 50rpx;
-      border-radius: 25rpx;
-      color: #c2c2c2;
-      border: 1rpx solid #c2c2c2;
+      padding: 0 24rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: rgba(255, 255, 255, 0.6);
+      border: 1rpx solid rgba(255, 255, 255, 0.2);
       margin-left: 20rpx;
+      transition: all 0.2s ease;
+}
+
+.cancel:active {
+      border-color: rgba(0, 212, 255, 0.4);
+      color: #00d4ff;
 }
 
 .confirm {
-      width: 110rpx;
+      min-width: 120rpx;
       font-size: 26rpx;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 20rpx;
-      height: 50rpx;
-      border-radius: 25rpx;
-      color:  #3498db;
-      border: 1rpx solid  #3498db;
+      padding: 0 24rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: #0d1320;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       margin-left: 20rpx;
+      border: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
 }
 
+.confirm:active {
+      opacity: 0.85;
+      transform: scale(0.98);
+}
+
+/* 空状态 */
 .nocontent {
       width: 100%;
-      height: calc(100% - 90rpx);
+      height: calc(100vh - 200rpx);
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       box-sizing: border-box;
+      background: #0a0f1a;
 }
 
 .nocontent image {
       padding-left: 80rpx;
       width: 340rpx;
       height: 272rpx;
+      opacity: 0.5;
 }
 
 .blank_text {
       padding-top: 40rpx;
-      font-size: 32rpx;
+      font-size: 28rpx;
       letter-spacing: 2rpx;
-      color: #c6c6c8;
+      color: rgba(255, 255, 255, 0.4);
 }

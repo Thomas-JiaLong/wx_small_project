@@ -1,7 +1,7 @@
 const app = getApp()
-const db = wx.cloud.database();
 const config = require("../../../config.js");
-const _ = db.command;
+const LoginCheck = require("../../../utils/login-check.js");
+let db, _;
 Page({
 
       /**
@@ -44,10 +44,31 @@ Page({
             })
       },
       onLoad() {
-            wx.showLoading({
-                  title: '加载中',
-            })
-            this.getlist();
+            // 检查登录状态
+            if (!LoginCheck.isLoggedIn()) {
+                  LoginCheck.check(() => {
+                        // 登录成功后加载数据
+                        this.loadData();
+                  }, {
+                        toastMessage: '查看订单需要登录后使用'
+                  });
+                  return;
+            }
+            
+            this.loadData();
+      },
+
+      // 加载数据
+      loadData() {
+            // 等待云开发初始化完成后再执行
+            app.ensureCloudReady().then(() => {
+                  db = wx.cloud.database();
+                  _ = db.command;
+                  wx.showLoading({
+                        title: '加载中',
+                  })
+                  this.getlist();
+            });
       },
       //获取列表
       getlist() {
