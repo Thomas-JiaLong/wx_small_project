@@ -1,200 +1,227 @@
-.top_box {
-      width: 100%;
-      padding:30rpx;
-      display: flex;
-      box-sizing: border-box;
-      border-bottom: 1rpx solid #eee;
+/* ==================== 用户头部 ==================== */
+.user-header {
+      position: relative;
+      padding-bottom: 40rpx;
 }
 
-.top_1 {
+.header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 260rpx;
+      background: var(--primary-gradient);
+      border-radius: 0 0 60rpx 60rpx;
+}
+
+.user-info {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40rpx 40rpx 0;
+}
+
+.user-left {
       display: flex;
       flex-direction: column;
-      width: 70%;
-      justify-content: space-between;
-      height: 140rpx;
-      box-sizing: border-box;
-      padding: 10rpx 20rpx;
+      gap: 12rpx;
 }
 
-.top_1_1 {
-      font-size: 42rpx;
+.user-name {
+      font-size: 44rpx;
+      font-weight: 600;
+      color: #fff;
       letter-spacing: 2rpx;
 }
 
-.top_1_2 {
-      font-size: 34rpx;
-      color: #919191;
-      line-height: 42rpx;
+.user-tip {
+      font-size: 28rpx;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 8rpx 20rpx;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20rpx;
+      display: inline-flex;
+      align-self: flex-start;
 }
 
-.top_2 {
-      width: 30%;
-      height: 140rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-}
-
-.avator {
+.user-avatar {
       width: 140rpx;
       height: 140rpx;
-      border-radius: 70rpx;
+      border-radius: 50%;
       overflow: hidden;
-}
-
-.avator image {
-      width: 140rpx;
-      height: 140rpx;
-}
-
-.center_box {
-      width: 100%;
-      padding: 20rpx 0;
-      height: 200rpx;
+      background: #fff;
+      box-shadow: var(--shadow-lg);
       display: flex;
-      align-items: center;
-      justify-content: space-around;
-      box-sizing: border-box;
-}
-
-.center_1 {
-      width: 160rpx;
-      height: 160rpx;
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
 }
 
-.center_1 view {
-      font-size: 26rpx;
-      padding-top: 20rpx;
-}
-
-.center_1 image {
-      width: 60rpx;
-      height: 60rpx;
-}
-
-.blank {
+.user-avatar image {
       width: 100%;
-      height: 20rpx;
-      background: #f4f4f4;
+      height: 100%;
 }
 
-.bottom_box {
-      width: 100%;
+/* ==================== 快捷入口 ==================== */
+.quick-actions {
       display: flex;
-      box-sizing: border-box;
-      padding: 0 40rpx;
-      flex-direction: column;
+      justify-content: space-around;
+      background: var(--bg-card);
+      margin: -20rpx 24rpx 24rpx;
+      border-radius: var(--border-radius-lg);
+      padding: 32rpx 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      z-index: 20;
 }
 
-.bottom_card {
-      position: relative;
-      width: 100%;
-      height: 124rpx;
+.action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16rpx;
+}
+
+.action-icon {
+      width: 80rpx;
+      height: 80rpx;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+
+.action-icon image {
+      width: 44rpx;
+      height: 44rpx;
+}
+
+.action-item text {
+      font-size: 26rpx;
+      color: var(--text-secondary);
+      letter-spacing: 1rpx;
+}
+
+/* ==================== 菜单列表 ==================== */
+.menu-section {
+      padding: 0 24rpx;
+}
+
+.menu-card {
+      background: var(--bg-card);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+}
+
+.menu-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1rpx solid #eee;
-      background: #fff;
-}
-.bottom_card button{
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0.01;
-}
-.bottom_card image {
-      width: 14rpx;
-      height: 25rpx;
+      padding: 32rpx;
+      border-bottom: 1rpx solid var(--border-color);
+      transition: background 0.2s ease;
 }
 
-.bottom_1 {
+.menu-item:last-child {
+      border-bottom: none;
+}
+
+.menu-item:active {
+      background: var(--bg-input);
+}
+
+.menu-left {
       display: flex;
-      height: 100%;
       align-items: center;
+      gap: 24rpx;
 }
 
-.bottom_1 image {
-      width: 40rpx;
-      height: 40rpx;
+.menu-icon {
+      width: 44rpx;
+      height: 44rpx;
 }
 
-.bottom_1 view {
-      font-size: 30rpx;
-      letter-spacing: 3rpx;
-      padding-left: 30rpx;
+.menu-left text {
+      font-size: 32rpx;
+      color: var(--text-primary);
+      letter-spacing: 1rpx;
 }
 
+.menu-arrow {
+      width: 28rpx;
+      height: 28rpx;
+      opacity: 0.3;
+}
 
-.share_contain {
+/* ==================== 分享弹窗 ==================== */
+.share-popup {
+      background: var(--bg-card);
+      border-radius: 32rpx 32rpx 0 0;
+      padding: 40rpx;
+}
+
+.share-title {
+      text-align: center;
+      font-size: 34rpx;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 40rpx;
+}
+
+.share-options {
+      display: flex;
+      justify-content: center;
+      gap: 80rpx;
+      margin-bottom: 40rpx;
+}
+
+.share-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-}
-
-.share_box {
-      display: flex;
-      align-items: center;
-      padding: 10rpx 20rpx 25rpx 20rpx;
-      box-sizing: border-box;
-      width: 500rpx;
-      justify-content: space-around;
-}
-
-.share_one {
-      display: flex;
+      gap: 16rpx;
       position: relative;
-      flex-direction: column;
-      align-items: center;
 }
 
-.share_one image {
-      width: 70rpx;
-      height: 70rpx;
+.share-item image {
+      width: 96rpx;
+      height: 96rpx;
 }
 
-.share_one view {
-      padding-top: 20rpx;
-      font-size: 26rpx;
+.share-item text {
+      font-size: 28rpx;
+      color: var(--text-secondary);
 }
 
-.share_title {
-      font-size: 30rpx;
-      letter-spacing: 3rpx;
-      padding: 16rpx;
-}
-
-.share_border {
-      margin-top: 20rpx;
-      display: flex;
-      box-sizing: border-box;
-      height: 6rpx;
-      width: 60rpx;
-      border-radius: 3rpx;
-      border-bottom:6rpx solid  #3498db;
-}
-
-.share_button {
+.share-btn {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0.01;
+      opacity: 0;
+}
+
+.share-btn::after {
       border: none;
 }
 
-.share_button::after {
-      border: none;
+.share-cancel {
+      text-align: center;
+      padding: 28rpx 0;
+      background: var(--bg-input);
+      border-radius: var(--border-radius);
+      font-size: 32rpx;
+      color: var(--text-secondary);
 }
 
-.share_bor {
-      height: 60rpx;
-      width: 1rpx;
-      border-left: 1rpx solid #e7e7e7;
+/* ==================== 适配旧代码 ==================== */
+.avator {
+      width: 140rpx;
+      height: 140rpx;
+      border-radius: 50%;
+      overflow: hidden;
 }

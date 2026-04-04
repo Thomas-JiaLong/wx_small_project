@@ -1,373 +1,326 @@
-.top_contain {
-      display: flex;
-      flex-direction: column;
-      padding: 24rpx;
-      box-sizing: border-box;
-}
-
-.top_img {
-      width: 100%;
+/* ==================== 书籍头部 ==================== */
+.book-header {
+      background: var(--primary-gradient);
+      padding: 40rpx;
       display: flex;
       justify-content: center;
+      align-items: center;
 }
 
-.top_img image {
-      width: 300rpx;
-      height: 300rpx;
+.book-cover {
+      width: 320rpx;
+      height: 400rpx;
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-lg);
 }
 
-.title {
-      padding-top: 30rpx;
-      font-size: 32rpx;
-      font-weight: 600;
-      letter-spacing: 2rpx;
-}
-
-.author {
-      padding-top: 10rpx;
-      font-size: 26rpx;
-      color: rgb(172, 171, 171);
-      letter-spacing: 2rpx;
-}
-
-.price_box {
-      margin-top: 20rpx;
+/* ==================== 价格区域 ==================== */
+.price-section {
       display: flex;
-      align-items: flex-end;
+      align-items: baseline;
+      gap: 16rpx;
+      padding: 32rpx 40rpx;
+      background: var(--bg-card);
 }
 
-.now_price {
-      font-size: 34rpx;
-      color: rgb(255, 1, 1);
+.current-price {
+      font-size: 56rpx;
+      font-weight: 700;
+      color: var(--error-color);
 }
 
-.pre_price {
-      padding-left: 30rpx;
+.original-price {
       font-size: 28rpx;
-      color: rgb(172, 171, 171);
+      color: var(--text-placeholder);
       text-decoration: line-through;
 }
 
-.blank {
-      width: 100%;
-      height: 24rpx;
-      background: #eee;
+/* ==================== 书籍信息卡片 ==================== */
+.book-info-card {
+      background: var(--bg-card);
+      padding: 0 40rpx 32rpx;
+      border-bottom: 16rpx solid var(--bg-page);
 }
 
-.center_contain {
-      width: 100%;
-      height: 80rpx;
-      display: flex;
-      box-sizing: border-box;
-      padding: 0 100rpx;
-      justify-content: space-around;
-}
-
-.c_title {
-      font-size: 30rpx;
-      width: 140rpx;
-      height: 100%;
-      display: flex;
-      letter-spacing: 2rpx;
-      align-items: center;
-      justify-content: center;
-}
-
-.title_on {
-      font-size: 32rpx;
+.book-title {
+      font-size: 40rpx;
       font-weight: 600;
-      color: #000;
-      border-bottom: 4rpx solid  #3498db;
+      color: var(--text-primary);
+      line-height: 1.4;
 }
 
-.user_box {
-      width: 100%;
-      height: 148rpx;
+.book-edition {
+      display: inline-block;
+      margin-top: 12rpx;
+      padding: 6rpx 16rpx;
+      background: rgba(102, 126, 234, 0.1);
+      color: var(--primary-color);
+      font-size: 24rpx;
+      border-radius: 8rpx;
+}
+
+.book-author {
+      font-size: 30rpx;
+      color: var(--text-secondary);
+      margin-top: 16rpx;
+}
+
+/* ==================== 标签切换 ==================== */
+.tab-section {
+      background: var(--bg-card);
+      margin-top: 16rpx;
+}
+
+.tab-header {
       display: flex;
-      padding: 24rpx;
-      align-items: center;
-      justify-content: space-between;
-      box-sizing: border-box;
+      border-bottom: 1rpx solid var(--border-color);
 }
 
-.user_box image {
-      width: 100rpx;
-      height: 100rpx;
-      border-radius: 50%;
-}
-
-.des_box {
-      height: 100%;
-      width: 450rpx;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-around;
-      padding: 10rpx 0;
-}
-
-.user_name {
-      font-size: 32rpx;
-      letter-spacing: 2rpx;
-}
-
-.local_box {
-      display: flex;
-      align-items: center;
-}
-
-.local_box image {
-      width: 30rpx;
-      height: 30rpx;
-}
-
-.local_box view {
-      padding-left: 5rpx;
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-      color: rgb(150, 150, 150);
-}
-
-.sex {
-      width: 100rpx;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-}
-
-.sex image {
-      width: 50rpx;
-      height: 50rpx;
-      border-radius: 50%;
-}
-
-.notes_box {
-      width: 100%;
-      padding: 24rpx 24rpx 0 24rpx;
-      display: flex;
-      box-sizing: border-box;
-}
-
-.notes {
-      width: 100%;
-      background: rgb(238, 238, 238);
-      color: #aaa;
-      padding: 20rpx 20rpx 10rpx 20rpx;
-      border-radius: 10rpx;
-      display: flex;
-      box-sizing: border-box;
-      flex-direction: column;
-}
-
-.notes_text {
-      letter-spacing: 2rpx;
-      font-size: 28rpx;
-      line-height: 45rpx;
-      padding-bottom: 10rpx;
-}
-
-.time_box {
-      width: 100%;
-      padding: 24rpx 24rpx 0 24rpx;
-      display: flex;
-      box-sizing: border-box;
-      justify-content: space-between;
-}
-
-.kind {
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-}
-
-.time {
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-      color: #8c9aa8;
-}
-
-.deliver_box {
-      width: 100%;
-      padding: 24rpx 24rpx 0 24rpx;
-      display: flex;
-      box-sizing: border-box;
-      justify-content: space-between;
-}
-
-.deliver_first {
-      display: flex;
-      align-items: center;
-}
-
-.deliver_title {
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-}
-
-.deliver_kind {
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-      color: #a5a5a5;
-}
-
-.deliver_place {
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-}
-
-.palceInput_box {
-      width: 100%;
-      padding: 24rpx 24rpx 0 24rpx;
-      display: flex;
-      box-sizing: border-box;
-      justify-content: center;
-}
-
-.palceInput_box input {
-      width: 100%;
-      height: 66rpx;
-      border: 1rpx solid #eee;
-      border-radius: 10rpx;
-      font-size: 26rpx;
-      padding: 0 20rpx;
-      letter-spacing: 2rpx;
-}
-
-.detail_contain {
-      width: 100%;
-      padding: 24rpx;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-}
-
-.detail_card {
-      display: flex;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 30rpx 0;
-      justify-content: space-between;
-}
-
-.detail_border {
-      border-bottom: 1rpx solid #eee;
-}
-
-.detail_title {
-      width: 20%;
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
-      line-height: 45rpx;
-}
-
-.detail_content {
-      width: 78%;
-      font-size: 27rpx;
-      letter-spacing: 2rpx;
-      line-height: 44rpx;
-      color: #616161;
-}
-
-/*底部导航*/
-
-.tabbar {
-      width: 100%;
-      height: 96rpx;
-      background: #fff;
-      opacity: 1;
-      position: fixed;
-      left: 0rpx;
-      bottom: 0rpx;
-      display: flex;
-      padding: 10rpx;
-      border-top: 1rpx solid #eee;
-      align-items: center;
-      box-sizing: border-box;
-      z-index: 8;
-}
-
-.t_card {
+.tab-item {
+      flex: 1;
+      text-align: center;
+      padding: 28rpx 0;
       position: relative;
-      width: 20%;
-      height: 80rpx;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
+      transition: all 0.3s ease;
 }
 
-.t_card image {
+.tab-item text {
+      font-size: 30rpx;
+      color: var(--text-secondary);
+}
+
+.tab-item.active text {
+      color: var(--primary-color);
+      font-weight: 600;
+}
+
+.tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60rpx;
+      height: 6rpx;
+      background: var(--primary-gradient);
+      border-radius: 3rpx;
+}
+
+.tab-content {
+      padding: 24rpx 32rpx;
+}
+
+/* ==================== 卖家卡片 ==================== */
+.seller-card {
+      display: flex;
+      align-items: center;
+      background: var(--bg-input);
+      border-radius: var(--border-radius-lg);
+      padding: 24rpx;
+      margin-bottom: 24rpx;
+}
+
+.seller-avatar {
+      width: 88rpx;
+      height: 88rpx;
+      border-radius: 50%;
+      margin-right: 20rpx;
+}
+
+.seller-info {
+      flex: 1;
+}
+
+.seller-name {
+      font-size: 32rpx;
+      font-weight: 500;
+      color: var(--text-primary);
+}
+
+.seller-campus {
+      display: flex;
+      align-items: center;
+      gap: 8rpx;
+      margin-top: 8rpx;
+}
+
+.seller-campus image {
+      width: 28rpx;
+      height: 28rpx;
+      opacity: 0.6;
+}
+
+.seller-campus text {
+      font-size: 26rpx;
+      color: var(--text-secondary);
+}
+
+.seller-gender image {
       width: 40rpx;
       height: 40rpx;
 }
 
-.t_card text {
+/* ==================== 详情行 ==================== */
+.detail-row {
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      height: calc(100% - 50rpx);
-      width: 100%;
-      font-size: 24rpx;
-      text-align: center;
-      white-space: nowrap;
-      padding-top: 4rpx;
+      padding: 20rpx 0;
+      border-bottom: 1rpx solid var(--border-color);
 }
 
-.t_button {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0rpx;
-      top: 0rpx;
-      opacity: 0.01;
-      z-index: 9;
+.detail-row:last-child {
+      border-bottom: none;
 }
 
-.buy_box {
-      width: 40%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-}
-
-.buy {
-      width: 90%;
-      height: 70rpx;
-      background:  #3498db;
-      color: #000;
-      letter-spacing: 4rpx;
+.detail-label {
+      width: 140rpx;
       font-size: 28rpx;
-      border-radius: 35rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      color: var(--text-placeholder);
+      flex-shrink: 0;
 }
 
-.contact_box {
-      z-index: 9;
+.detail-value {
+      flex: 1;
+      font-size: 28rpx;
+      color: var(--text-primary);
+}
+
+/* ==================== 地址输入 ==================== */
+.address-input {
+      margin-top: 20rpx;
+      background: var(--bg-input);
+      border-radius: var(--border-radius);
+      padding: 24rpx;
+}
+
+.address-input input {
+      font-size: 28rpx;
+      width: 100%;
+}
+
+.placeholder {
+      color: var(--text-placeholder);
+}
+
+/* ==================== 备注区域 ==================== */
+.note-section {
+      margin-top: 24rpx;
+      padding: 24rpx;
+      background: rgba(255, 153, 0, 0.05);
+      border-radius: var(--border-radius);
+      border-left: 6rpx solid #ff9900;
+}
+
+.note-label {
+      font-size: 28rpx;
+      color: #ff9900;
+      margin-bottom: 12rpx;
+}
+
+.note-content {
+      font-size: 28rpx;
+      color: var(--text-secondary);
+      line-height: 1.6;
+}
+
+/* ==================== 图书详情列表 ==================== */
+.book-detail-list {
+      background: var(--bg-card);
+}
+
+/* ==================== 内容简介 ==================== */
+.summary-section {
+      margin-top: 24rpx;
+      padding: 24rpx;
+      background: var(--bg-input);
+      border-radius: var(--border-radius);
+}
+
+.summary-label {
+      font-size: 28rpx;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 16rpx;
+}
+
+.summary-content {
+      font-size: 28rpx;
+      color: var(--text-secondary);
+      line-height: 1.8;
+}
+
+/* ==================== 底部操作栏 ==================== */
+.bottom-bar {
       position: fixed;
-      bottom: 740rpx;
-      right: 40rpx;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
       display: flex;
-      width: 100rpx;
+      align-items: center;
+      padding: 16rpx 24rpx;
+      padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+      box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.action-btns {
+      display: flex;
+      gap: 8rpx;
+}
+
+.action-btn {
+      display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 20rpx 0;
-      border-radius: 50rpx 50rpx 20rpx 20rpx;
-      box-shadow: 0 0 20rpx #f0f0f0 !important;
+      padding: 8rpx 20rpx;
+      position: relative;
 }
 
-.contact_box image {
-      width: 80rpx;
-      height: 80rpx;
+.action-btn image {
+      width: 44rpx;
+      height: 44rpx;
 }
 
-.contact_box view {
-      font-size: 26rpx;
+.action-btn text {
+      font-size: 22rpx;
+      color: var(--text-secondary);
+      margin-top: 4rpx;
+}
+
+.share-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+}
+
+.share-mask::after {
+      border: none;
+}
+
+.buy-btn {
+      flex: 1;
+      margin-left: 20rpx;
+      height: 88rpx;
+      background: var(--primary-gradient);
+      border-radius: 44rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32rpx;
+      font-weight: 500;
+      color: #fff;
       letter-spacing: 2rpx;
-      margin-top: 10rpx;
+      box-shadow: var(--shadow-primary);
+      transition: all 0.3s ease;
+}
+
+.buy-btn:active {
+      transform: scale(0.98);
+}
+
+.buy-btn.disabled {
+      background: #ccc;
+      box-shadow: none;
 }

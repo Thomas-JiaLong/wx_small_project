@@ -1,45 +1,263 @@
+/* ==================== 全局主题变量 ==================== */
+/* 主题色：紫蓝渐变 */
 page {
-      background: #fff;
+      --primary-color: #667eea;
+      --primary-light: #764ba2;
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      
+      /* 功能色 */
+      --success-color: #52c41a;
+      --warning-color: #faad14;
+      --error-color: #ff4d4f;
+      --info-color: #1890ff;
+      
+      /* 文字色 */
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --text-placeholder: #bbbbbb;
+      --text-disabled: #c0c0c0;
+      
+      /* 背景色 */
+      --bg-page: #f5f7fa;
+      --bg-card: #ffffff;
+      --bg-input: #f7f8fa;
+      
+      /* 边框 */
+      --border-color: #eee;
+      --border-radius: 16rpx;
+      --border-radius-lg: 24rpx;
+      --border-radius-xl: 32rpx;
+      
+      /* 阴影 */
+      --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
+      --shadow-primary: 0 8rpx 24rpx rgba(102, 126, 234, 0.3);
+      
+      /* 间距 */
+      --spacing-xs: 8rpx;
+      --spacing-sm: 16rpx;
+      --spacing-md: 24rpx;
+      --spacing-lg: 32rpx;
+      --spacing-xl: 48rpx;
+      
+      /* 字号 */
+      --font-xs: 22rpx;
+      --font-sm: 26rpx;
+      --font-md: 30rpx;
+      --font-lg: 34rpx;
+      --font-xl: 40rpx;
+      
+      /* 基础设置 */
+      background: var(--bg-page);
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-primary);
+      font-size: var(--font-md);
 }
 
+/* ==================== 通用工具类 ==================== */
 .shadow {
-      box-shadow: 0 0 18rpx #3498db;
+      box-shadow: var(--shadow-primary);
 }
 
+.shadow-sm {
+      box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+      box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+      box-shadow: var(--shadow-lg);
+}
+
+/* 文字截断 */
 .text-cut {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
 }
 
+.text-cut-2 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+}
+
+/* 渐变背景 */
+.gradient-bg {
+      background: var(--primary-gradient);
+}
+
+/* 卡片样式 */
+.card {
+      background: var(--bg-card);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--spacing-lg);
+}
+
+/* 按钮样式 */
+.btn-primary {
+      background: var(--primary-gradient);
+      color: #fff;
+      border-radius: 50rpx;
+      border: none;
+      font-size: var(--font-lg);
+      font-weight: 500;
+      letter-spacing: 2rpx;
+      transition: all 0.3s ease;
+}
+
+.btn-primary::after {
+      border: none;
+}
+
+.btn-primary:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+}
+
+/* ==================== 加载更多 ==================== */
 .loadmore {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 30rpx 0;
+      padding: 40rpx 0;
 }
 
 .loadmore image {
-      width: 50rpx;
-      height: 50rpx;
+      width: 48rpx;
+      height: 48rpx;
+      animation: spin 1s linear infinite;
 }
 
 .loadmore view {
-      font-size: 28rpx;
-      color:  #3498db;
-      letter-spacing: 4rpx;
+      font-size: var(--font-sm);
+      color: var(--text-placeholder);
+      letter-spacing: 2rpx;
+      margin-left: 16rpx;
 }
+
+@keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+}
+
+/* ==================== 回到顶部 ==================== */
 .totop {
       position: fixed;
-      right: 30rpx;
-      bottom: 80rpx;
+      right: 32rpx;
+      bottom: 120rpx;
+      width: 88rpx;
+      height: 88rpx;
+      background: var(--bg-card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      z-index: 100;
+      transition: all 0.3s ease;
+}
+
+.totop:active {
+      transform: scale(0.9);
 }
 
 .totop image {
-      width: 100rpx;
-      height: 100rpx;
-      z-index: 9;
+      width: 48rpx;
+      height: 48rpx;
+}
+
+/* ==================== 空状态 ==================== */
+.empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120rpx 0;
+}
+
+.empty-state image {
+      width: 240rpx;
+      height: 240rpx;
+      margin-bottom: 32rpx;
+      opacity: 0.6;
+}
+
+.empty-state text {
+      font-size: var(--font-md);
+      color: var(--text-placeholder);
+      letter-spacing: 2rpx;
+}
+
+/* ==================== 价格样式 ==================== */
+.price {
+      color: var(--error-color);
+      font-weight: 600;
+}
+
+.price::before {
+      content: '¥';
+      font-size: 0.8em;
+}
+
+/* ==================== 标签样式 ==================== */
+.tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rpx 16rpx;
+      font-size: var(--font-xs);
+      border-radius: 8rpx;
+      background: var(--bg-input);
+      color: var(--text-secondary);
+}
+
+.tag-primary {
+      background: rgba(102, 126, 234, 0.1);
+      color: var(--primary-color);
+}
+
+/* ==================== 分割线 ==================== */
+.divider {
+      width: 100%;
+      height: 16rpx;
+      background: var(--bg-page);
+}
+
+/* ==================== 安全区域 ==================== */
+.safe-area-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ==================== 动画 ==================== */
+@keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes slideUp {
+      from {
+            opacity: 0;
+            transform: translateY(40rpx);
+      }
+      to {
+            opacity: 1;
+            transform: translateY(0);
+      }
+}
+
+.fade-in {
+      animation: fadeIn 0.3s ease;
+}
+
+.slide-up {
+      animation: slideUp 0.4s ease;
 }

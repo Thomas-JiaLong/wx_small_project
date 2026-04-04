@@ -1,94 +1,109 @@
-<view class="top_box">
-      <view class="top_1">
-            <view wx:if="{{!userinfo}}" class="top_1_1" bindtap="go" data-go="/pages/login/login">点击登录</view>
-            <view wx:if="{{userinfo}}" class="top_1_1">
-                  <open-data type="userNickName"></open-data>
+<!-- 顶部用户信息 -->
+<view class="user-header">
+      <view class="header-bg"></view>
+      <view class="user-info">
+            <view class="user-left">
+                  <view class="user-name">
+                        <block wx:if="{{userinfo}}">
+                              <open-data type="userNickName"></open-data>
+                        </block>
+                        <block wx:else>点击登录</block>
+                  </view>
+                  <view class="user-tip" bindtap="go" data-go="{{userinfo ? '/pages/edit/edit' : '/pages/login/login'}}">
+                        {{userinfo ? '点击修改资料' : '登录解锁更多功能'}}
+                  </view>
             </view>
-            <view class="top_1_2" wx:if="{{!userinfo}}">登录即可解锁所有功能哦~</view>
-             <view class="top_1_2" wx:if="{{userinfo}}" bindtap="go" data-go="/pages/edit/edit" data-status="1">点击修改资料</view>
-      </view>
-      <view class="top_2">
-            <view class="avator">
-                  <open-data wx:if="{{userinfo}}" type="userAvatarUrl"></open-data>
-                  <image wx:if="{{!userinfo}}" src="/images/avator.png"></image>
+            <view class="user-avatar">
+                  <block wx:if="{{userinfo}}">
+                        <open-data type="userAvatarUrl"></open-data>
+                  </block>
+                  <block wx:else>
+                        <image src="/images/avator.png"></image>
+                  </block>
             </view>
-      </view>
-</view>
-<view class="center_box">
-      <view class="center_1" bindtap="go" data-go="/pages/sell/list/list" data-status="1">
-            <image src="/images/history.png"></image>
-            <view>发布列表</view>
-      </view>
-      <view class="center_1" bindtap="go" data-go="/pages/order/list/list" data-status="1">
-            <image src="/images/publish.png"></image>
-            <view>订单查询</view>
-      </view>
-      <view class="center_1" bindtap="go" data-go="/pages/help/help">
-            <image src="/images/help.png"></image>
-            <view>问题解答</view>
-      </view>
-      <view class="center_1" bindtap="go" data-go="/pages/chats/chats">
-            <image src="/images/message.png"></image>
-            <view>消息</view>
-      </view>
-</view>
-<view class="blank"></view>
-<view class="bottom_box">
-      <view class="bottom_card" bindtap="go" data-go="/pages/parse/parse" data-status="1">
-            <view class="bottom_1">
-                  <image src="/images/parse.png"></image>
-                  <view>大大钱包</view>
-            </view>
-            <image src="/images/go.png"></image>
-      </view>
-      <view class="bottom_card" bindtap="go" data-go="/pages/kefu/kefu" data-status="1">
-            <view class="bottom_1">
-                  <image src="/images/kefu.png"></image>
-                  <view>客服在线</view>
-            </view>
-            <image src="/images/go.png"></image>
-      </view>
-      <!-- <view class="bottom_card">
-            <view class="bottom_1">
-                  <image src="/images/feedback.png"></image>
-                  <view>问题反馈</view>
-            </view>
-            <image src="/images/go.png"></image>
-            <button open-type="feedback"></button>
-      </view> -->
-      <view class="bottom_card" bindtap="showShare">
-            <view class="bottom_1">
-                  <image src="/images/fen.png"></image>
-                  <view>分享卖书</view>
-            </view>
-            <image src="/images/go.png"></image>
-      </view>
-      <view class="bottom_card" bindtap="go" data-go="/pages/about/about">
-            <view class="bottom_1">
-                  <image src="/images/guanyu.png"></image>
-                  <view>程序说明</view>
-            </view>
-            <image src="/images/go.png"></image>
       </view>
 </view>
 
-<!--分享弹出层-->
-<van-popup show="{{ showShare }}" bind:close="closePop">
-      <view class="share_contain">
-            <view class="share_border"></view>
-            <view class="share_title">分享到</view>
-            <view class="share_box">
-                  <view class="share_one">
-                        <image src="/images/weixin.png"></image>
-                        <view>微信好友</view>
-                        <button class="share_button" open-type="share"></button>
+<!-- 功能入口 -->
+<view class="quick-actions">
+      <view class="action-item" bindtap="go" data-go="/pages/sell/list/list">
+            <view class="action-icon">
+                  <image src="/images/history.png"></image>
+            </view>
+            <text>发布列表</text>
+      </view>
+      <view class="action-item" bindtap="go" data-go="/pages/order/list/list">
+            <view class="action-icon">
+                  <image src="/images/publish.png"></image>
+            </view>
+            <text>订单查询</text>
+      </view>
+      <view class="action-item" bindtap="go" data-go="/pages/chats/chats">
+            <view class="action-icon">
+                  <image src="/images/message.png"></image>
+            </view>
+            <text>消息中心</text>
+      </view>
+      <view class="action-item" bindtap="go" data-go="/pages/help/help">
+            <view class="action-icon">
+                  <image src="/images/help.png"></image>
+            </view>
+            <text>帮助中心</text>
+      </view>
+</view>
+
+<!-- 菜单列表 -->
+<view class="menu-section">
+      <view class="menu-card">
+            <view class="menu-item" bindtap="go" data-go="/pages/parse/parse">
+                  <view class="menu-left">
+                        <image class="menu-icon" src="/images/parse.png"></image>
+                        <text>我的钱包</text>
                   </view>
-                  <view class="share_bor"></view>
-                  <view class="share_one">
+                  <image class="menu-arrow" src="/images/right.png"></image>
+            </view>
+            
+            <view class="menu-item" bindtap="go" data-go="/pages/kefu/kefu">
+                  <view class="menu-left">
+                        <image class="menu-icon" src="/images/kefu.png"></image>
+                        <text>在线客服</text>
+                  </view>
+                  <image class="menu-arrow" src="/images/right.png"></image>
+            </view>
+            
+            <view class="menu-item" bindtap="showShare">
+                  <view class="menu-left">
+                        <image class="menu-icon" src="/images/fen.png"></image>
+                        <text>分享好友</text>
+                  </view>
+                  <image class="menu-arrow" src="/images/right.png"></image>
+            </view>
+            
+            <view class="menu-item" bindtap="go" data-go="/pages/about/about">
+                  <view class="menu-left">
+                        <image class="menu-icon" src="/images/guanyu.png"></image>
+                        <text>关于我们</text>
+                  </view>
+                  <image class="menu-arrow" src="/images/right.png"></image>
+            </view>
+      </view>
+</view>
+
+<!-- 分享弹窗 -->
+<van-popup show="{{ showShare }}" bind:close="closePop" round position="bottom">
+      <view class="share-popup">
+            <view class="share-title">分享到</view>
+            <view class="share-options">
+                  <view class="share-item">
+                        <image src="/images/weixin.png"></image>
+                        <text>微信好友</text>
+                        <button class="share-btn" open-type="share"></button>
+                  </view>
+                  <view class="share-item" bindtap="preview" data-link="{{poster}}">
                         <image src="/images/pyq.png"></image>
-                        <view>朋友圈</view>
-                        <button class="share_button" bindtap="preview" data-link="{{poster}}"></button>
+                        <text>朋友圈</text>
                   </view>
             </view>
+            <view class="share-cancel" bindtap="closePop">取消</view>
       </view>
 </van-popup>

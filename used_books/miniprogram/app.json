@@ -25,16 +25,18 @@
             "pages/chat/chat"
       ],
       "window": {
-            "backgroundColor": "#0000",
-            "backgroundTextStyle": "light",
-            "navigationBarBackgroundColor": "#3498db",
+            "backgroundColor": "#f5f7fa",
+            "backgroundTextStyle": "dark",
+            "navigationBarBackgroundColor": "#667eea",
             "navigationBarTitleText": "培正舟海二手书",
             "navigationBarTextStyle": "white"
       },
       "sitemapLocation": "sitemap.json",
       "tabBar": {
             "color": "#707070",
-            "selectedColor": "#3498db",
+            "selectedColor": "#667eea",
+            "backgroundColor": "#ffffff",
+            "borderStyle": "white",
             "list": [
                   {
                         "pagePath": "pages/index/index",
