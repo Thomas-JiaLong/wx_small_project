@@ -97,6 +97,11 @@
             <button class="t_button" bindtap="home"></button>
       </view>
       
+      <view class="t_card" bindtap="contactSeller">
+            <image src="/images/message.png"></image>
+            <text>联系</text>
+      </view>
+      
       <view class="t_card">
             <image src="/images/contact.png"></image>
             <text>反馈</text>

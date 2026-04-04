@@ -86,44 +86,15 @@ var data = {
 }
 //计时器
 function formTime(creatTime) {
-      let date = new Date(creatTime),
-            Y = date.getFullYear(),
-            M = date.getMonth() + 1,
-            D = date.getDate(),
-            H = date.getHours(),
-            m = date.getMinutes(),
-            s = date.getSeconds();
-      if (M < 10) {
-            M = '0' + M;
-      }
-      if (D < 10) {
-            D = '0' + D;
-      }
-      if (H < 10) {
-            H = '0' + H;
-      }
-      if (m < 10) {
-            m = '0' + m;
-      }
-      if (s < 10) {
-            s = '0' + s;
-      }
-      return Y + '-' + M + '-' + D + ' ' + H + ':' + m + ':' + s;
+      const date = new Date(creatTime);
+      const pad = n => n < 10 ? '0' + n : n;
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
 function days() {
-      let now = new Date();
-      let year = now.getFullYear();
-      let month = now.getMonth() + 1;
-      let day = now.getDate();
-      if (month < 10) {
-            month = '0' + month;
-      }
-      if (day < 10) {
-            day = '0' + day;
-      }
-      let date = year + "" + month + day;
-      return date;
+      const now = new Date();
+      const pad = n => n < 10 ? '0' + n : n;
+      return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
 }
 module.exports = {
       data: JSON.stringify(data),

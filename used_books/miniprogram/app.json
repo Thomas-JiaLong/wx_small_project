@@ -20,8 +20,9 @@
             "pages/poster/poster",
             "pages/parse/parse",
             "pages/recharge/recharge",
-            "pages/reflect/reflect"
-            
+            "pages/reflect/reflect",
+            "pages/chats/chats",
+            "pages/chat/chat"
       ],
       "window": {
             "backgroundColor": "#0000",

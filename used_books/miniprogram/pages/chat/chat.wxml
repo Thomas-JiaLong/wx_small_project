@@ -1,0 +1,81 @@
+<view class="container">
+  <!-- 标题栏 -->
+  <view class="header">
+    <view class="back" bindtap="goBack">
+      <text class="icon">‹</text>
+    </view>
+    <text class="title">{{otherName || '聊天'}}</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view 
+    class="message-list" 
+    scroll-y 
+    scroll-top="{{scrollTop}}"
+    bindscrolltolower="loadMore"
+    lower-threshold="100"
+  >
+    <!-- 加载更多 -->
+    <view wx:if="{{pageLoading}}" class="loading-more">
+      <text>加载更多...</text>
+    </view>
+
+    <!-- 消息 -->
+    <view wx:for="{{messages}}" wx:key="createTime" class="message-item {{item.senderId === openid ? 'self' : 'other'}}">
+      <!-- 对方头像 -->
+      <image 
+        wx:if="{{item.senderId !== openid}}" 
+        class="avatar" 
+        src="{{otherAvatar || '/images/default_avatar.png'}}" 
+        mode="aspectFill"
+      ></image>
+      
+      <!-- 消息内容 -->
+      <view class="message-content">
+        <!-- 文本消息 -->
+        <text wx:if="{{item.type === 'text'}}" class="text">{{item.content}}</text>
+        
+        <!-- 图片消息 -->
+        <image 
+          wx:if="{{item.type === 'image'}}" 
+          class="image" 
+          src="{{item.content}}" 
+          mode="widthFix"
+          bindtap="previewImage"
+          data-url="{{item.content}}"
+        ></image>
+        
+        <!-- 时间 -->
+        <text class="time">{{item.timeFormat}}</text>
+      </view>
+
+      <!-- 自己头像 -->
+      <image 
+        wx:if="{{item.senderId === openid}}" 
+        class="avatar" 
+        src="{{userInfo.avatarUrl || '/images/default_avatar.png'}}" 
+        mode="aspectFill"
+      ></image>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{!loading && messages.length === 0}}" class="empty">
+      <text>暂无消息，开始聊天吧~</text>
+    </view>
+  </scroll-view>
+
+  <!-- 输入框 -->
+  <view class="input-area">
+    <input 
+      class="input" 
+      type="text" 
+      value="{{inputValue}}"
+      placeholder="输入消息..."
+      bindinput="onInput"
+      bindconfirm="sendMessage"
+      confirm-type="send"
+    />
+    <button class="send-btn" bindtap="sendMessage">发送</button>
+  </view>
+</view>

@@ -92,20 +92,20 @@ Page({
             })
       },
       confirm() {
-            let that = this;
-            let isbn = that.data.isbn;
-            if (!(/978[0-9]{10}/.test(isbn))) {
+            const isbn = this.data.isbn.trim();
+            // ISBN-13: 978/979 + 9位数字 + 1位校验码
+            if (!(/^(978|979)\d{10}$/.test(isbn))) {
                   wx.showToast({
-                        title: '请检查您的isbn号',
+                        title: '请检查您的ISBN号（应为13位数字）',
                         icon: 'none'
                   });
-                  return false;
+                  return;
             }
             if (!app.openid) {
                   wx.showModal({
                         title: '温馨提示',
                         content: '该功能需要注册方可使用，是否马上去注册',
-                        success(res) {
+                        success: res => {
                               if (res.confirm) {
                                     wx.navigateTo({
                                           url: '/pages/login/login',
@@ -113,10 +113,9 @@ Page({
                               }
                         }
                   })
-                  return false
+                  return;
             }
-            that.get_book(isbn);
-           
+            this.get_book(isbn);
       },
       //查询书籍数据库详情
       get_book(isbn) {

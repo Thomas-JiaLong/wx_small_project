@@ -27,6 +27,10 @@
             <image src="/images/help.png"></image>
             <view>问题解答</view>
       </view>
+      <view class="center_1" bindtap="go" data-go="/pages/chats/chats">
+            <image src="/images/message.png"></image>
+            <view>消息</view>
+      </view>
 </view>
 <view class="blank"></view>
 <view class="bottom_box">

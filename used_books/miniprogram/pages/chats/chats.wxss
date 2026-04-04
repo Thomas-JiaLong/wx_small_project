@@ -1,0 +1,106 @@
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.header {
+  background: #fff;
+  padding: 30rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #eee;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.loading {
+  padding: 100rpx;
+  text-align: center;
+  color: #999;
+}
+
+.empty {
+  padding: 200rpx 100rpx;
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.tip {
+  display: block;
+  margin-top: 20rpx;
+  color: #3498db;
+}
+
+.list {
+  background: #fff;
+}
+
+.item {
+  display: flex;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.item:active {
+  background: #f9f9f9;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.msg {
+  font-size: 26rpx;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400rpx;
+}
+
+.badge {
+  background: #e74c3c;
+  color: #fff;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  min-width: 36rpx;
+  text-align: center;
+}

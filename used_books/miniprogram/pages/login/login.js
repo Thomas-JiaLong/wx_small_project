@@ -172,7 +172,14 @@ Page({
                               success: function(res) {
                                     app.userinfo = res.data;
                                     app.openid = res.data._openid;
-                                    wx.navigateBack({})
+                                    wx.hideLoading();
+                                    wx.showToast({
+                                          title: '注册成功！',
+                                          icon: 'success'
+                                    });
+                                    setTimeout(() => {
+                                          wx.navigateBack({});
+                                    }, 1000);
                               },
                         })
                   },

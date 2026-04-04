@@ -414,6 +414,57 @@ Page({
                   url: "/pages/poster/poster?bookinfo=" + JSON.stringify(pubInfo)
             })
       },
+      
+      // 联系卖家
+      contactSeller() {
+            const { publishinfo, publisherinfo } = this.data;
+            
+            // 不能和自己聊天
+            if (publishinfo._openid === app.openid) {
+                  wx.showToast({ title: '这是您发布的书籍', icon: 'none' });
+                  return;
+            }
+            
+            if (!app.openid) {
+                  wx.showModal({
+                        title: '温馨提示',
+                        content: '该功能需要注册方可使用，是否马上去注册',
+                        success: res => {
+                              if (res.confirm) {
+                                    wx.navigateTo({ url: '/pages/login/login' });
+                              }
+                        }
+                  });
+                  return;
+            }
+            
+            wx.showLoading({ title: '正在打开聊天...' });
+            
+            wx.cloud.callFunction({
+                  name: 'chat',
+                  data: {
+                        sellerId: publishinfo._openid,
+                        bookId: publishinfo._id,
+                        bookTitle: publishinfo.bookinfo.title,
+                  },
+                  success: res => {
+                        wx.hideLoading();
+                        if (res.result.success) {
+                              const conv = res.result.data;
+                              wx.navigateTo({
+                                    url: `/pages/chat/chat?id=${conv._id}&name=${encodeURIComponent(publisherinfo.info?.nickName || '用户')}&avatar=${encodeURIComponent(publisherinfo.info?.avatarUrl || '')}`,
+                              });
+                        } else {
+                              wx.showToast({ title: '打开聊天失败', icon: 'none' });
+                        }
+                  },
+                  fail: err => {
+                        wx.hideLoading();
+                        console.error('打开聊天失败', err);
+                        wx.showToast({ title: '打开聊天失败', icon: 'none' });
+                  }
+            });
+      },
       //客服跳动动画
       kefuani: function () {
             let that = this;

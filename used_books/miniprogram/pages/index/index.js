@@ -99,41 +99,35 @@ Page({
             }
       },
       getList() {
-            let that = this;
-            if (that.data.collegeCur == -2) {
-                  var collegeid = _.neq(-2); //除-2之外所有
-            } else {
-                  var collegeid = that.data.collegeCur + '' //小程序搜索必须对应格式
-            }
-            db.collection('publish').where({
-                  status: 0,
-                  dura: _.gt(new Date().getTime()),
-                  collegeid: collegeid
-            }).orderBy('creat', 'desc').limit(20).get({
-                  success: function(res) {
-                        wx.stopPullDownRefresh(); //暂停刷新动作
-                        if (res.data.length == 0) {
-                              that.setData({
-                                    nomore: true,
-                                    list: [],
-                              })
-                              return false;
+            const { collegeCur } = this.data;
+            const collegeid = collegeCur == -2 ? _.neq(-2) : collegeCur + '';
+            
+            db.collection('publish')
+                  .where({
+                        status: 0,
+                        dura: _.gt(Date.now()),
+                        collegeid: collegeid
+                  })
+                  .orderBy('creat', 'desc')
+                  .limit(20)
+                  .get()
+                  .then(res => {
+                        wx.stopPullDownRefresh();
+                        const { data } = res;
+                        if (data.length === 0) {
+                              this.setData({ nomore: true, list: [] });
+                              return;
                         }
-                        if (res.data.length < 20) {
-                              that.setData({
-                                    nomore: true,
-                                    page: 0,
-                                    list: res.data,
-                              })
-                        } else {
-                              that.setData({
-                                    page: 0,
-                                    list: res.data,
-                                    nomore: false,
-                              })
-                        }
-                  }
-            })
+                        const nomore = data.length < 20;
+                        this.setData({
+                              nomore,
+                              page: 0,
+                              list: data,
+                        });
+                  })
+                  .catch(() => {
+                        wx.showToast({ title: '获取失败', icon: 'none' });
+                  });
       },
       more() {
             let that = this;
