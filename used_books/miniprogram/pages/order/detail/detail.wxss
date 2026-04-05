@@ -1,178 +1,286 @@
 page {
-      background:  #3498db;
+  background: #0a0f1a;
 }
 
 .contain {
-      display: flex;
-      padding: 20rpx 28rpx;
-      width: 100%;
-      box-sizing: border-box;
+  display: flex;
+  padding: 20rpx 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 .card {
-      width: 100%;
-      background: #fff;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      padding: 40rpx 25rpx;
+  width: 100%;
+  background: #0d1320;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 32rpx;
+  border-radius: 24rpx;
+  border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
-.top_over {
-      width: 100%;
-      height: 20rpx;
-      position: absolute;
-      left: 0rpx;
-      top: -10rpx;
+/* 状态卡片 */
+.status-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.05) 100%);
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
 }
 
-.bot_over {
-      width: 100%;
-      height: 20rpx;
-      position: absolute;
-      left: 0rpx;
-      bottom: -10rpx;
+.status-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-bottom: 16rpx;
 }
 
+.status-icon.1, .status-icon.2, .status-icon.5 {
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+}
+
+.status-icon.3 {
+  background: rgba(82, 196, 26, 0.2);
+  color: #52c41a;
+}
+
+.status-icon.4, .status-icon.6 {
+  background: rgba(153, 153, 153, 0.2);
+  color: #999;
+}
+
+.status-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.status-text.待发货 { color: #ffa500; }
+.status-text.待收货 { color: #00d4ff; }
+.status-text.已完成 { color: #52c41a; }
+.status-text.已取消 { color: #999; }
+.status-text.退款中 { color: #ff6b6b; }
+.status-text.已退款 { color: #999; }
+
+.status-tip {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2rpx;
+}
+
+/* 书籍信息 */
 .goods_box {
-      width: 100%;
-      display: flex;
-      box-sizing: border-box;
-      align-items: center;
-      height: 100rpx;
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 16rpx 0;
 }
 
 .goods_img {
-      width: 90rpx;
-      height: 90rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
 }
 
 .goods_content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding-left: 20rpx;
-      width: calc(100% - 240rpx);
-      height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20rpx;
+  width: calc(100% - 280rpx);
+  height: 120rpx;
 }
 
 .goods_title {
-      font-size: 29rpx;
-      letter-spacing: 3rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 2rpx;
 }
 
 .goods_author {
-      font-size: 26rpx;
-      letter-spacing: 2rpx;
-      color: rgb(150, 150, 150);
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1rpx;
+  margin-top: 8rpx;
 }
 
 .goods_price {
-      width: 150rpx;
-      height: 100%;
-      font-size: 32rpx;
-      color: #f00;
-      white-space: nowrap;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  width: 160rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #ff6b6b;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .border {
-      width: 100%;
-      height: 20rpx;
-      border-bottom: 1rpx solid #eee;
+  width: 100%;
+  height: 0;
+  border-bottom: 1rpx solid rgba(0, 212, 255, 0.08);
+  margin: 16rpx 0;
 }
 
 .list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      padding: 30rpx 0 10rpx 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16rpx 0;
 }
 
 .list_1 {
-      font-size: 26rpx;
-      color: rgb(167, 167, 167);
-      letter-spacing: 2rpx;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 2rpx;
 }
 
 .list_2 {
-      padding-top: 10rpx;
-      font-size: 32rpx;
-      letter-spacing: 3rpx;
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8rpx;
+  letter-spacing: 2rpx;
 }
 
 .orderfare {
-      margin-top: 28rpx;
-      font-size: 22rpx;
-      font-weight: 600;
-      letter-spacing: 2rpx;
-      color: rgb(167, 167, 167);
-      padding-bottom: 20rpx;
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  color: rgba(255, 255, 255, 0.3);
+  padding-bottom: 16rpx;
 }
 
 .fare_box {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10rpx 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
 }
 
 .fare_title {
-      font-size: 28rpx;
-      letter-spacing: 2rpx;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2rpx;
 }
 
 .fare_des {
-      font-size: 27rpx;
-      color: rgb(167, 167, 167);
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1rpx;
 }
-.bot_box{
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+
+.fare_des.primary {
+  color: #00d4ff;
+  font-weight: 600;
+  font-size: 32rpx;
 }
+
+.fare_des.clickable {
+  color: #00d4ff;
+}
+
+/* 底部操作按钮 */
+.bot_box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 32rpx;
+  gap: 16rpx;
+}
+
+.bot_box > view {
+  width: 100%;
+  max-width: 620rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  letter-spacing: 4rpx;
+  transition: all 0.2s ease;
+}
+
+.bot_box > view:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* 按钮样式 */
+.btn-confirm, .btn-ship {
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  color: #0a0f1a;
+  font-weight: 600;
+}
+
+.btn-refund {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1rpx solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+}
+
+.btn-remind {
+  background: rgba(255, 165, 0, 0.1);
+  border: 1rpx solid rgba(255, 165, 0, 0.3);
+  color: #ffa500;
+}
+
+.btn-agree {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1rpx solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+}
+
+.btn-reject {
+  background: rgba(82, 196, 26, 0.1);
+  border: 1rpx solid rgba(82, 196, 26, 0.3);
+  color: #52c41a;
+}
+
+.btn-contact {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-delete {
+  background: rgba(153, 153, 153, 0.1);
+  border: 1rpx solid rgba(153, 153, 153, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 兼容旧样式 */
+.top_over, .bot_over {
+  display: none;
+}
+
 .cancel {
-      font-size: 30rpx;
-      width: 620rpx;
-      height: 80rpx;
-      background: #000;
-      color: #fff;
-      border-radius: 20rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 40rpx;
-       letter-spacing: 4rpx;
+  background: #000;
+  color: #fff;
 }
 
 .contact {
-      font-size: 30rpx;
-      width: 620rpx;
-      height: 80rpx;
-      background:  #3498db;
-      color: #000;
-      border-radius: 20rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20rpx;
-      letter-spacing: 4rpx;
+  background: #3498db;
+  color: #000;
 }
-.delete{
-      font-size: 30rpx;
-      width: 620rpx;
-      height: 80rpx;
-      background: #adadad;
-      color: #fff;
-      border-radius: 20rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20rpx;
-      letter-spacing: 4rpx;
+
+.delete {
+  background: #adadad;
+  color: #fff;
 }

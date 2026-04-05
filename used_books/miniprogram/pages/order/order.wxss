@@ -1,0 +1,124 @@
+/* 订单列表页样式 */
+.page-container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.order-list {
+  padding: 12px;
+  padding-bottom: 60px;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.order-role {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.order-role.buyer {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
+.order-role.seller {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+.order-status {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.order-status.待发货 { color: #fa8c16; }
+.order-status.待收货 { color: #1890ff; }
+.order-status.已完成 { color: #52c41a; }
+.order-status.已取消 { color: #999; }
+.order-status.退款中 { color: #f5222d; }
+.order-status.已退款 { color: #999; }
+
+.book-info {
+  display: flex;
+  padding: 12px 16px;
+  gap: 12px;
+}
+
+.book-cover {
+  width: 60px;
+  height: 80px;
+  border-radius: 4px;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.book-detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.book-author {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.book-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ff6b6b;
+  margin-top: 8px;
+}
+
+.order-time {
+  padding: 0 16px 12px;
+  font-size: 12px;
+  color: #999;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid #f5f5f5;
+  flex-wrap: wrap;
+}
+
+.order-actions .van-button {
+  margin-left: 0;
+}
+
+.loading-center {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}

@@ -1,91 +1,140 @@
-// const config = {
-//       appid: '', //服务商公众号Appid
-//       envName: 'peiben895800', // 小程序云开发环境ID
-//       mchid: '', //商户号
-//       partnerKey: '', //此处填服务商密钥
-//       notify_url: 'https://mp.weixin.qq.com', //这个不要管
-//       spbill_create_ip: '127.0.0.1'//这个不要管
-// };
+/**
+ * ============================================
+ *  pay - 支付与钱包操作云函数
+ * ============================================
+ * 
+ * 功能列表：
+ * 1. recharge  - 钱包充值（直接充值，无微信支付）
+ * 2. changeP   - 修改发布状态
+ * 3. changeO   - 修改订单状态
+ * 
+ * 【注意】微信支付充值需开通商户号并配置 cert 证书
+ * 当前默认使用直接充值模式（管理员后台操作）
+ */
 
 const cloud = require('wx-server-sdk');
+const TcbRouter = require('tcb-router');
+const KEYS = require('../config/keys.js');
+
+// 云开发环境（使用配置中心）
 cloud.init({
-      env: "peiben895800"
-})
+  env: KEYS.WECHAT.cloudEnv || cloud.DYNAMIC_CURRENT_ENV
+});
+
 const db = cloud.database();
-const TcbRouter = require('tcb-router'); //云函数路由
-const rq = require('request');
-// const tenpay = require('tenpay');//支付核心模块
-// const { parse } = require('request/lib/cookies');
 
 exports.main = async (event, context) => {
-      const app = new TcbRouter({
-            event
+  const app = new TcbRouter({ event });
+
+  // ============================================
+  // 1. 钱包充值（直接充值模式）
+  //    说明：当前无微信支付资质，使用直接充值
+  //    实际项目中建议开通微信支付后改为真实支付
+  // ============================================
+  app.router('recharge', async (ctx) => {
+    const wxContext = cloud.getWXContext();
+    const openid = wxContext.OPENID;
+    const amount = parseFloat(event.num) || 0;
+
+    if (amount <= 0) {
+      ctx.body = { success: false, message: '充值金额必须大于0' };
+      return;
+    }
+
+    if (amount > 10000) {
+      ctx.body = { success: false, message: '单次充值金额不得超过10000元' };
+      return;
+    }
+
+    try {
+      // 获取用户
+      const userRes = await db.collection('user').where({ _openid: openid }).get();
+      if (!userRes.data || userRes.data.length === 0) {
+        ctx.body = { success: false, message: '用户不存在，请先登录' };
+        return;
+      }
+
+      const user = userRes.data[0];
+      const currentBalance = parseFloat(user.parse || 0);
+      const newBalance = currentBalance + amount;
+
+      // 更新余额
+      await db.collection('user').doc(user._id).update({
+        data: {
+          parse: newBalance,
+          updatedat: new Date().getTime()
+        }
       });
-      //支付回调
-      // app.router('pay', async (ctx) => {
-      //       const wxContext = cloud.getWXContext();
-      //       // 在云函数参数中，提取商品 ID
-      //       const goodId = event.goodId;
-      //       // 根据商品的数据库_id将其它数据提取出来
-      //       let goods = await db.collection('publish').doc(goodId).get();
-      //       // 在云函数中提取数据，包括名称、价格才更合理安全，
-      //       // 因为从端里传过来的商品数据都是不可靠的
-      //       let good = goods.data;
-      //       const curTime = Date.now();
-      //       // const api = tenpay.init(config)
-      //       let result = await getPayParams({
-      //             //商户订单号，我这里是定义的boolk+商品发布时间+当前时间戳
-      //             //微信这里限制订单号一次性不能重复，只需要唯一即可
-      //             out_trade_no: 'book' + good.creat + '' + curTime,
-      //             body: good.bookinfo.title,       //商品名称，我设置的书名
-      //             total_fee: parseInt(good.price) * 100,     //金额，注意是数字，不是字符串
-      //             openid: wxContext.OPENID, //***用户的openid
-      //             parse:event.userParse - event.publishPrice
-      //       });
-      //       ctx.body = result;//返回前端结果
-      //       const userParse=event.userParse;
-      //       const publishPrice=event.publishPrice;
-      //       return {
-      //             parse: userParse + publishPrice
-      //       }
-      // });
-      //充值钱包
-      app.router('recharge', async (ctx) => {
-            const wxContext = cloud.getWXContext();
-            const curTime = Date.now();
-            // const api = tenpay.init(config)
-            let result = await getPayParams({
-                  //商户订单号
-                  out_trade_no: 'bookcz' + event.num + '' + curTime,
-                  body: '充值钱包',       //商品名称
-                  total_fee: parseInt(event.num) * 100,     //金额，注意是数字，不是字符串
-                  openid: wxContext.OPENID //***用户的openid
-            });
-            ctx.body = result;//返回前端结果
+
+      // 记录交易
+      await db.collection('history').add({
+        data: {
+          stamp: new Date().getTime(),
+          type: 1, // 1=充值
+          name: '钱包充值',
+          num: amount,
+          oid: openid,
+          balance: newBalance,
+        }
       });
-      //修改卖家在售状态
-      app.router('changeP', async (ctx) => {
-            try {
-                  return await db.collection('publish').doc(event._id).update({
-                        data: {
-                              status: event.status
-                        }
-                  })
-            } catch (e) {
-                  console.error(e)
-            }
+
+      ctx.body = {
+        success: true,
+        message: '充值成功',
+        data: {
+          balance: newBalance,
+          amount: amount
+        }
+      };
+    } catch (e) {
+      console.error('充值失败:', e);
+      ctx.body = { success: false, message: '充值失败: ' + e.message };
+    }
+  });
+
+  // ============================================
+  // 2. 修改发布状态
+  // ============================================
+  app.router('changeP', async (ctx) => {
+    const { _id, status } = event;
+
+    if (!_id) {
+      ctx.body = { success: false, message: '参数错误' };
+      return;
+    }
+
+    try {
+      await db.collection('publish').doc(_id).update({
+        data: { status: status }
       });
-      //修改订单状态
-      app.router('changeO', async (ctx) => {
-            try {
-                  return await db.collection('order').doc(event._id).update({
-                        data: {
-                              status: event.status
-                        }
-                  })
-            } catch (e) {
-                  console.error(e)
-            }
+      ctx.body = { success: true, message: '状态更新成功' };
+    } catch (e) {
+      console.error('更新发布状态失败:', e);
+      ctx.body = { success: false, message: '更新失败' };
+    }
+  });
+
+  // ============================================
+  // 3. 修改订单状态
+  // ============================================
+  app.router('changeO', async (ctx) => {
+    const { _id, status } = event;
+
+    if (!_id) {
+      ctx.body = { success: false, message: '参数错误' };
+      return;
+    }
+
+    try {
+      await db.collection('order').doc(_id).update({
+        data: { status: status }
       });
-      return app.serve();
-}
+      ctx.body = { success: true, message: '状态更新成功' };
+    } catch (e) {
+      console.error('更新订单状态失败:', e);
+      ctx.body = { success: false, message: '更新失败' };
+    }
+  });
+
+  return app.serve();
+};

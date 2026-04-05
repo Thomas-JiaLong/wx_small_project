@@ -1,0 +1,159 @@
+<view class="page-container">
+  <!-- 顶部标签栏 -->
+  <van-tabs active="{{ active }}" bind:change="onTabChange" sticky>
+    <van-tab title="全部" name="0"></van-tab>
+    <van-tab title="待发货" name="1"></van-tab>
+    <van-tab title="待收货" name="2"></van-tab>
+    <van-tab title="已完成" name="3"></van-tab>
+  </van-tabs>
+
+  <!-- 订单列表 -->
+  <view class="order-list">
+    <block wx:if="{{ !loading && orders.length > 0 }}">
+      <view 
+        class="order-card" 
+        wx:for="{{ orders }}" 
+        wx:key="_id"
+        bindtap="viewOrder"
+        data-id="{{ item._id }}"
+      >
+        <!-- 订单头部 -->
+        <view class="order-header">
+          <view class="order-role {{ item.isBuyer ? 'buyer' : 'seller' }}">
+            {{ item.roleText }}
+          </view>
+          <view class="order-status {{ item.showStatus }}">
+            {{ item.showStatus }}
+          </view>
+        </view>
+
+        <!-- 书籍信息 -->
+        <view class="book-info">
+          <image class="book-cover" src="{{ item.bookinfo?.pic || '/images/default-book.png' }}" mode="aspectFill" />
+          <view class="book-detail">
+            <view class="book-title">{{ item.bookinfo?.title || '书籍信息' }}</view>
+            <view class="book-author">{{ item.bookinfo?.author || '未知作者' }}</view>
+            <view class="book-price">¥{{ item.price }}</view>
+          </view>
+        </view>
+
+        <!-- 订单时间 -->
+        <view class="order-time">
+          {{ item.creat ? config.formTime(item.creat) : '' }}
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="order-actions" catchtap="noop">
+          <!-- 买家视角 -->
+          <block wx:if="{{ item.isBuyer }}">
+            <!-- 待发货 - 可退款 -->
+            <van-button 
+              wx:if="{{ item.status == 1 }}" 
+              size="small" 
+              plain
+              data-order="{{ item }}"
+              bind:click="applyRefund"
+            >
+              申请退款
+            </van-button>
+            
+            <!-- 待发货 - 可提醒 -->
+            <van-button 
+              wx:if="{{ item.status == 1 }}" 
+              size="small" 
+              type="primary"
+              data-order="{{ item }}"
+              bind:click="remindShip"
+            >
+              提醒发货
+            </van-button>
+
+            <!-- 待收货 - 确认收货 -->
+            <van-button 
+              wx:if="{{ item.status == 2 }}" 
+              size="small" 
+              type="primary"
+              data-order="{{ item }}"
+              bind:click="confirmReceive"
+            >
+              确认收货
+            </van-button>
+
+            <!-- 已完成/已取消 - 查看详情 -->
+            <van-button 
+              wx:if="{{ item.status == 3 || item.status == 4 || item.status == 6 }}" 
+              size="small" 
+              plain
+            >
+              查看详情
+            </van-button>
+          </block>
+
+          <!-- 卖家视角 -->
+          <block wx:else>
+            <!-- 待发货 - 发货 -->
+            <van-button 
+              wx:if="{{ item.status == 1 }}" 
+              size="small" 
+              type="primary"
+              data-order="{{ item }}"
+              bind:click="viewOrder"
+              data-id="{{ item._id }}"
+            >
+              去发货
+            </van-button>
+
+            <!-- 退款中 - 处理退款 -->
+            <van-button 
+              wx:if="{{ item.status == 5 }}" 
+              size="small" 
+              type="danger"
+              data-order="{{ item }}"
+              bind:click="confirmRefund"
+            >
+              确认退款
+            </van-button>
+            <van-button 
+              wx:if="{{ item.status == 5 }}" 
+              size="small" 
+              plain
+              data-order="{{ item }}"
+              bind:click="rejectRefund"
+            >
+              拒绝退款
+            </van-button>
+
+            <!-- 已完成 - 查看详情 -->
+            <van-button 
+              wx:if="{{ item.status == 3 }}" 
+              size="small" 
+              plain
+            >
+              查看详情
+            </van-button>
+          </block>
+
+          <!-- 联系对方 -->
+          <van-button 
+            size="small" 
+            plain
+            data-openid="{{ item.isBuyer ? item.seller : item.buyer }}"
+            bind:click="contactUser"
+          >
+            联系对方
+          </van-button>
+        </view>
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <van-empty 
+      wx:if="{{ !loading && orders.length == 0 }}" 
+      description="暂无相关订单"
+      image="/images/empty-order.png"
+    />
+  </view>
+
+  <!-- 加载状态 -->
+  <van-loading wx:if="{{ loading }}" type="spinner" class="loading-center" />
+</view>

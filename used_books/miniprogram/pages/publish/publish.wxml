@@ -1,243 +1,176 @@
-<!-- 发布页 -->
 <!-- 步骤指示器 -->
 <view class="step-header">
-  <view class="step-item {{active >= 0 ? 'active' : ''}}">
-    <view class="step-num">1</view>
-    <text>输入ISBN</text>
-  </view>
-  <view class="step-line {{active >= 1 ? 'active' : ''}}"></view>
-  <view class="step-item {{active >= 1 ? 'active' : ''}}">
-    <view class="step-num">2</view>
-    <text>填写信息</text>
-  </view>
-  <view class="step-line {{active >= 2 ? 'active' : ''}}"></view>
-  <view class="step-item {{active >= 2 ? 'active' : ''}}">
-    <view class="step-num">3</view>
-    <text>发布成功</text>
-  </view>
+      <view class="step-item {{active >= 0 ? 'active' : ''}}">
+            <view class="step-num">1</view>
+            <text>扫码ISBN</text>
+      </view>
+      <view class="step-line {{active >= 1 ? 'active' : ''}}"></view>
+      <view class="step-item {{active >= 1 ? 'active' : ''}}">
+            <view class="step-num">2</view>
+            <text>填写信息</text>
+      </view>
+      <view class="step-line {{active >= 2 ? 'active' : ''}}"></view>
+      <view class="step-item {{active >= 2 ? 'active' : ''}}">
+            <view class="step-num">3</view>
+            <text>发布成功</text>
+      </view>
 </view>
 
-<!-- 步骤一：输入ISBN -->
+<!-- 步骤一：扫码ISBN -->
 <view class="step-content" wx:if="{{active === 0}}">
-  <view class="isbn-section">
-    <view class="isbn-input-box">
-      <image class="scan-icon" src="/images/scan.png" bindtap="scan"></image>
-      <input 
-        class="isbn-input"
-        bindconfirm="confirm" 
-        bindinput="isbnInput" 
-        value="{{isbn}}" 
-        type="number" 
-        maxlength="13" 
-        placeholder="请输入ISBN号码"
-      />
-      <view class="confirm-btn" bindtap="confirm">确认</view>
-    </view>
-    
-    <image class="isbn-example" src="/images/isbn.jpg" mode="widthFix" />
-    <view class="scan-tip">请输入或直接点击左侧图标扫描书籍背后的条形码</view>
-    
-    <view class="manual-link" bindtap="enterManualModeFromBtn">
-      <text>扫码失败？</text>
-      <text class="link-text">手动填写书籍信息</text>
-    </view>
-  </view>
+      <view class="isbn-section">
+            <view class="isbn-input-box">
+                  <image class="scan-icon" src="/images/scan.png" bindtap="scan"></image>
+                  <input 
+                        class="isbn-input"
+                        bindinput="isbnInput"
+                        value="{{isbn}}" 
+                        type="number" 
+                        maxlength="13" 
+                        placeholder="扫码或手动输入ISBN"
+                  />
+                  <view class="confirm-btn" bindtap="confirm">确认</view>
+            </view>
+            
+            <!-- ISBN输入框：支持扫码后自动填充，也支持手动输入 -->
+            <view class="isbn-tip">支持扫码或手动输入 ISBN</view>
+            
+            <view class="scan-tip">请点击左侧图标扫描书籍背后的条形码</view>
+      </view>
 </view>
 
 <!-- 步骤二：填写信息 -->
 <view class="step-content" wx:if="{{active === 1}}">
-  
-  <!-- ====== 扫码模式：书籍预览 ====== -->
-  <block wx:if="{{isbnMode === 'scan' && bookinfo}}">
-    <view class="book-preview">
-      <image class="preview-cover" src="{{bookinfo.pic}}" mode="aspectFit" bindtap="changeCover"></image>
-      <view class="preview-info">
-        <view class="preview-title text-cut">{{bookinfo.title}}</view>
-        <view class="preview-author text-cut">{{bookinfo.author}}</view>
-        <view class="preview-price">定价 ¥{{bookinfo.price}}</view>
-        <view class="preview-isbn">ISBN: {{bookinfo.isbn || isbn}}</view>
+      <!-- 书籍预览 -->
+      <view class="book-preview">
+            <image class="preview-cover" src="{{bookinfo.pic}}" mode="aspectFit"></image>
+            <view class="preview-info">
+                  <view class="preview-title text-cut">{{bookinfo.title}}</view>
+                  <view class="preview-author text-cut">{{bookinfo.author}}</view>
+                  <view class="preview-price">定价 ¥{{bookinfo.price}}</view>
+            </view>
       </view>
-    </view>
-  </block>
-
-  <!-- ====== 手动模式：书籍表单 ====== -->
-  <block wx:if="{{isbnMode === 'manual'}}">
-    <view class="manual-form">
-      <view class="form-header">
-        <text class="form-title">填写书籍信息</text>
-        <text class="form-tip">以下字段为必填项</text>
+      
+      <!-- 发布表单 -->
+      <view class="publish-form">
+            <!-- 售价 -->
+            <view class="form-item">
+                  <view class="form-label">售价 <text class="required">*</text></view>
+                  <view class="form-control">
+                        <text class="price-unit">¥</text>
+                        <input 
+                              type="number" 
+                              value="{{price}}" 
+                              bindinput="priceInput"
+                              class="price-input"
+                        />
+                        <view class="price-btns">
+                              <view class="price-btn" bindtap="decreasePrice">-</view>
+                              <view class="price-btn" bindtap="increasePrice">+</view>
+                        </view>
+                  </view>
+            </view>
+            
+            <!-- 分类 -->
+            <view class="form-item">
+                  <view class="form-label">分类 <text class="required">*</text></view>
+                  <view class="category-tags">
+                        <view 
+                              class="tag {{item.check ? 'active' : ''}}" 
+                              wx:for="{{kind}}" 
+                              wx:key="id" 
+                              bindtap="kindSelect"
+                              data-id="{{item.id}}"
+                        >
+                              {{item.name}}
+                        </view>
+                  </view>
+            </view>
+            
+            <!-- 学院选择 -->
+            <view class="form-item" wx:if="{{chooseCollege}}">
+                  <view class="form-label">学院 <text class="required">*</text></view>
+                  <picker range="{{college}}" range-key="name" value="{{cids}}" bindchange="choCollege">
+                        <view class="picker-box">
+                              <text>{{cids !== -1 ? college[cids].name : '请选择学院'}}</text>
+                              <image src="/images/right.png"></image>
+                        </view>
+                  </picker>
+            </view>
+            
+            <!-- 取货方式 -->
+            <view class="form-item">
+                  <view class="form-label">取货 <text class="required">*</text></view>
+                  <view class="delivery-options">
+                        <view 
+                              class="option {{delivery[0].check ? 'active' : ''}}" 
+                              bindtap="delSelect"
+                              data-id="0"
+                        >
+                              <image src="/images/local.png"></image>
+                              <text>自提</text>
+                        </view>
+                        <view 
+                              class="option {{delivery[1].check ? 'active' : ''}}" 
+                              bindtap="delSelect"
+                              data-id="1"
+                        >
+                              <image src="/images/buy.png"></image>
+                              <text>帮送</text>
+                        </view>
+                  </view>
+            </view>
+            
+            <!-- 自提地址 -->
+            <view class="form-item" wx:if="{{chooseDelivery == 0}}">
+                  <view class="form-label">地点 <text class="required">*</text></view>
+                  <input 
+                        class="address-input" 
+                        maxlength="20" 
+                        placeholder="请输入自提地址" 
+                        value="{{place}}" 
+                        bindinput="placeInput" 
+                  />
+            </view>
+            
+            <!-- 备注 -->
+            <view class="form-item">
+                  <view class="form-label">备注 <text class="optional">选填</text></view>
+                  <textarea 
+                        class="note-input"
+                        value="{{notes}}" 
+                        bindinput="noteInput" 
+                        maxlength="50" 
+                        placeholder="补充说明（成色、附件等）"
+                  />
+                  <view class="char-count">{{note_counts}}/50</view>
+            </view>
+            
+            <!-- 发布时长 -->
+            <view class="form-item">
+                  <view class="form-label">展示天数 <text class="required">*</text></view>
+                  <view class="dura-control">
+                        <view class="dura-btn" bindtap="decreaseDura">-</view>
+                        <text class="dura-value">{{dura}}</text>
+                        <view class="dura-btn" bindtap="increaseDura">+</view>
+                        <text class="dura-unit">天</text>
+                  </view>
+            </view>
+            
+            <view class="dura-tip">* 发布后将在{{dura}}天内展示，过期后可在个人中心「擦亮」</view>
       </view>
-
-      <!-- ISBN（只读） -->
-      <view class="form-item">
-        <view class="form-label required">ISBN</view>
-        <view class="isbn-readonly">{{isbn}}</view>
-      </view>
-
-      <!-- 书名 -->
-      <view class="form-item">
-        <view class="form-label required">书名</view>
-        <input 
-          class="form-input" 
-          value="{{manualBook.title}}" 
-          bindinput="manualTitle"
-          placeholder="请输入书名"
-          maxlength="50"
-        />
-      </view>
-
-      <!-- 作者 -->
-      <view class="form-item">
-        <view class="form-label required">作者</view>
-        <input 
-          class="form-input" 
-          value="{{manualBook.author}}" 
-          bindinput="manualAuthor"
-          placeholder="请输入作者"
-          maxlength="30"
-        />
-      </view>
-
-      <!-- 定价 -->
-      <view class="form-item">
-        <view class="form-label required">定价（元）</view>
-        <input 
-          class="form-input" 
-          value="{{manualBook.price}}" 
-          bindinput="manualPrice"
-          type="digit"
-          placeholder="请输入原价"
-          maxlength="8"
-        />
-      </view>
-
-      <!-- 封面 -->
-      <view class="form-item">
-        <view class="form-label">封面图片</view>
-        <view class="cover-upload" bindtap="chooseBookPic">
-          <image wx:if="{{manualBook.pic}}" src="{{manualBook.pic}}" mode="aspectFill" class="cover-preview"></image>
-          <view wx:else class="cover-placeholder">
-            <text class="add-icon">+</text>
-            <text>上传封面</text>
-          </view>
-        </view>
-      </view>
-
-      <!-- 版次 -->
-      <view class="form-item">
-        <view class="form-label">版次</view>
-        <input 
-          class="form-input" 
-          value="{{manualBook.edition}}" 
-          bindinput="manualEdition"
-          placeholder="选填，如：第2版"
-          maxlength="20"
-        />
-      </view>
-
-      <!-- 保存按钮 -->
-      <button class="save-btn" bindtap="submitManual" wx:if="{{!bookinfo}}">
-        保存书籍信息
-      </button>
-      <view class="save-success" wx:if="{{bookinfo && isbnMode === 'manual'}}">
-        <text>✓ 书籍信息已保存</text>
-        <text class="re-edit" bindtap="goBack">重新编辑</text>
-      </view>
-    </view>
-  </block>
-
-  <!-- ====== 发布表单（公共部分） ====== -->
-  <view class="publish-form" wx:if="{{bookinfo}}">
-    
-    <!-- 售价 -->
-    <view class="form-item">
-      <view class="form-label">售价</view>
-      <view class="form-control">
-        <text class="price-unit">¥</text>
-        <input type="digit" value="{{price}}" bindinput="priceInput" class="price-input" />
-        <view class="price-btns">
-          <view class="price-btn" bindtap="decreasePrice">-</view>
-          <view class="price-btn" bindtap="increasePrice">+</view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 分类 -->
-    <view class="form-item">
-      <view class="form-label">分类</view>
-      <view class="category-tags">
-        <view class="tag {{item.check ? 'active' : ''}}" 
-              wx:for="{{kind}}" wx:key="id" 
-              bindtap="kindSelect" data-id="{{item.id}}">
-          {{item.name}}
-        </view>
-      </view>
-    </view>
-
-    <!-- 学院选择 -->
-    <view class="form-item" wx:if="{{chooseCollege}}">
-      <view class="form-label required">学院</view>
-      <picker range="{{college}}" range-key="name" value="{{cids}}" bindchange="choCollege">
-        <view class="picker-box">
-          <text>{{cids !== -1 ? college[cids].name : '请选择学院'}}</text>
-          <image src="/images/right.png"></image>
-        </view>
-      </picker>
-    </view>
-
-    <!-- 取货方式 -->
-    <view class="form-item">
-      <view class="form-label">取货</view>
-      <view class="delivery-options">
-        <view class="option {{delivery[0].check ? 'active' : ''}}" bindtap="delSelect" data-id="0">
-          <image src="/images/local.png"></image>
-          <text>自提</text>
-        </view>
-        <view class="option {{delivery[1].check ? 'active' : ''}}" bindtap="delSelect" data-id="1">
-          <image src="/images/buy.png"></image>
-          <text>帮送</text>
-        </view>
-      </view>
-    </view>
-
-    <!-- 自提地址 -->
-    <view class="form-item" wx:if="{{chooseDelivery == 0}}">
-      <view class="form-label required">地点</view>
-      <input class="address-input" maxlength="20" placeholder="请输入自提地址" value="{{place}}" bindinput="placeInput" />
-    </view>
-
-    <!-- 备注 -->
-    <view class="form-item">
-      <view class="form-label">备注 <text class="optional">选填</text></view>
-      <textarea class="note-input" value="{{notes}}" bindinput="noteInput" maxlength="50" placeholder="补充说明（成色、附件等）" />
-      <view class="char-count">{{note_counts}}/50</view>
-    </view>
-
-    <!-- 发布时长 -->
-    <view class="form-item">
-      <view class="form-label">展示天数</view>
-      <view class="dura-control">
-        <view class="dura-btn" bindtap="decreaseDura">-</view>
-        <text class="dura-value">{{dura}}</text>
-        <view class="dura-btn" bindtap="increaseDura">+</view>
-        <text class="dura-unit">天</text>
-      </view>
-    </view>
-
-    <view class="dura-tip">* 发布后将在 {{dura}} 天内展示，过期后可在个人中心「擦亮」</view>
-  </view>
-
-  <button class="publish-btn" bindtap="check_pub" wx:if="{{bookinfo}}">立即发布</button>
+      
+      <button class="publish-btn" bindtap="check_pub">立即发布</button>
 </view>
 
 <!-- 步骤三：发布成功 -->
 <view class="step-content success-page" wx:if="{{active === 2}}">
-  <image class="success-icon" src="/images/success.png"></image>
-  <view class="success-title">发布成功！</view>
-  <view class="success-tip">订单状态变化将通过邮箱通知您</view>
-  
-  <view class="success-btns">
-    <button class="btn-detail" bindtap="detail">查看详情</button>
-    <button class="btn-again" bindtap="initial">继续发布</button>
-  </view>
+      <image class="success-icon" src="/images/success.png"></image>
+      <view class="success-title">发布成功！</view>
+      <view class="success-tip">订单状态变化将通过邮箱通知您</view>
+      
+      <view class="success-btns">
+            <button class="btn-detail" bindtap="detail">查看详情</button>
+            <button class="btn-again" bindtap="initial">继续发布</button>
+      </view>
 </view>

@@ -1,41 +1,71 @@
-// 云函数入口文件
-const cloud = require('wx-server-sdk')
-const QcloudSms = require("qcloudsms_js")
-// 替换成您申请的云短信 AppID 以及 AppKey
-const appid =1400465739
-const appkey = "655ad33e7a212cccd6cb0f26c1e06b41"
-const templateId = 11111111 // 替换成您所申请模板 ID
-const smsSign = "盈科工作室"// 替换成您所申请的签名
+/**
+ * ============================================
+ *  sms - 短信通知云函数
+ * ============================================
+ * 
+ * 功能：发送订单通知短信
+ * 
+ * 【注意】短信功能需开通腾讯云短信服务并配置
+ * 请在 keys.js 中填写 SMS 配置后再启用
+ */
 
-/*
-下
-面
-不
-用
-管
-*/
+const cloud = require('wx-server-sdk');
+const KEYS = require('../config/keys.js');
 
-cloud.init()
-const db = cloud.database()
-// 云函数入口函数
-exports.main = async (event, context) => new Promise((resolve, reject) => {
-      /*单发短信示例为完整示例，更多功能请直接替换以下代码*/
-      var qcloudsms = QcloudSms(appid, appkey);
-      var ssender = qcloudsms.SmsSingleSender();
-      var params = [event.title];
-      // 获取发送短信的手机号码
-      var mobile = event.mobile
-      // 获取手机号国家/地区码
-      var nationcode = 86
-      ssender.sendWithParam(nationcode, mobile, templateId, params, smsSign, "", "", (err, res, resData) => {
-            /*设置请求回调处理, 这里只是演示，您需要自定义相应处理逻辑*/
-            if (err) {
-                  console.log("err: ", err);
-                  reject({ err })
-            } else {
-                  resolve({ res: res.req, resData })
-            }
-      }
+cloud.init({
+  env: KEYS.WECHAT.cloudEnv || cloud.DYNAMIC_CURRENT_ENV
+});
+
+exports.main = async (event, context) => {
+  const { mobile, title } = event;
+
+  // 检查是否启用
+  if (!KEYS.SMS.enabled) {
+    return { success: false, message: '短信功能未启用' };
+  }
+
+  // 检查配置
+  const { appid, appkey, templateId, sign } = KEYS.SMS.qcloud || {};
+  if (!appid || !appkey || !templateId) {
+    return {
+      success: false,
+      message: '短信配置不完整，请在 keys.js 中配置 SMS'
+    };
+  }
+
+  // 手机号格式校验
+  const mobileRegex = /^1[3-9]\d{9}$/;
+  if (!mobile || !mobileRegex.test(mobile)) {
+    return { success: false, message: '手机号格式不正确' };
+  }
+
+  try {
+    const QcloudSms = require('qcloudsms_js');
+    const qcloudsms = QcloudSms(appid, appkey);
+    const ssender = qcloudsms.SmsSingleSender();
+
+    const result = await new Promise((resolve, reject) => {
+      ssender.sendWithParam(
+        86,            // 中国大陆区号
+        mobile,
+        templateId,
+        [title || '您的订单有新进展，请留意'], // 模板参数
+        sign || '培正舟海',
+        '', '',
+        (err, res, resData) => {
+          if (err) reject(err);
+          else resolve(resData);
+        }
       );
+    });
 
-})
+    if (result.result === 0) {
+      return { success: true, message: '发送成功' };
+    } else {
+      return { success: false, message: '发送失败: ' + result.errmsg };
+    }
+  } catch (e) {
+    console.error('短信发送失败:', e);
+    return { success: false, message: '发送失败: ' + e.message };
+  }
+};

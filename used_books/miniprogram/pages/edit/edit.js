@@ -148,25 +148,16 @@ Page({
       //校检
       check() {
             let that = this;
-            //校检手机
-            let phone = that.data.phone;
-            if (phone == '') {
-                  wx.showToast({
-                        title: '请先获取您的电话',
-                        icon: 'none',
-                        duration: 2000
-                  });
-                  return false
-            }
             //校检校区
             let ids = that.data.ids;
             let campus = that.data.campus;
             if (ids == -1) {
                   wx.showToast({
-                        title: '请先获取您的校区',
+                        title: '请先选择您的校区',
                         icon: 'none',
                         duration: 2000
                   });
+                  return false;
             }
             //校检邮箱
             let email = that.data.email;
@@ -207,7 +198,6 @@ Page({
             })
             db.collection('user').doc(that.data._id).update({
                   data: {
-                        phone: that.data.phone,
                         campus: that.data.campus[that.data.ids],
                         qqnum: that.data.qqnum,
                         email: that.data.email,

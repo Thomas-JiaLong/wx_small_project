@@ -1,7 +1,8 @@
+/* ==================== 首次进入提示组件 - 科技感主题 ==================== */
+
 .box {
   position: fixed;
   top: 0;
-  /* left: 0; */
   right: 0;
   z-index: 999;
   display: flex;
@@ -10,17 +11,19 @@
   flex-direction: column;
   width: 600rpx;
 }
+
 .arrow {
   width: 0;
   height: 0;
   margin-right: 120rpx;
   border-width: 20rpx;
   border-style: solid;
-  border-color:  transparent transparent  #3498db transparent;
+  border-color: transparent transparent #00d4ff transparent;
 }
+
 .body {
-  background-color:  #3498db;
-  box-shadow: 0 10rpx 20rpx -10rpx  #3498db;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  box-shadow: 0 10rpx 20rpx -10rpx rgba(0, 212, 255, 0.5);
   border-radius: 12rpx;
   display: flex;
   align-items: center;
@@ -28,11 +31,14 @@
   height: 84rpx;
   padding: 0 20rpx;
   margin-right: 40rpx;
+  border: 1rpx solid rgba(0, 212, 255, 0.3);
 }
+
 .body_text {
   color: #FFF;
   font-size: 28rpx;
   font-weight: 400;
+  letter-spacing: 1rpx;
 }
 
 .modal {
@@ -42,47 +48,88 @@
   right: 0;
   bottom: 0;
   z-index: 999;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(10, 15, 26, 0.95);
   padding: 20px;
+  border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
+
+/* 科技感网格背景 */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+        linear-gradient(90deg, transparent 49%, rgba(0, 212, 255, 0.015) 50%, transparent 51%),
+        linear-gradient(0deg, transparent 49%, rgba(0, 212, 255, 0.015) 50%, transparent 51%);
+  background-size: 40rpx 40rpx;
+  pointer-events: none;
+}
+
 .modal_view {
+  position: relative;
+  z-index: 10;
   margin: 10px 0;
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
+  background: rgba(13, 19, 32, 0.8);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid rgba(0, 212, 255, 0.1);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
 }
+
 .modal_text {
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 5px;
-  color: #333;
+  margin-bottom: 12rpx;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1rpx;
 }
+
 .modal_image {
   border-radius: 10px;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.4);
+  border: 1rpx solid rgba(0, 212, 255, 0.2);
 }
 
 .ok-btn {
+  position: relative;
+  z-index: 10;
   width: 100%;
   margin-top: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .ok-btn_view {
   height: 40px;
   width: 120px;
-  background-color:  #3498db;
-  box-shadow: 0 5px 10px -px  #3498db;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 40px;
+  border: 1rpx solid rgba(0, 212, 255, 0.3);
+  transition: all 0.3s ease;
 }
+
+.ok-btn_view:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(0, 212, 255, 0.25);
+}
+
 .ok-btn_text {
   font-size: 14px;
   color: #fff;
   font-weight: 400;
+  letter-spacing: 1rpx;
 }
+
 .btn-hover {
-  opacity: 0.6;
+  opacity: 0.8;
 }

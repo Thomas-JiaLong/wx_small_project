@@ -1,3 +1,6 @@
 {
-
+  "usingComponents": {
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index"
+  },
+  "navigationBarTitleText": "订单详情"
 }

@@ -1,4 +1,4 @@
-<view class="container">
+<view class="chat-container">
   <!-- 标题栏 -->
   <view class="header">
     <view class="back" bindtap="goBack">
@@ -13,8 +13,8 @@
     class="message-list" 
     scroll-y 
     scroll-top="{{scrollTop}}"
-    bindscrolltolower="loadMore"
-    lower-threshold="100"
+    bindscrolltoupper="loadMore"
+    upper-threshold="50"
   >
     <!-- 加载更多 -->
     <view wx:if="{{pageLoading}}" class="loading-more">
@@ -22,60 +22,68 @@
     </view>
 
     <!-- 消息 -->
-    <view wx:for="{{messages}}" wx:key="createTime" class="message-item {{item.senderId === openid ? 'self' : 'other'}}">
+    <view wx:for="{{messages}}" wx:key="_id" class="message-item {{item.senderId === openid ? 'self' : 'other'}}">
       <!-- 对方头像 -->
       <image 
         wx:if="{{item.senderId !== openid}}" 
         class="avatar" 
-        src="{{otherAvatar || '/images/default_avatar.png'}}" 
+        src="{{otherAvatar || '/images/default-avatar.png'}}" 
         mode="aspectFill"
-      ></image>
+        bindtap="previewAvatar"
+      />
       
       <!-- 消息内容 -->
       <view class="message-content">
-        <!-- 文本消息 -->
-        <text wx:if="{{item.type === 'text'}}" class="text">{{item.content}}</text>
+        <!-- 文本消息气泡 -->
+        <view wx:if="{{item.type === 'text'}}" class="bubble text {{item.senderId === openid ? 'self' : 'other'}}">
+          <text>{{item.content}}</text>
+        </view>
         
         <!-- 图片消息 -->
         <image 
           wx:if="{{item.type === 'image'}}" 
-          class="image" 
+          class="image-bubble" 
           src="{{item.content}}" 
           mode="widthFix"
           bindtap="previewImage"
           data-url="{{item.content}}"
-        ></image>
+        />
         
-        <!-- 时间 -->
-        <text class="time">{{item.timeFormat}}</text>
+        <!-- 时间戳 -->
+        <view class="time-stamp">{{item.timeFormat}}</view>
       </view>
 
       <!-- 自己头像 -->
       <image 
         wx:if="{{item.senderId === openid}}" 
         class="avatar" 
-        src="{{userInfo.avatarUrl || '/images/default_avatar.png'}}" 
+        src="{{item.senderAvatar || '/images/default-avatar.png'}}" 
         mode="aspectFill"
-      ></image>
+      />
     </view>
 
     <!-- 空状态 -->
-    <view wx:if="{{!loading && messages.length === 0}}" class="empty">
+    <view wx:if="{{!loading && messages.length === 0}}" class="empty-state">
       <text>暂无消息，开始聊天吧~</text>
     </view>
   </scroll-view>
 
   <!-- 输入框 -->
   <view class="input-area">
-    <input 
-      class="input" 
-      type="text" 
-      value="{{inputValue}}"
-      placeholder="输入消息..."
-      bindinput="onInput"
-      bindconfirm="sendMessage"
-      confirm-type="send"
-    />
-    <button class="send-btn" bindtap="sendMessage">发送</button>
+    <view class="input-box">
+      <input 
+        class="input" 
+        type="text" 
+        value="{{inputValue}}"
+        placeholder="输入消息..."
+        bindinput="onInput"
+        confirm-type="send"
+        bindconfirm="sendMessage"
+      />
+    </view>
+    <view class="action-btn" bindtap="chooseImage">
+      <text class="icon-img">📷</text>
+    </view>
+    <button class="send-btn {{inputValue ? 'active' : ''}}" bindtap="sendMessage">发送</button>
   </view>
 </view>

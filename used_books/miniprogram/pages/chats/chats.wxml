@@ -1,4 +1,4 @@
-<view class="container">
+<view class="page-container">
   <!-- 标题栏 -->
   <view class="header">
     <text class="title">消息</text>
@@ -6,48 +6,71 @@
 
   <!-- 加载状态 -->
   <view wx:if="{{loading}}" class="loading">
-    <text>加载中...</text>
+    <van-loading type="spinner" color="#00d4ff" />
   </view>
 
   <!-- 未登录提示 -->
-  <view wx:elif="{{!app.openid}}" class="empty">
-    <text>登录后查看消息</text>
+  <view wx:elif="{{!openid}}" class="empty-state">
+    <text class="empty-text">登录后查看消息</text>
+    <button class="login-btn" bindtap="goLogin">去登录</button>
   </view>
 
   <!-- 会话列表 -->
-  <view wx:elif="{{conversations.length > 0}}" class="list">
+  <view wx:elif="{{conversations.length > 0}}" class="conversation-list">
     <view 
       wx:for="{{conversations}}" 
       wx:key="_id"
-      class="item"
-      bindtap="goChat"
+      class="conversation-item"
       data-id="{{item._id}}"
       data-name="{{item.name}}"
       data-avatar="{{item.avatar}}"
+      data-openid="{{item.otherOpenid}}"
+      bindtap="goChat"
     >
-      <image 
-        class="avatar" 
-        src="{{item.avatar || '/images/default_avatar.png'}}" 
-        mode="aspectFill"
-        bindtap="previewAvatar"
-        data-avatar="{{item.avatar}}"
-      ></image>
+      <!-- 头像 -->
+      <view class="avatar-wrapper">
+        <image 
+          class="avatar" 
+          src="{{item.avatar || '/images/default-avatar.png'}}" 
+          mode="aspectFill"
+        />
+        <!-- 未读红点 -->
+        <view wx:if="{{item.unread > 0}}" class="unread-badge">
+          {{item.unread > 99 ? '99+' : item.unread}}
+        </view>
+      </view>
+
+      <!-- 内容 -->
       <view class="content">
-        <view class="top">
+        <view class="top-row">
           <text class="name">{{item.name}}</text>
           <text class="time">{{item.lastTimeFormat}}</text>
         </view>
-        <view class="bottom">
-          <text class="msg">{{item.lastMsg}}</text>
-          <view wx:if="{{item.unread > 0}}" class="badge">{{item.unread > 99 ? '99+' : item.unread}}</view>
+        
+        <!-- 书籍信息 -->
+        <view wx:if="{{item.bookTitle}}" class="book-tip">
+          <text class="book-icon">📚</text>
+          <text class="book-title">{{item.bookTitle}}</text>
+        </view>
+        
+        <view class="bottom-row">
+          <text class="last-msg text-cut">{{item.lastMsg || '暂无消息'}}</text>
         </view>
       </view>
     </view>
   </view>
 
   <!-- 空状态 -->
-  <view wx:else class="empty">
-    <text>暂无消息</text>
-    <text class="tip">开始和卖家沟通吧~</text>
+  <view wx:else class="empty-state">
+    <image class="empty-icon" src="/images/empty-chat.png" mode="aspectFit" />
+    <text class="empty-text">暂无消息</text>
+    <text class="empty-tip">开始和卖家沟通吧~</text>
   </view>
+
+  <!-- 长按删除 -->
+  <van-action-sheet
+    id="delete-sheet"
+    actions="{{ actions }}"
+    bind:select="onDeleteSelect"
+  />
 </view>

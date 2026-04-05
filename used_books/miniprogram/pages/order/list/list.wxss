@@ -275,3 +275,124 @@ page {
       letter-spacing: 2rpx;
       color: rgba(255, 255, 255, 0.4);
 }
+
+.blank_tip {
+      padding-top: 16rpx;
+      font-size: 24rpx;
+      color: rgba(255, 255, 255, 0.3);
+}
+
+/* 角色标签 */
+.role-buyer {
+      background: rgba(0, 212, 255, 0.15) !important;
+      color: #00d4ff !important;
+      padding: 4rpx 16rpx !important;
+      border-radius: 8rpx;
+      font-size: 24rpx !important;
+}
+
+.role-seller {
+      background: rgba(255, 165, 0, 0.15) !important;
+      color: #ffa500 !important;
+      padding: 4rpx 16rpx !important;
+      border-radius: 8rpx;
+      font-size: 24rpx !important;
+}
+
+/* 状态文本 */
+.status-text {
+      font-size: 26rpx;
+      font-weight: 500;
+      padding: 4rpx 16rpx;
+      border-radius: 8rpx;
+}
+
+.status-text.待发货 { color: #ffa500; }
+.status-text.待收货 { color: #00d4ff; }
+.status-text.已完成 { color: #52c41a; }
+.status-text.已取消 { color: #999; }
+.status-text.退款中 { color: #ff6b6b; }
+.status-text.已退款 { color: #999; }
+.status-text.待处理 { color: #ff6b6b; }
+
+/* 底部操作按钮 */
+.btn-cancel {
+      min-width: 120rpx;
+      font-size: 24rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: rgba(255, 255, 255, 0.6);
+      border: 1rpx solid rgba(255, 255, 255, 0.2);
+      margin-left: 16rpx;
+}
+
+.btn-remind {
+      min-width: 120rpx;
+      font-size: 24rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: #0d1320;
+      background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+      margin-left: 16rpx;
+}
+
+.btn-confirm {
+      min-width: 120rpx;
+      font-size: 24rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: #0d1320;
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      margin-left: 16rpx;
+}
+
+.btn-ship {
+      min-width: 120rpx;
+      font-size: 24rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: #0d1320;
+      background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+      margin-left: 16rpx;
+}
+
+.btn-delete {
+      min-width: 100rpx;
+      font-size: 24rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20rpx;
+      height: 52rpx;
+      border-radius: 26rpx;
+      color: rgba(255, 255, 255, 0.4);
+      border: 1rpx solid rgba(255, 255, 255, 0.1);
+      margin-left: 16rpx;
+}
+
+.btn-default {
+      min-width: 120rpx;
+      font-size: 24rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20rpx;
+      height: 52rpx;
+      color: rgba(255, 255, 255, 0.3);
+}

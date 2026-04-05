@@ -1,49 +1,47 @@
-<!--pages/admin/uploadIcons.wxml-->
 <view class="container">
-  <view class="header">
-    <view class="title">图标上传工具</view>
-    <view class="desc">将项目图标上传到云数据库，实现图标云端管理</view>
-  </view>
+      <view class="header">
+            <text class="title">图标管理</text>
+            <text class="subtitle">将本地图片上传到云数据库</text>
+      </view>
 
-  <view class="stats">
-    <view class="stat-item">
-      <text class="stat-value">{{total}}</text>
-      <text class="stat-label">总图标数</text>
-    </view>
-    <view class="stat-item success">
-      <text class="stat-value">{{uploaded}}</text>
-      <text class="stat-label">已上传</text>
-    </view>
-    <view class="stat-item error">
-      <text class="stat-value">{{failed}}</text>
-      <text class="stat-label">失败</text>
-    </view>
-  </view>
+      <view class="upload-section">
+            <button class="upload-btn" bindtap="selectImages">选择图片</button>
+            <text class="tip">支持 PNG、JPG、GIF 格式</text>
+      </view>
 
-  <view class="tips">
-    <view class="tip-title">使用说明</view>
-    <view class="tip-item">1. 确保已创建云开发环境</view>
-    <view class="tip-item">2. 在云开发控制台创建 icons 集合</view>
-    <view class="tip-item">3. 右键云函数目录，选择"上传并部署"</view>
-    <view class="tip-item">4. 点击"开始上传"按钮</view>
-  </view>
+      <view class="image-list" wx:if="{{images.length > 0}}">
+            <view class="image-item" wx:for="{{images}}" wx:key="index">
+                  <image class="image-preview" src="{{item.path}}" mode="aspectFit"></image>
+                  <view class="image-info">
+                        <input 
+                              class="icon-key" 
+                              placeholder="输入图标键名（如: scan, logo）" 
+                              value="{{item.key}}" 
+                              bindinput="updateKey" 
+                              data-index="{{index}}"
+                        />
+                  </view>
+                  <view class="remove-btn" bindtap="removeImage" data-index="{{index}}">×</view>
+            </view>
+      </view>
 
-  <view class="btn-group">
-    <button 
-      class="btn-primary" 
-      bindtap="startUpload" 
-      disabled="{{uploading}}"
-    >
-      {{uploading ? '上传中...' : '开始上传'}}
-    </button>
-    <button class="btn-danger" bindtap="clearAll">清空数据</button>
-  </view>
+      <button 
+            class="upload-all-btn" 
+            bindtap="uploadAll" 
+            disabled="{{images.length === 0 || uploading}}"
+      >
+            {{uploading ? '上传中...' : '批量上传'}}
+      </button>
 
-  <view class="logs">
-    <view class="logs-title">上传日志</view>
-    <scroll-view scroll-y class="logs-content">
-      <view wx:for="{{logs}}" wx:key="index" class="log-item">{{item}}</view>
-      <view wx:if="{{logs.length === 0}}" class="log-empty">暂无日志</view>
-    </scroll-view>
-  </view>
+      <view class="log-section" wx:if="{{logs.length > 0}}">
+            <text class="log-title">上传日志</text>
+            <view class="log-list">
+                  <view class="log-item" wx:for="{{logs}}" wx:key="index">
+                        <text class="log-key">{{item.key}}</text>
+                        <text class="log-status {{item.success ? 'success' : 'fail'}}">
+                              {{item.success ? '成功' : '失败'}}
+                        </text>
+                  </view>
+            </view>
+      </view>
 </view>

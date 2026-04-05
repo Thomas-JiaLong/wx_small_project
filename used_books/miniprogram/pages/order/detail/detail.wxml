@@ -1,61 +1,130 @@
 <view class="contain">
-      <view class="card">
-            <image class="top_over" src="/images/over.png"></image>
-            <image class="bot_over" src="/images/over.png"></image>
-            <view class="goods_box">
-                  <image class="goods_img" src="{{detail.bookinfo.pic}}"></image>
-                  <view class="goods_content">
-                        <view class="goods_title text-cut">{{detail.bookinfo.title}}(第{{detail.bookinfo.edition}})</view>
-                        <view class="goods_author text-cut">{{detail.bookinfo.author}}</view>
-                  </view>
-                  <view class="goods_price">{{detail.price}} 元</view>
-            </view>
-            <view class="border"></view>
-            <view class="list">
-                  <view class="list_1">{{detail.deliveryid==0?'自提':'帮送'}}</view>
-                  <view class="list_2">{{detail.deliveryid==0?detail.ztplace:detail.psplace}}</view>
-            </view>
-            <view class="border"></view>
-            <view class="list">
-                  <view class="list_1">{{detail.status==1?'等待收货中':(detail.status==2?'交易完成':'订单已取消')}}</view>
-                  <view class="list_2">{{detail.status==1?'系统已邮件通知卖家准备':(detail.status==2?'要不再来一单':'祝您生活愉快')}}</view>
-            </view>
-            <view class="border"></view>
-            <view class="orderfare">ORDER FARE</view>
-            <view class="fare_box">
-                  <view class="fare_title">下单时间</view>
-                  <view class="fare_des">{{creatTime}}</view>
-            </view>
-            <view class="fare_box">
-                  <view class="fare_title">支付金额</view>
-                  <view class="fare_des">￥{{detail.price}}.00元</view>
-            </view>
-            <view class="border"></view>
-            <view class="orderfare">CONTACT SELLER</view>
-            <!-- <view class="fare_box" bindtap="phone" data-phone="{{userinfo.phone}}">
-                  <view class="fare_title">电话</view>
-                  <view class="fare_des">{{userinfo.phone}}</view>
-            </view> -->
-            <view class="fare_box" bindtap="copy" data-copy="{{userinfo.email}}" data-name="邮箱">
-                  <view class="fare_title">邮箱</view>
-                  <view class="fare_des">{{publisherinfo.email}}</view>
-            </view>
-            <view class="fare_box" wx:if="{{userinfo.wxnum!==''}}" bindtap="copy" data-copy="{{userinfo.wxnum}}" data-name="微信">
-                  <view class="fare_title">微信</view>
-                  <view class="fare_des">{{publisherinfo.wxnum}}</view>
-            </view>
-            <view class="fare_box" wx:if="{{userinfo.qqnum!==''}}" bindtap="copy" data-copy="{{userinfo.qqnum}}" data-name="QQ">
-                  <view class="fare_title">QQ</view>
-                  <view class="fare_des">{{publisherinfo.qqnum}}</view>
-            </view>
-            <view class="border"></view>
-            <view class="bot_box" wx:if="{{detail.status==1}}">
-                  <view class="cancel" bindtap="cancel" >取消订单</view>
-                  <view class="contact" bindtap="confirm">确认收货</view>
-            </view>
-            <view class="bot_box" >
-                  <view wx:if="{{detail.status==2||detail.status==3}}" class="delete" bindtap="delete">删除订单</view>
-            </view>
-
+  <view class="card">
+    <!-- 状态卡片 -->
+    <view class="status-card">
+      <view class="status-icon {{detail.status}}">
+        <van-icon name="{{detail.status == 3 ? 'passed' : (detail.status >= 4 ? 'close' : 'clock-o')}}" />
       </view>
+      <view class="status-text {{detail.status}}">{{statusText}}</view>
+      <view class="status-tip">
+        <block wx:if="{{detail.status == 1}}">
+          {{isBuyer ? '卖家正在准备发货' : '请及时发货给买家'}}
+        </block>
+        <block wx:elif="{{detail.status == 2}}">
+          {{isBuyer ? '等待您确认收货' : '等待买家确认收货'}}
+        </block>
+        <block wx:elif="{{detail.status == 3}}">
+          交易已完成
+        </block>
+        <block wx:elif="{{detail.status == 4 || detail.status == 6}}">
+          订单已关闭
+        </block>
+        <block wx:elif="{{detail.status == 5}}">
+          {{isBuyer ? '等待卖家处理退款' : '请处理退款申请'}}
+        </block>
+      </view>
+    </view>
+
+    <!-- 书籍信息 -->
+    <view class="goods_box">
+      <image class="goods_img" src="{{detail.bookinfo?.pic || '/images/default-book.png'}}" mode="aspectFill"></image>
+      <view class="goods_content">
+        <view class="goods_title text-cut">{{detail.bookinfo?.title || ''}}</view>
+        <view class="goods_author text-cut">{{detail.bookinfo?.author || '未知作者'}} · 第{{detail.bookinfo?.edition || 1}}版</view>
+      </view>
+      <view class="goods_price">￥{{detail.price}}</view>
+    </view>
+
+    <view class="border"></view>
+
+    <!-- 取货方式 -->
+    <view class="list">
+      <view class="list_1">{{detail.deliveryid == 0 ? '自提' : '帮送'}}</view>
+      <view class="list_2">{{detail.deliveryid == 0 ? detail.ztplace : detail.psplace}}</view>
+    </view>
+
+    <view class="border"></view>
+
+    <!-- 订单信息 -->
+    <view class="orderfare">ORDER INFO</view>
+    <view class="fare_box">
+      <view class="fare_title">下单时间</view>
+      <view class="fare_des">{{creatTime}}</view>
+    </view>
+    <view class="fare_box">
+      <view class="fare_title">支付金额</view>
+      <view class="fare_des primary">￥{{detail.price}}</view>
+    </view>
+    <view class="fare_box" wx:if="{{detail.status >= 3 && detail.completetime}}">
+      <view class="fare_title">完成时间</view>
+      <view class="fare_des">{{detail.completetime ? config.formTime(detail.completetime) : ''}}</view>
+    </view>
+
+    <view class="border"></view>
+
+    <!-- 联系方式 -->
+    <view class="orderfare">CONTACT INFO</view>
+    
+    <!-- 卖家信息（买家视角） -->
+    <block wx:if="{{isBuyer && sellerInfo}}">
+      <view class="fare_box" wx:if="{{sellerInfo.nickname}}">
+        <view class="fare_title">卖家</view>
+        <view class="fare_des">{{sellerInfo.nickname}}</view>
+      </view>
+      <view class="fare_box" wx:if="{{detail.deliveryid == 0}}">
+        <view class="fare_title">卖家联系方式</view>
+        <view class="fare_des clickable" bindtap="contactUser">点击联系</view>
+      </view>
+    </block>
+
+    <!-- 买家信息（卖家视角） -->
+    <block wx:if="{{isSeller && buyerInfo}}">
+      <view class="fare_box" wx:if="{{buyerInfo.nickname}}">
+        <view class="fare_title">买家</view>
+        <view class="fare_des">{{buyerInfo.nickname}}</view>
+      </view>
+      <view class="fare_box" wx:if="{{detail.deliveryid == 1 && buyerInfo.phone}}">
+        <view class="fare_title">买家电话</view>
+        <view class="fare_des clickable" bindtap="phone" data-phone="{{buyerInfo.phone}}">{{buyerInfo.phone}}</view>
+      </view>
+      <view class="fare_box">
+        <view class="fare_title">买家地址</view>
+        <view class="fare_des">{{detail.psplace}}</view>
+      </view>
+    </block>
+
+    <view class="border"></view>
+
+    <!-- 底部操作按钮 -->
+    <view class="bot_box">
+      <!-- 买家操作 -->
+      <block wx:if="{{isBuyer}}">
+        <!-- 待发货 - 可申请退款、提醒发货 -->
+        <view wx:if="{{detail.status == 1}}" class="btn-refund" bindtap="applyRefund">申请退款</view>
+        <view wx:if="{{detail.status == 1}}" class="btn-remind" bindtap="contactUser">提醒发货</view>
+        
+        <!-- 待收货 - 确认收货 -->
+        <view wx:if="{{detail.status == 2}}" class="btn-confirm" bindtap="confirmReceive">确认收货</view>
+        
+        <!-- 已完成/已取消/已退款 - 删除订单 -->
+        <view wx:if="{{detail.status == 3 || detail.status == 4 || detail.status == 6}}" class="btn-delete" bindtap="deleteOrder">删除订单</view>
+      </block>
+
+      <!-- 卖家操作 -->
+      <block wx:if="{{isSeller}}">
+        <!-- 待发货 - 发货 -->
+        <view wx:if="{{detail.status == 1}}" class="btn-ship" bindtap="ship">确认发货</view>
+        
+        <!-- 退款中 - 处理退款 -->
+        <view wx:if="{{detail.status == 5}}" class="btn-agree" bindtap="agreeRefund">同意退款</view>
+        <view wx:if="{{detail.status == 5}}" class="btn-reject" bindtap="rejectRefund">拒绝退款</view>
+        
+        <!-- 已完成 - 删除订单 -->
+        <view wx:if="{{detail.status == 3}}" class="btn-delete" bindtap="deleteOrder">删除订单</view>
+      </block>
+
+      <!-- 通用 - 联系对方 -->
+      <view wx:if="{{detail.status == 1 || detail.status == 2 || detail.status == 5}}" class="btn-contact" bindtap="contactUser">联系对方</view>
+    </view>
+  </view>
 </view>

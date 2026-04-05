@@ -1,125 +1,194 @@
-/* ==================== 消息列表页 - 科技感主题 ==================== */
-.container {
-      min-height: 100vh;
-      background: #0a0f1a;
+/* 消息列表页样式 - 科技感主题 */
+page {
+  background: #0a0f1a;
+}
+
+.page-container {
+  min-height: 100vh;
+  background: #0a0f1a;
 }
 
 /* 标题栏 */
 .header {
-      background: linear-gradient(135deg, #0d1320 0%, #1a1f2e 100%);
-      padding: 40rpx 30rpx;
-      text-align: center;
-      border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  background: #0d1320;
+  border-bottom: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .title {
-      font-size: 36rpx;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.95);
-      letter-spacing: 2rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 2rpx;
 }
 
 /* 加载状态 */
 .loading {
-      padding: 100rpx;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300rpx;
 }
 
-/* 空状态 */
-.empty {
-      padding: 200rpx 100rpx;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 28rpx;
+/* 会话列表 */
+.conversation-list {
+  padding: 16rpx 0;
 }
 
-.tip {
-      display: block;
-      margin-top: 20rpx;
-      color: #00d4ff;
+.conversation-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background: #0d1320;
+  border-bottom: 1rpx solid rgba(0, 212, 255, 0.05);
+  transition: background 0.2s ease;
 }
 
-/* 消息列表 */
-.list {
-      background: #0d1320;
-      margin-top: -20rpx;
-      border-radius: 32rpx 32rpx 0 0;
-      overflow: hidden;
+.conversation-item:active {
+  background: #1a1f2e;
 }
 
-/* 消息项 */
-.item {
-      display: flex;
-      padding: 28rpx 32rpx;
-      border-bottom: 1rpx solid rgba(0, 212, 255, 0.06);
-      transition: background 0.2s ease;
-}
-
-.item:active {
-      background: rgba(0, 212, 255, 0.05);
-}
-
-.item:last-child {
-      border-bottom: none;
+/* 头像容器 */
+.avatar-wrapper {
+  position: relative;
+  margin-right: 24rpx;
 }
 
 .avatar {
-      width: 100rpx;
-      height: 100rpx;
-      border-radius: 50%;
-      margin-right: 24rpx;
-      flex-shrink: 0;
-      box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
-      border: 2rpx solid rgba(0, 212, 255, 0.15);
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #1a1f2e;
+  flex-shrink: 0;
 }
 
+/* 未读红点 */
+.unread-badge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  min-width: 36rpx;
+  height: 36rpx;
+  background: #ff4757;
+  border-radius: 18rpx;
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8rpx;
+  box-sizing: border-box;
+}
+
+/* 内容区域 */
 .content {
-      flex: 1;
-      overflow: hidden;
+  flex: 1;
+  overflow: hidden;
 }
 
-.top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12rpx;
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
 }
 
 .name {
-      font-size: 32rpx;
-      color: rgba(255, 255, 255, 0.95);
-      font-weight: 500;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 1rpx;
 }
 
 .time {
-      font-size: 24rpx;
-      color: rgba(255, 255, 255, 0.35);
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+/* 书籍提示 */
+.book-tip {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+  font-size: 24rpx;
+  color: rgba(255, 165, 0, 0.8);
 }
 
-.msg {
-      font-size: 28rpx;
-      color: rgba(255, 255, 255, 0.5);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 400rpx;
+.book-icon {
+  margin-right: 6rpx;
+  font-size: 24rpx;
 }
 
-.badge {
-      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-      color: #fff;
-      font-size: 22rpx;
-      padding: 6rpx 14rpx;
-      border-radius: 20rpx;
-      min-width: 36rpx;
-      text-align: center;
-      font-weight: 500;
-      box-shadow: 0 2rpx 8rpx rgba(0, 212, 255, 0.3);
+.book-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300rpx;
+}
+
+/* 最后消息 */
+.bottom-row {
+  display: flex;
+  align-items: center;
+}
+
+.last-msg {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 100%;
+}
+
+.text-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200rpx;
+}
+
+.empty-icon {
+  width: 200rpx;
+  height: 200rpx;
+  opacity: 0.5;
+  margin-bottom: 32rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+
+.empty-tip {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* 登录按钮 */
+.login-btn {
+  margin-top: 32rpx;
+  padding: 0 48rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  border: none;
+  border-radius: 40rpx;
+  color: #0a0f1a;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.login-btn::after {
+  border: none;
 }

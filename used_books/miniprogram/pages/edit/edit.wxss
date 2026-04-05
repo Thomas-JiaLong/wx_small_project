@@ -1,12 +1,31 @@
+/* ==================== 修改资料页面 - 科技感主题 ==================== */
+
+page {
+      background: #0a0f1a;
+}
+
 .top-bg {
       position: absolute;
       top: 0rpx;
       left: 0rpx;
       width: 100%;
       height: 460rpx;
-      background:  #3498db;
-      background-repeat: no-repeat;
-      background-size: 100%;
+      background: linear-gradient(135deg, #0d1320 0%, #1a1f2e 100%);
+      border-radius: 0 0 60rpx 60rpx;
+}
+
+/* 科技感网格背景 */
+.top-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+            linear-gradient(90deg, transparent 49%, rgba(0, 212, 255, 0.015) 50%, transparent 51%),
+            linear-gradient(0deg, transparent 49%, rgba(0, 212, 255, 0.015) 50%, transparent 51%);
+      background-size: 40rpx 40rpx;
 }
 
 .contain {
@@ -16,15 +35,17 @@
       width: 100%;
       padding: 0rpx 40rpx 0rpx 40rpx;
       box-sizing: border-box;
+      z-index: 10;
 }
 
 .card {
       border-radius: 32rpx;
       width: 100%;
-      background: #fff;
+      background: #0d1320;
       padding: 50rpx 60rpx;
       box-sizing: border-box;
-      box-shadow: 0 0 20rpx #eee;
+      box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.5);
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
 }
 
 .title {
@@ -33,74 +54,53 @@
       font-size: 40rpx;
       font-weight: 600;
       letter-spacing: 6rpx;
+      color: rgba(255, 255, 255, 0.95);
 }
 
-.phone {
+.form-item {
       justify-content: space-between;
       margin-top: 45rpx;
       width: 100%;
       height: 92rpx;
-      background: #f1f3f8;
-      border-radius: 10rpx;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16rpx;
       text-align: left;
       padding: 0 20rpx 0 36rpx;
       box-sizing: border-box;
       font-size: 32rpx;
       display: flex;
       align-items: center;
-      color: #8c9aa8;
+      color: rgba(255, 255, 255, 0.7);
+      border: 1rpx solid rgba(0, 212, 255, 0.1);
+      transition: all 0.3s ease;
+}
+
+.form-item:active {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: rgba(0, 212, 255, 0.3);
+}
+
+.form-item::after {
       border: none;
 }
 
-.phone::after {
-      border: none;
-}
-
-.campus {
-      margin-top: 24rpx;
+.form-item input {
       width: 100%;
-      height: 92rpx;
-      background: #f1f3f8;
-      border-radius: 10rpx;
-      text-align: left;
-      padding: 0 20rpx 0 36rpx;
-      box-sizing: border-box;
+      height: 100%;
+      color: rgba(255, 255, 255, 0.9);
+      background: transparent;
       font-size: 32rpx;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #8c9aa8;
+}
+
+.form-item input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
 }
 
 .right {
       width: 30rpx;
       height: 30rpx;
-}
-
-.contact {
-      margin-top: 24rpx;
-      width: 100%;
-      height: 92rpx;
-      background: #f1f3f8;
-      border-radius: 10rpx;
-      text-align: left;
-      padding: 0 36rpx;
-      box-sizing: border-box;
-      font-size: 32rpx;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: #8c9aa8;
-}
-
-.contact input {
-      width: 100%;
-      height: 100%;
-}
-
-.pache {
-      font-size: 32rpx;
-      color: #8c9aa8;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.6;
 }
 
 .confirm {
@@ -110,13 +110,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient( #3f9fe0b2,#3498db);
+      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
       border-radius: 60rpx;
       color: #fff;
       font-size: 40rpx;
       letter-spacing: 4rpx;
-      box-shadow: 0 0 20rpx #eee;
+      box-shadow: 0 8rpx 24rpx rgba(0, 212, 255, 0.35);
       border: none;
+      transition: all 0.3s ease;
+}
+
+.confirm:active {
+      transform: scale(0.98);
+      box-shadow: 0 4rpx 16rpx rgba(0, 212, 255, 0.25);
 }
 
 .confirm::after {
@@ -130,19 +136,22 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      color: rgba(255, 255, 255, 0.8);
 }
 
 .about {
       width: 32rpx;
       height: 32rpx;
       padding-right: 10rpx;
+      filter: brightness(0) saturate(100%) invert(85%) sepia(56%) saturate(3132%) hue-rotate(152deg) brightness(99%) contrast(101%);
+      opacity: 0.8;
 }
 
 .des {
       padding-left: 30rpx;
       padding-top: 20rpx;
       font-size: 26rpx;
-      color: #acacac;
+      color: rgba(255, 255, 255, 0.4);
       letter-spacing: 2rpx;
       line-height: 42rpx;
 }

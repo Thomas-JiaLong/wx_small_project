@@ -130,7 +130,7 @@
                   <image src="/images/home.png"></image>
                   <text>首页</text>
             </view>
-            <view class="action-btn" bindtap="contactSeller">
+            <view class="action-btn" bindtap="contactUser">
                   <image src="/images/message.png"></image>
                   <text>联系</text>
             </view>
